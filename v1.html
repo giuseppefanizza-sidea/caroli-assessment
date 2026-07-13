@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Caroli — Assessment E-commerce · Wave 1 Local</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fahkwang:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+    <style>
+:root {
+    --navy: #082742;
+    --navy2: #0B3254;
+    --navy3: #0F3D66;
+    --blue: #197ACF;
+    --blue2: #4C84DD;
+    --bluel: #9BBDE3;
+    --ice: #E1F0FC;
+    --icebg: #F8F9FA;
+    --white: #FFFFFF;
+    --grey: #5C5C5C;
+    --muted: #9E9E9E;
+    --line: #ECEEF0;
+    --linen: #1C476F;
+    --ink: #082742;
+    --gold: #E0A100;
+    --teal: #00A896;
+    --green: #2E7D32;
+    --red: #C62828;
+    --gradient-primary: linear-gradient(135deg, #197ACF 0%, #9BBDE3 100%);
+    --gradient-navy: linear-gradient(180deg, #082742 0%, #0B3254 100%);
+    --surface: rgba(11, 50, 84, 0.85);
+    --border: rgba(155, 189, 227, 0.25);
+    --border-light: rgba(255, 255, 255, 0.12);
+    --glow-blue: rgba(25, 122, 207, 0.4);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Montserrat',sans-serif; background:var(--navy); color:var(--white); overflow:hidden; height:100vh; }
+.slide { display:none; width:100vw; height:100vh; padding:54px 72px; flex-direction:column; justify-content:center; position:relative; overflow-y:auto; }
+.slide.active { display:flex; }
+.slide-num { position:absolute; bottom:24px; right:36px; font-size:11px; color:var(--muted); letter-spacing:0.5px; font-family:'Montserrat',sans-serif; }
+.sidea-footer { position:absolute; bottom:24px; left:36px; font-size:10px; color:var(--bluel); letter-spacing:0.3px; opacity:0.7; }
+h1 { font-family:'Fahkwang',sans-serif; font-size:3rem; font-weight:700; line-height:1.1; margin-bottom:20px; }
+h2 { font-family:'Fahkwang',sans-serif; font-size:2rem; font-weight:700; line-height:1.15; margin-bottom:16px; color:var(--white); }
+h3 { font-family:'Fahkwang',sans-serif; font-size:1.1rem; font-weight:600; color:var(--bluel); margin-bottom:10px; }
+p, li { font-family:'Montserrat',sans-serif; font-size:0.95rem; line-height:1.65; color:var(--ice); }
+.hi { color:var(--bluel); font-weight:700; }
+.hi-gold { color:var(--gold); font-weight:700; }
+.subtitle { font-size:1.05rem; color:var(--ice); margin-bottom:28px; line-height:1.6; font-weight:300; }
+.g2 { display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:start; }
+.g3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:20px; }
+.g4 { display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:16px; }
+.g5 { display:grid; grid-template-columns:1fr 1fr 1fr 1fr 1fr; gap:14px; }
+.card { background:linear-gradient(180deg, rgba(15,61,102,0.7) 0%, rgba(8,39,66,0.85) 100%); border:1px solid var(--border); border-radius:12px; padding:22px; backdrop-filter:blur(10px); }
+.card-hi { background:linear-gradient(180deg, rgba(25,122,207,0.15) 0%, rgba(8,39,66,0.9) 100%); border:2px solid var(--blue); border-radius:12px; padding:22px; box-shadow:0 0 20px rgba(25,122,207,0.15); }
+.card-white { background:var(--icebg); border:1px solid var(--line); border-radius:12px; padding:22px; }
+.card-white h3 { color:var(--navy); }
+.card-white p { color:var(--grey); }
+.stat { font-family:'Fahkwang',sans-serif; font-size:2.6rem; font-weight:700; color:var(--bluel); line-height:1; }
+.stat-sm { font-family:'Fahkwang',sans-serif; font-size:2rem; font-weight:700; color:var(--bluel); line-height:1; }
+.label { font-size:0.75rem; color:var(--muted); margin-top:6px; text-transform:uppercase; letter-spacing:0.5px; font-weight:500; }
+.chart-box { position:relative; width:100%; min-height:340px; }
+table { width:100%; border-collapse:collapse; margin-top:12px; }
+th, td { padding:10px 14px; text-align:left; border-bottom:1px solid var(--linen); font-size:0.88rem; }
+th { color:var(--bluel); font-weight:600; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.5px; border-bottom:2px solid var(--blue); }
+td { color:var(--ice); }
+tr:nth-child(even) { background:rgba(15,61,102,0.3); }
+.tag { display:inline-block; padding:3px 10px; border-radius:6px; font-size:0.72rem; font-weight:600; }
+.t-green { background:rgba(0,168,150,0.15); color:var(--teal); border:1px solid rgba(0,168,150,0.3); }
+.t-blue { background:rgba(25,122,207,0.15); color:var(--bluel); border:1px solid rgba(25,122,207,0.3); }
+.t-gold { background:rgba(224,161,0,0.15); color:var(--gold); border:1px solid rgba(224,161,0,0.3); }
+.t-red { background:rgba(198,40,40,0.15); color:#ef5350; border:1px solid rgba(198,40,40,0.3); }
+.progress { position:fixed; top:0; left:0; height:3px; background:var(--gradient-primary); transition:width .3s; z-index:100; }
+.badge { display:inline-block; padding:6px 16px; border:1px solid var(--blue); border-radius:20px; font-size:0.75rem; color:var(--bluel); margin-bottom:16px; font-weight:600; letter-spacing:0.3px; }
+.divider { border-left:3px solid var(--blue); padding-left:16px; margin-bottom:12px; }
+.eyebrow { font-size:0.72rem; color:var(--bluel); text-transform:uppercase; letter-spacing:1.5px; font-weight:600; margin-bottom:8px; }
+.nav-hint { position:fixed; bottom:16px; left:50%; transform:translateX(-50%); font-size:10px; color:var(--muted); opacity:.35; }
+.timeline-row { display:flex; align-items:center; gap:0; margin:24px 0; }
+.tl-node { text-align:center; flex:1; position:relative; }
+.tl-node::before { content:''; position:absolute; top:18px; left:0; right:0; height:3px; background:var(--linen); z-index:0; }
+.tl-node:first-child::before { left:50%; }
+.tl-node:last-child::before { right:50%; left:0; width:50%; }
+.tl-dot { width:14px; height:14px; background:var(--blue); border-radius:50%; margin:12px auto 10px; position:relative; z-index:1; box-shadow:0 0 10px var(--glow-blue); }
+.tl-dot.active { background:var(--teal); box-shadow:0 0 14px rgba(0,168,150,0.5); }
+.tl-date { font-size:0.7rem; color:var(--muted); font-weight:500; }
+.tl-label { font-size:0.82rem; color:var(--ice); font-weight:500; margin-top:4px; }
+.risk-badge { display:inline-block; width:12px; height:12px; border-radius:50%; margin-right:8px; }
+.risk-high { background:var(--red); }
+.risk-mid { background:var(--gold); }
+.risk-low { background:var(--teal); }
+@media(max-width:768px){
+  .slide { padding:24px 20px; justify-content:flex-start; padding-top:40px; }
+  h1 { font-size:1.7rem; } h2 { font-size:1.3rem; } h3 { font-size:0.95rem; }
+  p,li { font-size:0.88rem; } .subtitle { font-size:0.9rem; }
+  .stat { font-size:1.8rem; } .stat-sm { font-size:1.5rem; }
+  .g2,.g3 { grid-template-columns:1fr; gap:12px; }
+  .g4,.g5 { grid-template-columns:1fr 1fr; gap:12px; }
+  .card,.card-hi { padding:16px; }
+  .chart-box { min-height:260px; }
+  table { display:block; overflow-x:auto; white-space:nowrap; }
+  th,td { padding:8px 10px; font-size:0.78rem; }
+  .timeline-row { flex-wrap:wrap; gap:8px; }
+  .tl-node::before { display:none; }
+}
+@media(max-width:480px){
+  .slide { padding:18px 14px; padding-top:32px; }
+  h1 { font-size:1.4rem; } h2 { font-size:1.15rem; }
+  .g4,.g5 { grid-template-columns:1fr; }
+}
+    </style>
+</head>
+<body>
+<div class="progress" id="prog"></div>
+<!-- SLIDE 1: Cover -->
+<div id="slide-1" class="slide active">
+  <div class="eyebrow">Sidea Group &middot; Assessment Completato</div>
+  <h1>Caroli<br><span class="hi">E-commerce Strategy</span></h1>
+  <p class="subtitle">Risultati dell'assessment strategico &mdash; tutto quello che serve per decidere.<br>Wave 1 &middot; Local (Locorotondo + 100km)</p>
+  <div style="margin-top:32px;display:flex;gap:24px;align-items:center">
+    <div class="card" style="padding:14px 20px;display:inline-block">
+      <span style="font-size:0.8rem;color:var(--bluel);font-weight:600">Luglio 2026</span>
+    </div>
+    <div class="card" style="padding:14px 20px;display:inline-block">
+      <span style="font-size:0.8rem;color:var(--bluel);font-weight:600">4 Incontri completati &middot; 8+ ore</span>
+    </div>
+    <div class="card" style="padding:14px 20px;display:inline-block">
+      <span style="font-size:0.8rem;color:var(--teal);font-weight:600">&#x2713; Assessment chiuso</span>
+    </div>
+  </div>
+  <span class="sidea-footer">Sidea Group S.r.l. &mdash; Documento riservato</span>
+  <span class="slide-num">1 / 26</span>
+</div>
+<!-- SLIDE 2: Agenda -->
+<div id="slide-2" class="slide">
+  <div class="eyebrow">Agenda</div>
+  <h2>Il percorso &egrave; completo. Ecco i risultati.</h2>
+  <p class="subtitle">Questa presentazione riassume tutto ci&ograve; che abbiamo scoperto in 4 incontri. L'obiettivo: darti un quadro chiaro per decidere.</p>
+  <div class="g2" style="margin-top:20px">
+    <div>
+      <div class="divider"><p style="font-size:1.1rem;color:var(--white);font-weight:600"><span class="hi">01</span> &nbsp;Il Percorso</p><p style="font-size:0.82rem;color:var(--muted);margin-top:4px">Cosa abbiamo fatto insieme</p></div>
+      <div class="divider" style="margin-top:20px"><p style="font-size:1.1rem;color:var(--white);font-weight:600"><span class="hi">02</span> &nbsp;Lo Scenario di Mercato</p><p style="font-size:0.82rem;color:var(--muted);margin-top:4px">Domanda online, volumi, trend</p></div>
+      <div class="divider" style="margin-top:20px"><p style="font-size:1.1rem;color:var(--white);font-weight:600"><span class="hi">03</span> &nbsp;Il Vantaggio Competitivo</p><p style="font-size:0.82rem;color:var(--muted);margin-top:4px">Perch&eacute; Caroli pu&ograve; vincere online</p></div>
+      <div class="divider" style="margin-top:20px"><p style="font-size:1.1rem;color:var(--white);font-weight:600"><span class="hi-gold">&#9733;</span> &nbsp;Strategia di Crescita</p><p style="font-size:0.82rem;color:var(--gold);margin-top:4px">Posizionamento, trib&ugrave;, permission &amp; contenuti</p></div>
+    </div>
+    <div>
+      <div class="divider"><p style="font-size:1.1rem;color:var(--white);font-weight:600"><span class="hi">04</span> &nbsp;Il Modello Wave 1</p><p style="font-size:0.82rem;color:var(--muted);margin-top:4px">Come funzioner&agrave; in pratica</p></div>
+      <div class="divider" style="margin-top:20px"><p style="font-size:1.1rem;color:var(--white);font-weight:600"><span class="hi">05</span> &nbsp;I Numeri</p><p style="font-size:0.82rem;color:var(--muted);margin-top:4px">P&L validato, 3 scenari, break-even</p></div>
+      <div class="divider" style="margin-top:20px"><p style="font-size:1.1rem;color:var(--white);font-weight:600"><span class="hi">06</span> &nbsp;Roadmap &amp; Decisione</p><p style="font-size:0.82rem;color:var(--muted);margin-top:4px">Timeline, rischi e prossimo step: il brand</p></div>
+    </div>
+  </div>
+  <span class="sidea-footer">Sidea Group S.r.l. &mdash; Documento riservato</span>
+  <span class="slide-num">2 / 26</span>
+</div>
+<!-- SLIDE 3: Chapter Divider - Il Percorso -->
+<div id="slide-3" class="slide" style="justify-content:center;align-items:flex-start">
+  <div style="opacity:0.12;font-family:'Fahkwang',sans-serif;font-size:12rem;font-weight:700;color:var(--bluel);position:absolute;right:60px;top:50%;transform:translateY(-50%)">01</div>
+  <div class="eyebrow">Capitolo 01</div>
+  <h1 style="font-size:2.8rem">Il Percorso</h1>
+  <p class="subtitle" style="max-width:500px">4 incontri completati per raccogliere dati, validare ipotesi e costruire il piano. Adesso il quadro &egrave; completo.</p>
+  <span class="sidea-footer">Sidea Group S.r.l. &mdash; Documento riservato</span>
+  <span class="slide-num">3 / 26</span>
+</div>
+
+<!-- SLIDE 4: Timeline incontri -->
+<div id="slide-4" class="slide">
+  <div class="eyebrow">Capitolo 01 &middot; Il Percorso</div>
+  <h2>4 incontri completati, un quadro chiaro</h2>
+  <p class="subtitle">Ogni incontro ha aggiunto un tassello al quadro decisionale. Adesso hai tutto.</p>
+  <div class="timeline-row">
+    <div class="tl-node"><div class="tl-date">8 Lug</div><div class="tl-dot active"></div><div class="tl-label">Discovery<br><span style="font-size:0.7rem;color:var(--muted)">Visione, numeri, team</span></div></div>
+    <div class="tl-node"><div class="tl-date">10 Lug</div><div class="tl-dot active"></div><div class="tl-label">Tecnologia<br><span style="font-size:0.7rem;color:var(--muted)">Amiko3, API, integrazione</span></div></div>
+    <div class="tl-node"><div class="tl-date">&#x2713;</div><div class="tl-dot active"></div><div class="tl-label">Catalogo &amp; Logistica<br><span style="font-size:0.7rem;color:var(--muted)">Prodotti, corrieri, flussi</span></div></div>
+    <div class="tl-node"><div class="tl-date">&#x2713;</div><div class="tl-dot active"></div><div class="tl-label">Numeri &amp; Scenario<br><span style="font-size:0.7rem;color:var(--muted)">P&L validato, go/no-go</span></div></div>
+  </div>
+  <div class="g3" style="margin-top:28px">
+    <div class="card">
+      <h3>Output consegnato</h3>
+      <ul style="list-style:none;padding:0">
+        <li style="padding:5px 0;font-size:0.85rem;color:var(--ice)">&#x2713; Business plan completo</li>
+        <li style="padding:5px 0;font-size:0.85rem;color:var(--ice)">&#x2713; Modello finanziario 5 anni (3 scenari)</li>
+        <li style="padding:5px 0;font-size:0.85rem;color:var(--ice)">&#x2713; Roadmap implementativa</li>
+        <li style="padding:5px 0;font-size:0.85rem;color:var(--ice)">&#x2713; Ricerca competitor + benchmark prezzi</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Il cliente</h3>
+      <p style="font-size:0.85rem">Caroli &mdash; Giardinaggio &amp; Agricoltura. Locorotondo (BA). Fatturato fisico <strong style="color:var(--white)">&#8364;10M</strong>/anno. Crescita da &#8364;400K (2015) a &#8364;10M (2024).</p>
+    </div>
+    <div class="card">
+      <h3>L'obiettivo validato</h3>
+      <p style="font-size:0.85rem">E-commerce verticale su prato sintetico, arelle e ombreggianti. Target anno 1: <strong style="color:var(--white)">&#8364;200.000</strong>. Raggio: 100km. Go-live: <strong style="color:var(--teal)">Ottobre 2026</strong>.</p>
+    </div>
+  </div>
+  <span class="sidea-footer">Sidea Group S.r.l. &mdash; Documento riservato</span>
+  <span class="slide-num">4 / 26</span>
+</div>
+<!-- SLIDE 5: Quote -->
+<div id="slide-5" class="slide" style="justify-content:center;align-items:center;text-align:center">
+  <div style="font-size:4rem;color:var(--blue);margin-bottom:16px;opacity:0.5">&ldquo;</div>
+  <p style="font-size:1.4rem;color:var(--white);max-width:700px;line-height:1.6;font-weight:300;font-style:italic">Io voglio partire dal basso, con la base, e fare in modo che sia il mercato stesso a farmi crescere.</p>
+  <div style="margin-top:24px">
+    <p style="font-size:0.9rem;color:var(--bluel);font-weight:600">Gianvito Caroli</p>
+    <p style="font-size:0.78rem;color:var(--muted)">Titolare &mdash; Incontro 1, Discovery</p>
+  </div>
+  <span class="sidea-footer">Sidea Group S.r.l. &mdash; Documento riservato</span>
+  <span class="slide-num">5 / 26</span>
+</div>
+
+<!-- SLIDE 6: Chapter Divider - Mercato -->
+<div id="slide-6" class="slide" style="justify-content:center;align-items:flex-start">
+  <div style="opacity:0.12;font-family:'Fahkwang',sans-serif;font-size:12rem;font-weight:700;color:var(--bluel);position:absolute;right:60px;top:50%;transform:translateY(-50%)">02</div>
+  <div class="eyebrow">Capitolo 02</div>
+  <h1 style="font-size:2.8rem">Lo Scenario<br>di Mercato</h1>
+  <p class="subtitle" style="max-width:500px">Il mercato Garden online in Italia cresce del 10-15% annuo. Le categorie target hanno domanda forte e competitor frammentati.</p>
+  <span class="sidea-footer">Sidea Group S.r.l. &mdash; Documento riservato</span>
+  <span class="slide-num">6 / 26</span>
+</div>
+<!-- SLIDE 7: KPI Mercato -->
+<div id="slide-7" class="slide">
+  <div class="eyebrow">Capitolo 02 &middot; Scenario di Mercato</div>
+  <h2>Un mercato in forte crescita</h2>
+  <p class="subtitle">Il Garden online italiano cresce quasi il doppio rispetto all'e-commerce generico</p>
+  <div class="g4" style="margin-top:20px">
+    <div class="card" style="text-align:center">
+      <div class="stat">&#8364;556M</div>
+      <div class="label">E-commerce Garden Italia 2024</div>
+    </div>
+    <div class="card" style="text-align:center">
+      <div class="stat" style="color:var(--teal)">+12%</div>
+      <div class="label">Crescita YoY settore</div>
+    </div>
+    <div class="card" style="text-align:center">
+      <div class="stat">142K</div>
+      <div class="label">Ricerche/mese (SEOZoom verificato)</div>
+    </div>
+    <div class="card" style="text-align:center">
+      <div class="stat" style="color:var(--gold)">0</div>
+      <div class="label">Competitor multi-categoria</div>
+    </div>
+  </div>
+  <div class="g3" style="margin-top:24px">
+    <div class="card">
+      <h3 style="color:var(--teal)">Erba sintetica / prato</h3>
+      <p style="font-size:0.85rem"><strong style="color:var(--white)">55.610</strong> ricerche/mese</p>
+      <p style="font-size:0.78rem;color:var(--muted);margin-top:4px">39% del volume totale &middot; CPC &#8364;0,21-0,47</p>
+    </div>
+    <div class="card" style="border:1px solid var(--gold)">
+      <h3 style="color:var(--gold)">Frangivista + Arelle + Canniccio</h3>
+      <p style="font-size:0.85rem"><strong style="color:var(--white)">55.250</strong> ricerche/mese</p>
+      <p style="font-size:0.78rem;color:var(--gold);margin-top:4px">&#9889; 39% — pari all'erba sintetica! Scoperta chiave.</p>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--blue)">Teloni / Ombreggianti</h3>
+      <p style="font-size:0.85rem"><strong style="color:var(--white)">22.070</strong> ricerche/mese</p>
+      <p style="font-size:0.78rem;color:var(--muted);margin-top:4px">15,5% del volume &middot; Forte stagionalit&agrave;</p>
+    </div>
+  </div>
+  <span class="sidea-footer">Sidea Group S.r.l. &mdash; Documento riservato</span>
+  <span class="slide-num">7 / 26</span>
+</div>
+<!-- SLIDE 8: Keyword Research -->
+<div id="slide-8" class="slide">
+  <div class="eyebrow">Capitolo 02 &middot; Scenario di Mercato</div>
+  <h2>Keyword Research: <span class="hi">dati SEOZoom reali</span></h2>
+  <p class="subtitle">99 keyword analizzate su 6 categorie. Volumi e CPC verificati &mdash; luglio 2026.</p>
+  <div class="g2">
+    <div>
+      <table>
+        <thead><tr><th>Keyword</th><th>Volume</th><th>CPC</th><th>KD</th></tr></thead>
+        <tbody>
+          <tr><td style="color:var(--white);font-weight:500">erba sintetica</td><td style="color:var(--teal);font-weight:600">14.800</td><td>&#8364;0,28</td><td>49</td></tr>
+          <tr><td style="color:var(--white);font-weight:500">prato sintetico</td><td style="color:var(--teal);font-weight:600">12.100</td><td>&#8364;0,35</td><td>50</td></tr>
+          <tr><td style="color:var(--gold);font-weight:500">frangivista da giardino</td><td style="color:var(--gold);font-weight:600">5.400</td><td>&#8364;0,11</td><td>49</td></tr>
+          <tr><td style="color:var(--gold);font-weight:500">frangivista per balcone</td><td style="color:var(--gold);font-weight:600">5.400</td><td>&#8364;0,10</td><td>58</td></tr>
+          <tr><td style="color:var(--white);font-weight:500">teloni antigrandine</td><td>5.400</td><td>&#8364;0,15</td><td>46</td></tr>
+          <tr><td style="color:var(--white);font-weight:500">reti metalliche recinzione</td><td>5.400</td><td>&#8364;0,14</td><td>49</td></tr>
+          <tr><td style="color:var(--white);font-weight:500">vele ombreggianti</td><td>4.400</td><td>&#8364;0,26</td><td>51</td></tr>
+          <tr><td style="color:var(--white);font-weight:500">teloni per gazebi</td><td>3.600</td><td>&#8364;0,19</td><td>39</td></tr>
+          <tr><td style="color:var(--white);font-weight:500">erba sintetica prezzi</td><td>2.900</td><td>&#8364;0,23</td><td>37</td></tr>
+          <tr><td style="color:var(--white);font-weight:500">arelle bambu</td><td>2.900</td><td>&#8364;0,14</td><td>-</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:8px;font-size:0.72rem;color:var(--muted)">Fonte: SEOZoom export luglio 2026 &middot; 99 keyword totali analizzate</p>
+    </div>
+    <div>
+      <div class="card-hi" style="margin-bottom:14px">
+        <h3 style="color:var(--gold)">&#9889; Scoperta: "Frangivista" &egrave; enorme</h3>
+        <div class="stat-sm" style="margin:6px 0;color:var(--gold)">43.480/mese</div>
+        <p style="font-size:0.85rem;color:var(--ice)">Il cluster frangivista da solo vale quanto l'erba sintetica. Nel BP era stimato 5-10K.</p>
+        <p style="font-size:0.82rem;color:var(--ice);margin-top:8px">CPC bassissimo (&#8364;0,07-0,13) = <strong style="color:var(--white)">ads quasi gratis</strong> su questo cluster.</p>
+        <p style="font-size:0.82rem;color:var(--gold);margin-top:8px;font-weight:500">&#x2192; Caroli ha DUE categorie hero, non una.</p>
+      </div>
+      <div class="card">
+        <h3>CPC reale vs stima BP</h3>
+        <table style="font-size:0.82rem;margin-top:6px">
+          <thead><tr><th>Cluster</th><th>Stima BP</th><th>SEOZoom</th></tr></thead>
+          <tbody>
+            <tr><td style="color:var(--white)">Erba sintetica</td><td>&#8364;0,80</td><td style="color:var(--teal);font-weight:600">&#8364;0,28-0,35</td></tr>
+            <tr><td style="color:var(--white)">Frangivista</td><td>&#8364;0,40</td><td style="color:var(--teal);font-weight:600">&#8364;0,07-0,13</td></tr>
+            <tr><td style="color:var(--white)">Ombreggianti</td><td>&#8364;0,50</td><td style="color:var(--teal);font-weight:600">&#8364;0,15-0,28</td></tr>
+            <tr><td style="color:var(--white)">Arelle</td><td>&#8364;0,40</td><td style="color:var(--teal);font-weight:600">&#8364;0,05-0,16</td></tr>
+          </tbody>
+        </table>
+        <p style="font-size:0.78rem;color:var(--teal);margin-top:8px;font-weight:500">CPC reale 50-70% pi&ugrave; basso = pi&ugrave; click a parit&agrave; di budget</p>
+      </div>
+    </div>
+  </div>
+  <span class="sidea-footer">Sidea Group S.r.l. &mdash; Documento riservato</span>
+  <span class="slide-num">8 / 26</span>
+</div>
+
+<!-- SLIDE 9: Competitor Traffic & Impact -->
+<div id="slide-9" class="slide">
+  <div class="eyebrow">Capitolo 02 &middot; Scenario di Mercato</div>
+  <h2>Competitor organici: <span class="hi">traffico e keyword</span></h2>
+  <p class="subtitle">I competitor presidiano singole categorie. Nessuno copre tutto il cluster.</p>
+  <div class="g2">
+    <div>
+      <h3>Traffico organico competitor diretti</h3>
+      <div class="chart-box" style="min-height:280px">
+        <canvas id="competitorChart"></canvas>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:14px">
+        <h3>Cosa significa per Caroli</h3>
+        <ul style="list-style:none;padding:0">
+          <li style="padding:6px 0;font-size:0.85rem;color:var(--ice)"><strong style="color:var(--white)">63K visite/mese</strong> = erbasintetica.eu con <em>solo</em> prato sintetico</li>
+          <li style="padding:6px 0;font-size:0.85rem;color:var(--ice)"><strong style="color:var(--white)">48K visite/mese</strong> = reteplastic.it con recinzioni + ombra (no prato)</li>
+          <li style="padding:6px 0;font-size:0.85rem;color:var(--ice)"><strong style="color:var(--white)">58K visite/mese</strong> = italfrom.com con focus disperso</li>
+        </ul>
+        <p style="font-size:0.82rem;color:var(--gold);margin-top:10px;font-weight:500">&#x2192; Caroli copre TUTTE le categorie con un solo dominio: pu&ograve; catturare traffico da ogni cluster senza doversi posizionare su uno solo.</p>
+      </div>
+      <div class="card">
+        <h3>CPC reale Google Ads (stima)</h3>
+        <table style="margin-top:8px">
+          <tbody>
+            <tr><td style="color:var(--white)">CPC medio blended (stima Ads)</td><td style="color:var(--teal);font-weight:600">&#8364;0,30-0,50</td></tr>
+            <tr><td style="color:var(--white)">CPC SEOZoom (indicativo)</td><td>&#8364;0,12-0,35</td></tr>
+            <tr><td style="color:var(--white)">CPC stima BP originale</td><td style="color:var(--muted);text-decoration:line-through">&#8364;0,70</td></tr>
+            <tr><td style="color:var(--white)">Competitivit&agrave; vs altri settori</td><td><span class="tag t-green">Bassa</span></td></tr>
+          </tbody>
+        </table>
+        <p style="font-size:0.75rem;color:var(--teal);margin-top:8px;font-weight:500">&#x2192; A parit&agrave; di budget: +40-75% click rispetto alla stima iniziale</p>
+      </div>
+    </div>
+  </div>
+  <span class="sidea-footer">Sidea Group S.r.l. &mdash; Documento riservato</span>
+  <span class="slide-num">9 / 26</span>
+</div>
+
+<!-- SLIDE 10: Competitor Map -->
+<div id="slide-10" class="slide">
+  <div class="eyebrow">Capitolo 02 &middot; Scenario di Mercato</div>
+  <h2>Il panorama competitivo: <span class="hi">frammentato</span></h2>
+  <p class="subtitle">Nessun player copre tutte e tre le categorie. Caroli entra in uno spazio vuoto.</p>
+  <div class="g2">
+    <div>
+      <table>
+        <thead><tr><th>Competitor</th><th>Focus</th><th>Traffico</th></tr></thead>
+        <tbody>
+          <tr><td style="color:var(--white);font-weight:500">erbasintetica.eu</td><td>Solo prato</td><td><span class="tag t-blue">63K/mese</span></td></tr>
+          <tr><td style="color:var(--white);font-weight:500">pratosintetico.eu</td><td>Solo prato</td><td><span class="tag t-blue">60K/mese</span></td></tr>
+          <tr><td style="color:var(--white);font-weight:500">reteplastic.it</td><td>Recinzioni + ombra</td><td><span class="tag t-blue">48K/mese</span></td></tr>
+          <tr><td style="color:var(--white);font-weight:500">italfrom.com</td><td>Scaffali + arelle</td><td><span class="tag t-blue">58K/mese</span></td></tr>
+          <tr><td style="color:var(--white);font-weight:500">Eurotelo.it</td><td>Reti e teli</td><td><span class="tag t-blue">30-60K/mese</span></td></tr>
+          <tr><td style="color:var(--white);font-weight:500">Sunita (locale)</td><td>Arelle outdoor</td><td><span class="tag t-gold">Basso</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <div class="card-hi" style="margin-bottom:16px">
+        <h3 style="color:var(--teal)">Il gap di mercato</h3>
+        <ul style="list-style:none;padding:0">
+          <li style="padding:6px 0;font-size:0.88rem;color:var(--ice)">&#x2713; Nessuno vende prato + arelle + ombreggianti insieme</li>
+          <li style="padding:6px 0;font-size:0.88rem;color:var(--ice)">&#x2713; Il Sud Italia &egrave; sotto-servito</li>
+          <li style="padding:6px 0;font-size:0.88rem;color:var(--ice)">&#x2713; Nessun leader verticale per arelle</li>
+          <li style="padding:6px 0;font-size:0.88rem;color:var(--ice)">&#x2713; Manca consulenza specialistica online</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Competitor indiretti</h3>
+        <p style="font-size:0.82rem">Amazon (entry level), ManoMano (2,4M visite), Leroy Merlin &mdash; nessuno con consulenza o specializzazione verticale.</p>
+      </div>
+    </div>
+  </div>
+  <span class="sidea-footer">Sidea Group S.r.l. &mdash; Documento riservato</span>
+  <span class="slide-num">10 / 26</span>
+</div>
+<!-- SLIDE 9: Chapter Divider - Vantaggio Competitivo -->
+<div id="slide-11" class="slide" style="justify-content:center;align-items:flex-start">
+  <div style="opacity:0.12;font-family:'Fahkwang',sans-serif;font-size:12rem;font-weight:700;color:var(--bluel);position:absolute;right:60px;top:50%;transform:translateY(-50%)">03</div>
+  <div class="eyebrow">Capitolo 03</div>
+  <h1 style="font-size:2.8rem">Il Vantaggio<br>Competitivo</h1>
+  <p class="subtitle" style="max-width:520px">Container diretto dalla Cina = costi 30-40% sotto i competitor. Margini 2x rispetto al mercato.</p>
+  <span class="sidea-footer">Sidea Group S.r.l. &mdash; Documento riservato</span>
+  <span class="slide-num">11 / 26</span>
+</div>
+
+<!-- SLIDE 10: Benchmark prezzi -->
+<div id="slide-12" class="slide">
+  <div class="eyebrow">Capitolo 03 &middot; Vantaggio Competitivo</div>
+  <h2>Prezzi a confronto: <span class="hi">Caroli vince</span></h2>
+  <p class="subtitle">Approvvigionamento diretto via container = risparmio strutturale trasferito al cliente</p>
+  <div class="g2">
+    <div>
+      <table>
+        <thead><tr><th>Prodotto</th><th>Competitor</th><th>Caroli</th><th>Risparmio</th></tr></thead>
+        <tbody>
+          <tr><td style="color:var(--white)">Prato raso 7-10mm</td><td>&#8364;4,90-5,39/mq</td><td style="color:var(--teal);font-weight:600">&#8364;3,30/mq</td><td><span class="tag t-green">-33%</span></td></tr>
+          <tr><td style="color:var(--white)">Prato medio 25-30mm</td><td>&#8364;11-12/mq</td><td style="color:var(--teal);font-weight:600">&#8364;8,00/mq</td><td><span class="tag t-green">-30%</span></td></tr>
+          <tr><td style="color:var(--white)">Prato alto 35-40mm</td><td>&#8364;12-14/mq</td><td style="color:var(--teal);font-weight:600">&#8364;10,00/mq</td><td><span class="tag t-green">-25%</span></td></tr>
+          <tr><td style="color:var(--white)">Arella Time 2,5&times;3</td><td>&#8364;69,90 (Sunita)</td><td style="color:var(--teal);font-weight:600">&#8364;39,90</td><td><span class="tag t-green">-43%</span></td></tr>
+          <tr><td style="color:var(--white)">Rete ombra 90% 2&times;10m</td><td>&#8364;15-40</td><td style="color:var(--teal);font-weight:600">&#8364;16,90</td><td><span class="tag t-green">Margine 111%</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <div class="g2" style="gap:14px">
+        <div class="card" style="text-align:center">
+          <div class="stat" style="color:var(--teal)">100%</div>
+          <div class="label">Ricarico medio prato</div>
+        </div>
+        <div class="card" style="text-align:center">
+          <div class="stat" style="color:var(--gold)">-35%</div>
+          <div class="label">Costo acquisto vs competitor</div>
+        </div>
+      </div>
+      <div class="card" style="margin-top:14px">
+        <h3>I 5 pilastri</h3>
+        <ul style="list-style:none;padding:0">
+          <li style="padding:5px 0;font-size:0.85rem;color:var(--ice)">&#9889; Container diretto Cina</li>
+          <li style="padding:5px 0;font-size:0.85rem;color:var(--ice)">&#9889; Multi-categoria unico online</li>
+          <li style="padding:5px 0;font-size:0.85rem;color:var(--ice)">&#9889; Consulenza personale (10 anni exp)</li>
+          <li style="padding:5px 0;font-size:0.85rem;color:var(--ice)">&#9889; Consegna locale con furgone</li>
+          <li style="padding:5px 0;font-size:0.85rem;color:var(--ice)">&#9889; &#8364;100K stock pronto</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <span class="sidea-footer">Sidea Group S.r.l. &mdash; Documento riservato</span>
+  <span class="slide-num">12 / 26</span>
+</div>
+<!-- SLIDE 13: Chapter Divider - Strategia di Crescita -->
+<div id="slide-13" class="slide" style="justify-content:center;align-items:flex-start">
+  <div style="opacity:0.12;font-family:'Fahkwang',sans-serif;font-size:12rem;font-weight:700;color:var(--bluel);position:absolute;right:60px;top:50%;transform:translateY(-50%)">&#x1F4A1;</div>
+  <div class="eyebrow">Capitolo 03b</div>
+  <h1 style="font-size:2.8rem">Strategia di<br><span class="hi">Crescita</span></h1>
+  <p class="subtitle" style="max-width:540px">Oltre i numeri: il framework strategico che trasforma un e-commerce in un asset di lungo periodo. 4 leve per costruire un vantaggio inattaccabile.</p>
+  <span class="sidea-footer">Sidea Group S.r.l. &mdash; Documento riservato</span>
+  <span class="slide-num">13 / 26</span>
+</div>
+
+<!-- SLIDE 14: Purple Cow + Minimum Viable Tribe -->
+<div id="slide-14" class="slide">
+  <div class="eyebrow">Strategia di Crescita &middot; Posizionamento &amp; Trib&ugrave;</div>
+  <h2>L&rsquo;idea ownable: <span class="hi">&ldquo;Il magazzino sotto casa tua, ai prezzi della fabbrica&rdquo;</span></h2>
+  <p class="subtitle">Nessun competitor online ha 5.000 mq di stock a 60 km dal cliente E compra direttamente dalla Cina.</p>
+  <div class="g2" style="margin-top:16px">
+    <div>
+      <div class="card-hi" style="margin-bottom:16px">
+        <h3 style="color:var(--gold)">&#x1F404; Purple Cow &mdash; Il framework firma</h3>
+        <p style="font-size:0.92rem;color:var(--white);font-weight:500;margin:10px 0">Il potere d&rsquo;acquisto di un importatore diretto + la capillarit&agrave; e immediatezza di un servizio locale.</p>
+        <p style="font-size:0.85rem;color:var(--ice)">Sunita vende a &euro;70 un&rsquo;arella che Caroli compra a &euro;26. I competitor nazionali spediscono con corriere a &euro;15-30 su colli ingombranti. Caroli porta con il furgone, gratis.</p>
+        <div style="margin-top:14px;padding:10px 14px;background:rgba(224,161,0,0.1);border-radius:8px;border:1px solid rgba(224,161,0,0.3)">
+          <p style="font-size:0.82rem;color:var(--gold);font-weight:600">Test: uno sconosciuto ripeterebbe questa idea associando il nome Caroli?</p>
+          <p style="font-size:0.78rem;color:var(--ice);margin-top:4px">&ldquo;10&euro; di differenza a metro quadro, glielo porto pure in braccio.&rdquo; &mdash; Gianvito</p>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Idee &ldquo;prese in prestito&rdquo; da eliminare</h3>
+        <ul style="list-style:none;padding:0">
+          <li style="padding:4px 0;font-size:0.82rem;color:var(--muted)">&#x2717; &ldquo;E-commerce di giardinaggio&rdquo; (generico)</li>
+          <li style="padding:4px 0;font-size:0.82rem;color:var(--muted)">&#x2717; &ldquo;Prezzi bassi&rdquo; come messaggio (commoditizza)</li>
+          <li style="padding:4px 0;font-size:0.82rem;color:var(--muted)">&#x2717; &ldquo;Ampia gamma&rdquo; (Amazon/Leroy vincono per definizione)</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:16px;border:1px solid var(--teal)">
+        <h3 style="color:var(--teal)">&#x1F465; Minimum Viable Tribe &mdash; I primi 10</h3>
+        <p style="font-size:0.85rem;color:var(--ice);margin-bottom:12px">Non partire dai mille sconosciuti. Parti da chi gi&agrave; compra.</p>
+        <div style="padding:12px;background:rgba(0,168,150,0.08);border-radius:8px;margin-bottom:10px">
+          <p style="font-size:0.82rem;color:var(--white);font-weight:600">Founding Believer: il giardiniere/installatore</p>
+          <ul style="list-style:none;padding:0;margin-top:6px">
+            <li style="padding:3px 0;font-size:0.78rem;color:var(--ice)">&#x2022; Ha 3-5 cantieri/mese dove serve prato</li>
+            <li style="padding:3px 0;font-size:0.78rem;color:var(--ice)">&#x2022; Oggi paga &euro;7-9/mq dal distributore</li>
+            <li style="padding:3px 0;font-size:0.78rem;color:var(--ice)">&#x2022; Vuole ordinare gioved&igrave; sera e averlo venerd&igrave;</li>
+            <li style="padding:3px 0;font-size:0.78rem;color:var(--ice)">&#x2022; Non gli serve il sito bello &mdash; servono prezzo + velocit&agrave;</li>
+          </ul>
+        </div>
+        <p style="font-size:0.82rem;color:var(--teal);font-weight:500">&#x2192; Il primo fatturato e-commerce pu&ograve; venire dal B2B locale, non dal B2C nazionale.</p>
+      </div>
+      <div class="card">
+        <h3>Dove si ritrova la trib&ugrave;</h3>
+        <ul style="list-style:none;padding:0">
+          <li style="padding:5px 0;font-size:0.82rem;color:var(--ice)">&#x2022; Gruppi WhatsApp giardinieri locali</li>
+          <li style="padding:5px 0;font-size:0.82rem;color:var(--ice)">&#x2022; Facebook groups &ldquo;Giardinieri Puglia&rdquo;</li>
+          <li style="padding:5px 0;font-size:0.82rem;color:var(--ice)">&#x2022; Stabilimenti balneari (arelle + prato stagionali)</li>
+          <li style="padding:5px 0;font-size:0.82rem;color:var(--ice)">&#x2022; Vivaisti locali (rivendono ma non importano)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <span class="sidea-footer">Sidea Group S.r.l. &mdash; Documento riservato</span>
+  <span class="slide-num">14 / 26</span>
+</div>
+
+<!-- SLIDE 15: Monetization Bridge -->
+<div id="slide-15" class="slide">
+  <div class="eyebrow">Strategia di Crescita &middot; Scala di Monetizzazione</div>
+  <h2>Il gradino mancante: da <span class="hi">&ldquo;ha sentito parlare&rdquo;</span> a <span class="hi">&ldquo;compra&rdquo;</span></h2>
+  <p class="subtitle">Oggi chi &egrave; a 55 km non ha modo di vedere cosa c&rsquo;&egrave;, capire i prezzi o ordinare senza guidare fino a Locorotondo.</p>
+  <div class="g2" style="margin-top:16px">
+    <div>
+      <h3>La scala di monetizzazione attuale</h3>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-top:12px">
+        <div class="card" style="padding:12px 18px;border-left:3px solid var(--muted);opacity:0.7">
+          <p style="font-size:0.85rem;color:var(--white);font-weight:500">&#x2460; Sconosciuto sente il passaparola</p>
+        </div>
+        <div class="card" style="padding:12px 18px;border-left:3px solid var(--red);background:rgba(198,40,40,0.08)">
+          <p style="font-size:0.85rem;color:#ef5350;font-weight:600">&#x26A0; BUCO &mdash; Nessun modo di vedere/ordinare da remoto</p>
+          <p style="font-size:0.75rem;color:var(--muted);margin-top:4px">Chi &egrave; a Taranto/Bari deve guidare fino a Locorotondo</p>
+        </div>
+        <div class="card" style="padding:12px 18px;border-left:3px solid var(--muted);opacity:0.7">
+          <p style="font-size:0.85rem;color:var(--white);font-weight:500">&#x2462; Viene in negozio fisicamente</p>
+        </div>
+        <div class="card" style="padding:12px 18px;border-left:3px solid var(--teal)">
+          <p style="font-size:0.85rem;color:var(--white);font-weight:500">&#x2463; Compra &rarr; Fine</p>
+        </div>
+      </div>
+      <div class="card" style="margin-top:16px;border:1px solid var(--gold)">
+        <h3 style="color:var(--gold)">La prima offerta (prima del sito)</h3>
+        <p style="font-size:0.85rem;color:var(--ice)">&ldquo;Ordina online, ritira o te lo porto&rdquo; su 15-20 prodotti hero. Pagamento alla consegna. Zero gateway, zero complessit&agrave; corriere.</p>
+        <p style="font-size:0.82rem;color:var(--gold);margin-top:8px;font-weight:500">&#x2192; Operativo in 2 settimane con Marta + WhatsApp Business</p>
+      </div>
+    </div>
+    <div>
+      <div class="card-hi" style="margin-bottom:16px">
+        <h3 style="color:var(--teal)">&#x1F4B0; Il dato sottovalutato</h3>
+        <p style="font-size:0.92rem;color:var(--white);font-weight:500;margin:10px 0">Gianvito ha gi&agrave; un trust asset enorme.</p>
+        <ul style="list-style:none;padding:0">
+          <li style="padding:5px 0;font-size:0.85rem;color:var(--ice)">&#x2713; 10 anni di passaparola costruito</li>
+          <li style="padding:5px 0;font-size:0.85rem;color:var(--ice)">&#x2713; 80-90% del mercato locale conquistato</li>
+          <li style="padding:5px 0;font-size:0.85rem;color:var(--ice)">&#x2713; Clienti che pagano alla consegna senza problemi</li>
+          <li style="padding:5px 0;font-size:0.85rem;color:var(--ice)">&#x2713; Da 1 persona &rarr; &euro;10M in 10 anni</li>
+        </ul>
+        <div style="margin-top:12px;padding:10px 14px;background:rgba(0,168,150,0.1);border-radius:8px">
+          <p style="font-size:0.82rem;color:var(--teal);font-weight:600">La digitalizzazione non deve costruire la fiducia da zero &mdash; deve solo renderla scalabile oltre il raggio del passaparola.</p>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Due scenari da presentare all&rsquo;incontro 4</h3>
+        <table style="margin-top:8px;font-size:0.82rem">
+          <thead><tr><th></th><th>Solo B2C</th><th style="color:var(--teal)">B2B locale + B2C</th></tr></thead>
+          <tbody>
+            <tr><td style="color:var(--white)">Break-even</td><td>12-18 mesi</td><td style="color:var(--teal);font-weight:600">6-9 mesi</td></tr>
+            <tr><td style="color:var(--white)">Fatturato immediato</td><td>Da costruire</td><td style="color:var(--teal);font-weight:600">Giardinieri gi&agrave; clienti</td></tr>
+            <tr><td style="color:var(--white)">Complessit&agrave;</td><td>Media</td><td>Media-bassa</td></tr>
+            <tr><td style="color:var(--white)">Rischio</td><td>Medio</td><td style="color:var(--teal);font-weight:600">Basso</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <span class="sidea-footer">Sidea Group S.r.l. &mdash; Documento riservato</span>
+  <span class="slide-num">15 / 26</span>
+</div>
+
+<!-- SLIDE 16: Permission Asset + Daily Practice -->
+<div id="slide-16" class="slide">
+  <div class="eyebrow">Strategia di Crescita &middot; Permission Asset &amp; Contenuti</div>
+  <h2>Costruire l&rsquo;audience <span class="hi">prima</span> del lancio</h2>
+  <p class="subtitle">Chi lancia un e-commerce senza lista contatti parte da zero traffico. Chi ha 300 contatti caldi ha gi&agrave; i primi ordini dal giorno 1.</p>
+  <div class="g2" style="margin-top:16px">
+    <div>
+      <div class="card" style="margin-bottom:16px;border:1px solid var(--blue)">
+        <h3 style="color:var(--bluel)">&#x1F4E7; Permission Asset &mdash; Il canale di propriet&agrave;</h3>
+        <p style="font-size:0.85rem;color:var(--ice);margin-bottom:12px"><strong style="color:var(--white)">Diagnosi:</strong> Oggi la reach &egrave; 100% passaparola fisico. Zero email, zero broadcast, zero social. Nessun canale scalabile.</p>
+        <div style="padding:12px;background:rgba(25,122,207,0.08);border-radius:8px;margin-bottom:10px">
+          <p style="font-size:0.82rem;color:var(--bluel);font-weight:600">Offerta di permission:</p>
+          <p style="font-size:0.88rem;color:var(--white);font-weight:500;margin-top:4px">&ldquo;Ricevi per primo le offerte del container&rdquo;</p>
+          <p style="font-size:0.78rem;color:var(--ice);margin-top:4px">Lista WhatsApp/email dove Gianvito annuncia quando arriva merce nuova a prezzi pre-stagionali. Valore reale, non spam.</p>
+        </div>
+        <h3 style="font-size:0.85rem;margin-top:12px">Piano 90 giorni (ott&rsquo;26 &rarr; gen&rsquo;27)</h3>
+        <table style="font-size:0.78rem;margin-top:6px">
+          <tbody>
+            <tr><td style="color:var(--white)">Mese 1</td><td>QR code sul banco + clienti in negozio</td><td style="color:var(--teal)">+80 contatti</td></tr>
+            <tr><td style="color:var(--white)">Mese 2</td><td>Broadcast &ldquo;container in arrivo&rdquo;</td><td style="color:var(--teal)">+120 contatti</td></tr>
+            <tr><td style="color:var(--white)">Mese 3</td><td>Lancio sito &rarr; popup iscrizione</td><td style="color:var(--teal)">+100 contatti</td></tr>
+            <tr style="border-top:1px solid var(--blue)"><td style="color:var(--bluel);font-weight:600" colspan="2">Totale al go-live pieno (feb&rsquo;27)</td><td style="color:var(--teal);font-weight:700">~300 contatti</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:16px;border:1px solid var(--teal)">
+        <h3 style="color:var(--teal)">&#x1F4F8; Daily Practice &mdash; Contenuti che compoundano</h3>
+        <p style="font-size:0.85rem;color:var(--ice);margin-bottom:10px"><strong style="color:var(--white)">Formato:</strong> 1 foto/video breve al giorno dal magazzino.</p>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="padding:10px 14px;background:rgba(0,168,150,0.08);border-radius:8px;border-left:3px solid var(--teal)">
+            <p style="font-size:0.82rem;color:var(--white);font-weight:500">&ldquo;Oggi &egrave; arrivato...&rdquo;</p>
+            <p style="font-size:0.72rem;color:var(--muted)">Tempo: 5 min &middot; Chi lo fa: Marta</p>
+          </div>
+          <div style="padding:10px 14px;background:rgba(0,168,150,0.08);border-radius:8px;border-left:3px solid var(--teal)">
+            <p style="font-size:0.82rem;color:var(--white);font-weight:500">&ldquo;Come si posa il prato in 3 passi&rdquo;</p>
+            <p style="font-size:0.72rem;color:var(--muted)">Tempo: 10 min &middot; SEO + trust</p>
+          </div>
+          <div style="padding:10px 14px;background:rgba(0,168,150,0.08);border-radius:8px;border-left:3px solid var(--teal)">
+            <p style="font-size:0.82rem;color:var(--white);font-weight:500">&ldquo;Quanto dura? Confronto dopo 5 anni&rdquo;</p>
+            <p style="font-size:0.72rem;color:var(--muted)">Tempo: 10 min &middot; Differenziante</p>
+          </div>
+        </div>
+        <div style="margin-top:12px;padding:10px 14px;background:rgba(0,168,150,0.1);border-radius:8px">
+          <p style="font-size:0.78rem;color:var(--teal);font-weight:600">Metrica di compounding: n. messaggi/chiamate che citano &ldquo;ho visto online che...&rdquo;</p>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Il magazzino &egrave; gi&agrave; un set fotografico</h3>
+        <div class="g2" style="gap:10px;margin-top:8px">
+          <div style="text-align:center;padding:10px;background:rgba(25,122,207,0.1);border-radius:8px">
+            <div class="stat-sm" style="font-size:1.4rem">5.000</div>
+            <div class="label">mq di contenuto</div>
+          </div>
+          <div style="text-align:center;padding:10px;background:rgba(25,122,207,0.1);border-radius:8px">
+            <div class="stat-sm" style="font-size:1.4rem">&euro;100K</div>
+            <div class="label">merce da mostrare</div>
+          </div>
+        </div>
+        <p style="font-size:0.78rem;color:var(--ice);margin-top:8px">Non serve un content creator. Serve che Marta faccia 1 foto al giorno. Il contenuto &egrave; il lavoro quotidiano.</p>
+      </div>
+    </div>
+  </div>
+  <span class="sidea-footer">Sidea Group S.r.l. &mdash; Documento riservato</span>
+  <span class="slide-num">16 / 26</span>
+</div>
+
+<!-- SLIDE 17: Chapter Divider - Modello -->
+<div id="slide-17" class="slide" style="justify-content:center;align-items:flex-start">
+  <div style="opacity:0.12;font-family:'Fahkwang',sans-serif;font-size:12rem;font-weight:700;color:var(--bluel);position:absolute;right:60px;top:50%;transform:translateY(-50%)">04</div>
+  <div class="eyebrow">Capitolo 04</div>
+  <h1 style="font-size:2.8rem">Il Modello<br><span class="hi">Wave 1 Local</span></h1>
+  <p class="subtitle" style="max-width:520px">Focus Locorotondo + 100km. Consegna diretta, consulenza personale, crescita controllata.</p>
+  <span class="sidea-footer">Sidea Group S.r.l. &mdash; Documento riservato</span>
+  <span class="slide-num">17 / 26</span>
+</div>
+
+<!-- SLIDE 18: Modello operativo -->
+<div id="slide-18" class="slide">
+  <div class="eyebrow">Capitolo 04 &middot; Il Modello Wave 1</div>
+  <h2>Come funziona: dal click alla consegna</h2>
+  <p class="subtitle">Flusso end-to-end per la Wave 1 locale (Bari &middot; Brindisi &middot; Taranto)</p>
+  <div class="g2">
+    <div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div class="card" style="border-left:3px solid var(--blue);padding:16px 20px">
+          <p style="font-size:0.9rem;color:var(--white);font-weight:500">1. Il cliente cerca su Google / WhatsApp</p>
+          <p style="font-size:0.78rem;color:var(--muted)">Google Ads transazionali + passaparola locale</p>
+        </div>
+        <div class="card" style="border-left:3px solid var(--blue);padding:16px 20px">
+          <p style="font-size:0.9rem;color:var(--white);font-weight:500">2. Naviga il sito Shopify</p>
+          <p style="font-size:0.78rem;color:var(--muted)">5-6 pagine hero + configuratore metratura</p>
+        </div>
+        <div class="card" style="border-left:3px solid var(--blue);padding:16px 20px">
+          <p style="font-size:0.9rem;color:var(--white);font-weight:500">3. Consulenza WhatsApp (opzionale)</p>
+          <p style="font-size:0.78rem;color:var(--muted)">Gianvito / Marta rispondono in &lt;4h</p>
+        </div>
+        <div class="card" style="border-left:3px solid var(--teal);padding:16px 20px">
+          <p style="font-size:0.9rem;color:var(--white);font-weight:500">4. Acquisto online &rarr; Amiko3</p>
+          <p style="font-size:0.78rem;color:var(--muted)">Sync automatica ordini via API REST</p>
+        </div>
+        <div class="card" style="border-left:3px solid var(--teal);padding:16px 20px">
+          <p style="font-size:0.9rem;color:var(--white);font-weight:500">5. Consegna furgone proprio (24-48h)</p>
+          <p style="font-size:0.78rem;color:var(--muted)">Gratuita sopra soglia &middot; Entro 100km</p>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:16px">
+        <h3>Stack tecnologico</h3>
+        <div class="g2" style="gap:10px;margin-top:12px">
+          <div style="padding:10px;background:rgba(25,122,207,0.1);border-radius:8px;text-align:center"><p style="font-size:0.82rem;color:var(--white);font-weight:600">Shopify</p><p style="font-size:0.7rem;color:var(--muted)">E-commerce</p></div>
+          <div style="padding:10px;background:rgba(25,122,207,0.1);border-radius:8px;text-align:center"><p style="font-size:0.82rem;color:var(--white);font-weight:600">Amiko3</p><p style="font-size:0.7rem;color:var(--muted)">Gestionale custom</p></div>
+          <div style="padding:10px;background:rgba(25,122,207,0.1);border-radius:8px;text-align:center"><p style="font-size:0.82rem;color:var(--white);font-weight:600">Google Ads</p><p style="font-size:0.7rem;color:var(--muted)">Traffico pagato</p></div>
+          <div style="padding:10px;background:rgba(25,122,207,0.1);border-radius:8px;text-align:center"><p style="font-size:0.82rem;color:var(--white);font-weight:600">WhatsApp</p><p style="font-size:0.7rem;color:var(--muted)">Consulenza diretta</p></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Il team Wave 1</h3>
+        <table style="margin-top:8px">
+          <tbody>
+            <tr><td style="color:var(--white);font-weight:500">Gianvito</td><td>Strategia, acquisti, fornitori</td></tr>
+            <tr><td style="color:var(--white);font-weight:500">Marta</td><td>Operazioni e-commerce, ordini, CS</td></tr>
+            <tr><td style="color:var(--white);font-weight:500">Donato</td><td>Sviluppo API Amiko3 &harr; Shopify</td></tr>
+            <tr><td style="color:var(--white);font-weight:500">Team Sidea</td><td>Digital strategy, ads, SEO, piattaforma</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <span class="sidea-footer">Sidea Group S.r.l. &mdash; Documento riservato</span>
+  <span class="slide-num">18 / 26</span>
+</div>
+
+<!-- SLIDE: Chapter Divider - Customer Journey -->
+<div id="slide-19" class="slide" style="justify-content:center;align-items:flex-start">
+  <div style="opacity:0.12;font-family:'Fahkwang',sans-serif;font-size:10rem;font-weight:700;color:var(--bluel);position:absolute;right:60px;top:50%;transform:translateY(-50%)">UX</div>
+  <div class="eyebrow">Esperienza Utente</div>
+  <h1 style="font-size:2.8rem">Customer<br><span class="hi">Journey</span></h1>
+  <p class="subtitle" style="max-width:520px">Come sar&agrave; l'esperienza d'acquisto su Shopify. Wireframe navigabili delle 4 pagine chiave.</p>
+  <span class="sidea-footer">Sidea Group S.r.l. &mdash; Documento riservato</span>
+  <span class="slide-num">19 / 26</span>
+</div>
+
+<!-- SLIDE: Wireframe Customer Journey -->
+<div id="slide-20" class="slide" style="padding:36px 48px">
+  <div class="eyebrow">Esperienza Utente &middot; Wireframe interattivi</div>
+  <h2>Il percorso dell'utente in <span class="hi">4 step</span></h2>
+  <p class="subtitle" style="margin-bottom:12px">Clicca su ogni preview per esplorare il wireframe completo. Struttura Shopify-ready.</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:16px;flex:1;align-items:stretch">
+    <a href="https://giuseppefanizza-sidea.github.io/caroli-assessment/wireframes/01-homepage.html" target="_blank" style="text-decoration:none;display:flex;flex-direction:column">
+      <div class="card" style="flex:1;display:flex;flex-direction:column;transition:border-color .2s,box-shadow .2s;cursor:pointer;padding:14px" onmouseover="this.style.borderColor='var(--blue)';this.style.boxShadow='0 0 20px rgba(25,122,207,0.2)'" onmouseout="this.style.borderColor='';this.style.boxShadow=''">
+        <div style="background:var(--navy2);border-radius:8px;overflow:hidden;flex:1;min-height:320px;margin-bottom:10px;position:relative">
+          <iframe src="wireframes/01-homepage.html" style="width:375%;height:375%;transform:scale(0.267);transform-origin:top left;pointer-events:none;border:none"></iframe>
+        </div>
+        <h3 style="color:var(--bluel);font-size:0.85rem;margin-bottom:4px">1. Homepage</h3>
+        <p style="font-size:0.72rem;color:var(--ice);line-height:1.4">Hero + categorie + trust signals + WhatsApp CTA</p>
+        <p style="font-size:0.65rem;color:var(--muted);margin-top:auto;padding-top:6px">&#x2192; Apri wireframe</p>
+      </div>
+    </a>
+    <a href="https://giuseppefanizza-sidea.github.io/caroli-assessment/wireframes/02-plp.html" target="_blank" style="text-decoration:none;display:flex;flex-direction:column">
+      <div class="card" style="flex:1;display:flex;flex-direction:column;transition:border-color .2s,box-shadow .2s;cursor:pointer;padding:14px" onmouseover="this.style.borderColor='var(--blue)';this.style.boxShadow='0 0 20px rgba(25,122,207,0.2)'" onmouseout="this.style.borderColor='';this.style.boxShadow=''">
+        <div style="background:var(--navy2);border-radius:8px;overflow:hidden;flex:1;min-height:320px;margin-bottom:10px;position:relative">
+          <iframe src="wireframes/02-plp.html" style="width:375%;height:375%;transform:scale(0.267);transform-origin:top left;pointer-events:none;border:none"></iframe>
+        </div>
+        <h3 style="color:var(--bluel);font-size:0.85rem;margin-bottom:4px">2. Categoria (PLP)</h3>
+        <p style="font-size:0.72rem;color:var(--ice);line-height:1.4">Filtri + griglia prodotti + calcolatore mq</p>
+        <p style="font-size:0.65rem;color:var(--muted);margin-top:auto;padding-top:6px">&#x2192; Apri wireframe</p>
+      </div>
+    </a>
+    <a href="https://giuseppefanizza-sidea.github.io/caroli-assessment/wireframes/03-pdp.html" target="_blank" style="text-decoration:none;display:flex;flex-direction:column">
+      <div class="card" style="flex:1;display:flex;flex-direction:column;transition:border-color .2s,box-shadow .2s;cursor:pointer;padding:14px" onmouseover="this.style.borderColor='var(--blue)';this.style.boxShadow='0 0 20px rgba(25,122,207,0.2)'" onmouseout="this.style.borderColor='';this.style.boxShadow=''">
+        <div style="background:var(--navy2);border-radius:8px;overflow:hidden;flex:1;min-height:320px;margin-bottom:10px;position:relative">
+          <iframe src="wireframes/03-pdp.html" style="width:375%;height:375%;transform:scale(0.267);transform-origin:top left;pointer-events:none;border:none"></iframe>
+        </div>
+        <h3 style="color:var(--bluel);font-size:0.85rem;margin-bottom:4px">3. Prodotto (PDP)</h3>
+        <p style="font-size:0.72rem;color:var(--ice);line-height:1.4">Gallery + varianti + bundle + WhatsApp</p>
+        <p style="font-size:0.65rem;color:var(--muted);margin-top:auto;padding-top:6px">&#x2192; Apri wireframe</p>
+      </div>
+    </a>
+    <a href="https://giuseppefanizza-sidea.github.io/caroli-assessment/wireframes/04-guida-seo.html" target="_blank" style="text-decoration:none;display:flex;flex-direction:column">
+      <div class="card" style="flex:1;display:flex;flex-direction:column;transition:border-color .2s,box-shadow .2s;cursor:pointer;padding:14px" onmouseover="this.style.borderColor='var(--blue)';this.style.boxShadow='0 0 20px rgba(25,122,207,0.2)'" onmouseout="this.style.borderColor='';this.style.boxShadow=''">
+        <div style="background:var(--navy2);border-radius:8px;overflow:hidden;flex:1;min-height:320px;margin-bottom:10px;position:relative">
+          <iframe src="wireframes/04-guida-seo.html" style="width:375%;height:375%;transform:scale(0.267);transform-origin:top left;pointer-events:none;border:none"></iframe>
+        </div>
+        <h3 style="color:var(--bluel);font-size:0.85rem;margin-bottom:4px">4. Guida SEO</h3>
+        <p style="font-size:0.72rem;color:var(--ice);line-height:1.4">Contenuto informativo + lead gen + linking</p>
+        <p style="font-size:0.65rem;color:var(--muted);margin-top:auto;padding-top:6px">&#x2192; Apri wireframe</p>
+      </div>
+    </a>
+  </div>
+  <span class="sidea-footer">Sidea Group S.r.l. &mdash; Documento riservato</span>
+  <span class="slide-num">20 / 26</span>
+</div>
+
+<!-- SLIDE 13: Chapter Divider - I Numeri -->
+<div id="slide-21" class="slide" style="justify-content:center;align-items:flex-start">
+  <div style="opacity:0.12;font-family:'Fahkwang',sans-serif;font-size:12rem;font-weight:700;color:var(--bluel);position:absolute;right:60px;top:50%;transform:translateY(-50%)">05</div>
+  <div class="eyebrow">Capitolo 05</div>
+  <h1 style="font-size:2.8rem">I Numeri</h1>
+  <p class="subtitle" style="max-width:520px">Tre scenari validati insieme nel quarto incontro. Ogni numero &egrave; tracciabile e ricalcolabile.</p>
+  <span class="sidea-footer">Sidea Group S.r.l. &mdash; Documento riservato</span>
+  <span class="slide-num">21 / 26</span>
+</div>
+
+<!-- SLIDE 16: KPI chiave + P&L -->
+<div id="slide-22" class="slide">
+  <div class="eyebrow">Capitolo 05 &middot; I Numeri</div>
+  <h2>Scenario Base Anno 1 &mdash; <span class="hi">numeri validati</span></h2>
+  <div class="g5" style="margin-top:16px;margin-bottom:20px">
+    <div class="card" style="text-align:center;padding:14px">
+      <div class="stat-sm">&#8364;194K</div>
+      <div class="label">Fatturato</div>
+    </div>
+    <div class="card" style="text-align:center;padding:14px">
+      <div class="stat-sm" style="color:var(--teal)">&#8364;97K</div>
+      <div class="label">Margine lordo (50%)</div>
+    </div>
+    <div class="card" style="text-align:center;padding:14px">
+      <div class="stat-sm" style="color:var(--gold)">&#8364;28K</div>
+      <div class="label">EBITDA (14,2%)</div>
+    </div>
+    <div class="card" style="text-align:center;padding:14px">
+      <div class="stat-sm" style="color:var(--teal)">&#8364;15K</div>
+      <div class="label">Utile netto</div>
+    </div>
+    <div class="card" style="text-align:center;padding:14px">
+      <div class="stat-sm">7,2x</div>
+      <div class="label">ROAS Ads</div>
+    </div>
+  </div>
+  <div class="g2">
+    <div>
+      <h3>P&L Anno 1 &mdash; 3 scenari a confronto</h3>
+      <table>
+        <thead><tr><th></th><th>Conservativo</th><th style="color:var(--teal)">Base</th><th>Ottimistico</th></tr></thead>
+        <tbody>
+          <tr><td style="color:var(--white);font-weight:500">Fatturato</td><td>&#8364;70.200</td><td style="color:var(--teal);font-weight:600">&#8364;194.400</td><td>&#8364;474.000</td></tr>
+          <tr><td style="color:var(--white);font-weight:500">COGS (50%)</td><td>-&#8364;35.100</td><td style="color:var(--teal)">-&#8364;97.200</td><td>-&#8364;237.000</td></tr>
+          <tr><td style="color:var(--white);font-weight:500">Margine lordo</td><td>&#8364;35.100</td><td style="color:var(--teal);font-weight:600">&#8364;97.200</td><td>&#8364;237.000</td></tr>
+          <tr><td style="color:var(--white);font-weight:500">Personale (Marta)</td><td>-&#8364;24.000</td><td>-&#8364;24.000</td><td>-&#8364;24.000</td></tr>
+          <tr><td style="color:var(--white);font-weight:500">Opex (fissi+var)</td><td>-&#8364;31.985</td><td>-&#8364;45.524</td><td>-&#8364;126.569</td></tr>
+          <tr><td style="color:var(--white);font-weight:500">EBITDA</td><td style="color:#ef5350">-&#8364;20.885</td><td style="color:var(--teal);font-weight:600">&#8364;27.676</td><td style="color:var(--teal)">&#8364;86.431</td></tr>
+          <tr style="border-top:2px solid var(--blue)"><td style="color:var(--bluel);font-weight:600">Utile netto</td><td style="color:#ef5350;font-weight:600">-&#8364;20.885</td><td style="color:var(--teal);font-weight:700">+&#8364;15.127</td><td style="color:var(--teal);font-weight:600">+&#8364;86.431</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <h3>Unit economics (base)</h3>
+      <table>
+        <tbody>
+          <tr><td style="color:var(--white)">Scontrino medio</td><td style="font-weight:600">&#8364;180</td></tr>
+          <tr><td style="color:var(--white)">Margine lordo/ordine</td><td style="font-weight:600">&#8364;90 (50%)</td></tr>
+          <tr><td style="color:var(--white)">Costi variabili</td><td>8,5% del fatturato</td></tr>
+          <tr><td style="color:var(--white)">Margine di contribuzione</td><td style="color:var(--teal);font-weight:600">41,5%</td></tr>
+          <tr><td style="color:var(--white)">Costo acquisizione (CAC)</td><td>&#8364;25/ordine (ads)</td></tr>
+          <tr><td style="color:var(--white)">LTV/CAC ratio</td><td style="color:var(--teal);font-weight:600">3,6x</td></tr>
+        </tbody>
+      </table>
+      <div class="card" style="margin-top:14px;padding:12px 16px;border-left:3px solid var(--gold)">
+        <p style="font-size:0.82rem;color:var(--ice)"><strong style="color:var(--gold)">Target Gianvito:</strong> &#8364;200K &rarr; scenario base (&#8364;194K) lo centra. Break-even in 2,5-3 anni nel conservativo, in linea con le aspettative dichiarate.</p>
+      </div>
+    </div>
+  </div>
+  <span class="sidea-footer">Sidea Group S.r.l. &mdash; Documento riservato</span>
+  <span class="slide-num">22 / 26</span>
+</div>
+<!-- SLIDE 17: Grafico fatturato 5 anni + P&L quinquennale -->
+<div id="slide-23" class="slide">
+  <div class="eyebrow">Capitolo 05 &middot; I Numeri</div>
+  <h2>Proiezione <span class="hi">5 anni</span> &mdash; fatturato e utile netto</h2>
+  <div class="g2" style="margin-top:12px">
+    <div class="chart-box" style="min-height:280px">
+      <canvas id="revenueChart"></canvas>
+    </div>
+    <div>
+      <h3>P&L quinquennale (scenario base)</h3>
+      <table style="font-size:0.8rem">
+        <thead><tr><th></th><th>A1</th><th>A2</th><th>A3</th><th>A4</th><th>A5</th></tr></thead>
+        <tbody>
+          <tr><td style="color:var(--white)">Fatturato</td><td>194K</td><td>376K</td><td>618K</td><td>870K</td><td>1.076K</td></tr>
+          <tr><td style="color:var(--white)">Margine lordo</td><td>97K</td><td>188K</td><td>309K</td><td>435K</td><td>538K</td></tr>
+          <tr><td style="color:var(--white)">EBITDA</td><td style="color:var(--teal)">28K</td><td style="color:var(--teal)">96K</td><td style="color:var(--teal)">163K</td><td style="color:var(--teal)">256K</td><td style="color:var(--teal)">304K</td></tr>
+          <tr style="border-top:1px solid var(--blue)"><td style="color:var(--bluel);font-weight:600">Utile netto</td><td style="color:var(--teal)">15K</td><td style="color:var(--teal)">64K</td><td style="color:var(--teal)">113K</td><td style="color:var(--teal)">185K</td><td style="color:var(--teal)">219K</td></tr>
+          <tr><td style="color:var(--white)">Margine netto</td><td>8%</td><td>17%</td><td>18%</td><td>21%</td><td>20%</td></tr>
+        </tbody>
+      </table>
+      <div class="card" style="margin-top:14px;padding:12px 16px">
+        <h3 style="font-size:0.85rem">Cassa cumulata (partenza &#8364;45K)</h3>
+        <table style="font-size:0.78rem;margin-top:6px">
+          <thead><tr><th></th><th>A1</th><th>A3</th><th>A5</th></tr></thead>
+          <tbody>
+            <tr><td style="color:var(--white)">Conserv.</td><td>&#8364;11K</td><td>&#8364;46K</td><td>&#8364;139K</td></tr>
+            <tr><td style="color:var(--teal);font-weight:600">Base</td><td style="color:var(--teal)">&#8364;47K</td><td style="color:var(--teal)">&#8364;237K</td><td style="color:var(--teal)">&#8364;640K</td></tr>
+            <tr><td style="color:var(--white)">Ottim.</td><td>&#8364;118K</td><td>&#8364;535K</td><td>&#8364;1.242K</td></tr>
+          </tbody>
+        </table>
+        <p style="font-size:0.75rem;color:var(--teal);margin-top:8px;font-weight:500">&#x2713; Cassa mai negativa in nessun scenario</p>
+      </div>
+    </div>
+  </div>
+  <div class="g3" style="margin-top:14px">
+    <div class="card" style="text-align:center;padding:12px">
+      <div class="stat-sm" style="font-size:1.3rem">&#8364;40-50K</div>
+      <div class="label">Investimento totale</div>
+    </div>
+    <div class="card" style="text-align:center;padding:12px">
+      <div class="stat-sm" style="font-size:1.3rem;color:var(--teal)">~12 mesi</div>
+      <div class="label">Payback (base)</div>
+    </div>
+    <div class="card" style="text-align:center;padding:12px">
+      <div class="stat-sm" style="font-size:1.3rem;color:var(--gold)">~3 anni</div>
+      <div class="label">Payback (conserv.) = aspettativa Gianvito</div>
+    </div>
+  </div>
+  <span class="sidea-footer">Sidea Group S.r.l. &mdash; Documento riservato</span>
+  <span class="slide-num">23 / 26</span>
+</div>
+<!-- SLIDE 18: Investimento + Break-even mensile -->
+<div id="slide-24" class="slide">
+  <div class="eyebrow">Capitolo 05 &middot; I Numeri</div>
+  <h2>Investimento, costi e <span class="hi">break-even</span></h2>
+  <div class="g2" style="margin-top:12px">
+    <div>
+      <h3>Setup iniziale (una tantum)</h3>
+      <table style="font-size:0.85rem">
+        <thead><tr><th>Voce</th><th>Importo</th></tr></thead>
+        <tbody>
+          <tr><td style="color:var(--white)">Piattaforma Shopify (setup + tema)</td><td>&#8364;6.500</td></tr>
+          <tr><td style="color:var(--white)">Integrazione Amiko3 &harr; Shopify</td><td>&#8364;4.000</td></tr>
+          <tr><td style="color:var(--white)">Design / UX / Brand identity</td><td>&#8364;3.500</td></tr>
+          <tr><td style="color:var(--white)">Contenuti prodotto (foto + copy)</td><td>&#8364;4.000</td></tr>
+          <tr><td style="color:var(--white)">Logistica + formazione</td><td>&#8364;2.000</td></tr>
+          <tr style="border-top:2px solid var(--blue)"><td style="color:var(--bluel);font-weight:700">TOTALE SETUP</td><td style="color:var(--bluel);font-weight:700">&#8364;20.000</td></tr>
+        </tbody>
+      </table>
+      <h3 style="margin-top:16px">Costi fissi mensili</h3>
+      <table style="font-size:0.85rem">
+        <tbody>
+          <tr><td style="color:var(--white)">Marta (full cost)</td><td>&#8364;2.000/mese</td></tr>
+          <tr><td style="color:var(--white)">Shopify + app + hosting</td><td>&#8364;350/mese</td></tr>
+          <tr><td style="color:var(--white)">Google Ads</td><td>&#8364;1.050/mese</td></tr>
+          <tr><td style="color:var(--white)">SEO / Content</td><td>&#8364;800/mese</td></tr>
+          <tr><td style="color:var(--white)">Buffer imprevisti</td><td>&#8364;217/mese</td></tr>
+          <tr style="border-top:2px solid var(--blue)"><td style="color:var(--bluel);font-weight:700">TOTALE FISSI</td><td style="color:var(--bluel);font-weight:700">&#8364;4.417/mese</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <h3>Break-even operativo</h3>
+      <div class="card-hi" style="margin-bottom:14px;text-align:center;padding:18px">
+        <p style="font-size:0.78rem;color:var(--muted);margin-bottom:4px">FORMULA: Costi fissi &divide; Margine contribuzione (41,5%)</p>
+        <div class="stat" style="font-size:2.2rem;margin:8px 0">&#8364;10.650/mese</div>
+        <p style="font-size:1rem;color:var(--ice)">= <strong style="color:var(--white)">59 ordini/mese</strong> a &#8364;180</p>
+        <p style="font-size:0.82rem;color:var(--teal);margin-top:8px;font-weight:500">Raggiunto stabilmente da Marzo 2027</p>
+      </div>
+      <h3>P&L mensile stagionalizzato (base)</h3>
+      <table style="font-size:0.75rem">
+        <thead><tr><th>Periodo</th><th>Fatt.</th><th>Margine</th><th>Netto</th><th>Cum.</th></tr></thead>
+        <tbody>
+          <tr><td style="color:var(--white)">Ott-Dic '26 (pilota)</td><td>&#8364;20,7K</td><td>&#8364;10,4K</td><td style="color:#ef5350">-&#8364;4,7K</td><td style="color:#ef5350">-&#8364;4,7K</td></tr>
+          <tr><td style="color:var(--white)">Gen-Feb '27</td><td>&#8364;23,8K</td><td>&#8364;11,9K</td><td style="color:var(--teal)">+&#8364;1,0K</td><td style="color:#ef5350">-&#8364;3,6K</td></tr>
+          <tr><td style="color:var(--white)">Mar-Giu '27 (picco)</td><td style="color:var(--teal);font-weight:600">&#8364;102,6K</td><td>&#8364;51,3K</td><td style="color:var(--teal);font-weight:600">+&#8364;24,9K</td><td style="color:var(--teal)">+&#8364;21,3K</td></tr>
+          <tr><td style="color:var(--white)">Lug-Set '27</td><td>&#8364;47,3K</td><td>&#8364;23,7K</td><td style="color:var(--teal)">+&#8364;6,4K</td><td style="color:var(--teal)">+&#8364;27,7K</td></tr>
+        </tbody>
+      </table>
+      <div class="card" style="margin-top:12px;padding:10px 14px">
+        <h3 style="font-size:0.8rem">Driver traffico (media mensile)</h3>
+        <p style="font-size:0.78rem;color:var(--ice)">Google Ads: 2.100 visite (47%) &middot; SEO: 1.400 (31%) &middot; Diretto: 1.000 (22%)</p>
+        <p style="font-size:0.78rem;color:var(--muted);margin-top:4px">CR: 2% &middot; CPC: &#8364;0,50 &middot; AOV: &#8364;180 &middot; 90 ordini/mese media</p>
+      </div>
+    </div>
+  </div>
+  <span class="sidea-footer">Sidea Group S.r.l. &mdash; Documento riservato</span>
+  <span class="slide-num">24 / 26</span>
+</div>
+<!-- SLIDE 17: Chapter Divider - Roadmap -->
+<div id="slide-25" class="slide" style="justify-content:center;align-items:flex-start">
+  <div style="opacity:0.12;font-family:'Fahkwang',sans-serif;font-size:12rem;font-weight:700;color:var(--bluel);position:absolute;right:60px;top:50%;transform:translateY(-50%)">06</div>
+  <div class="eyebrow">Capitolo 06</div>
+  <h1 style="font-size:2.8rem">Roadmap &amp;<br>Decisione</h1>
+  <p class="subtitle" style="max-width:520px">Il piano &egrave; pronto. Il prossimo passo &egrave; dare un'identit&agrave; al progetto: il brand design parte da qui.</p>
+  <span class="sidea-footer">Sidea Group S.r.l. &mdash; Documento riservato</span>
+  <span class="slide-num">25 / 26</span>
+</div>
+
+<!-- SLIDE 18: Roadmap + Rischi + Next Steps -->
+<div id="slide-26" class="slide">
+  <div class="eyebrow">Capitolo 06 &middot; Roadmap &amp; Decisione</div>
+  <h2>Il piano &egrave; chiaro. Ora serve il brand.</h2>
+  <div class="timeline-row" style="margin-top:20px;margin-bottom:24px">
+    <div class="tl-node"><div class="tl-date">Lug-Ott '26</div><div class="tl-dot active"></div><div class="tl-label">Setup &amp; Pilota</div></div>
+    <div class="tl-node"><div class="tl-date">Nov-Feb '27</div><div class="tl-dot"></div><div class="tl-label">Formazione</div></div>
+    <div class="tl-node"><div class="tl-date">Mar-Giu '27</div><div class="tl-dot"></div><div class="tl-label">Crescita stagionale</div></div>
+    <div class="tl-node"><div class="tl-date">Lug-Dic '27</div><div class="tl-dot"></div><div class="tl-label">Espansione locale</div></div>
+  </div>
+  <div class="g2">
+    <div>
+      <h3>Top rischi identificati</h3>
+      <table>
+        <thead><tr><th></th><th>Rischio</th><th>Mitigazione</th></tr></thead>
+        <tbody>
+          <tr><td><span class="risk-badge risk-high"></span></td><td style="color:var(--white)">Spedizioni fuori standard</td><td style="font-size:0.8rem">Corriere ARCO dedicato + furgone locale</td></tr>
+          <tr><td><span class="risk-badge risk-mid"></span></td><td style="color:var(--white)">Stagionalit&agrave; forte</td><td style="font-size:0.8rem">Diversificazione prodotti + pre-campagna</td></tr>
+          <tr><td><span class="risk-badge risk-mid"></span></td><td style="color:var(--white)">Overselling giacenze</td><td style="font-size:0.8rem">Webhook 5-10min + sync notturna</td></tr>
+          <tr><td><span class="risk-badge risk-low"></span></td><td style="color:var(--white)">Tempi SEO lunghi</td><td style="font-size:0.8rem">Google Ads immediato + ManoMano ponte</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <h3>Prossimo step: Brand Design</h3>
+      <p style="font-size:0.88rem;color:var(--ice);margin-bottom:14px">L'assessment ha prodotto gli <strong style="color:var(--white)">insight strategici</strong> che guideranno il processo di branding:</p>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div class="card" style="padding:14px 18px;border-left:3px solid var(--gold)">
+          <p style="font-size:0.85rem;color:var(--white);font-weight:500">Posizionamento: specialista + prezzo competitivo</p>
+          <p style="font-size:0.75rem;color:var(--muted)">Quadrante in alto a sinistra della mappa &rarr; brand che comunica competenza + convenienza</p>
+        </div>
+        <div class="card" style="padding:14px 18px;border-left:3px solid var(--gold)">
+          <p style="font-size:0.85rem;color:var(--white);font-weight:500">Target: privato 30-60 anni, Sud Italia, giardino/terrazzo</p>
+          <p style="font-size:0.75rem;color:var(--muted)">Il brand deve parlare a chi cerca soluzioni pratiche per l'outdoor</p>
+        </div>
+        <div class="card" style="padding:14px 18px;border-left:3px solid var(--gold)">
+          <p style="font-size:0.85rem;color:var(--white);font-weight:500">Tono: professionale ma accessibile, consulenza personale</p>
+          <p style="font-size:0.75rem;color:var(--muted)">10 anni di esperienza &rarr; fiducia + WhatsApp &rarr; vicinanza</p>
+        </div>
+        <div class="card" style="padding:14px 18px;border-left:3px solid var(--teal)">
+          <p style="font-size:0.85rem;color:var(--teal);font-weight:600">&#x2192; Il brand design partir&agrave; da questi insight</p>
+          <p style="font-size:0.75rem;color:var(--muted)">Naming, logo, palette, tone of voice &mdash; tutto coerente con la strategia validata</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <span class="sidea-footer">Sidea Group S.r.l. &mdash; Documento riservato</span>
+  <span class="slide-num">26 / 26</span>
+</div>
+<!-- Navigation -->
+<div class="nav-hint">&#8592; &#8594; Frecce / Click / Swipe per navigare</div>
+
+<script>
+Chart.register(ChartDataLabels);
+var slides=document.querySelectorAll('.slide');
+var cur=0,tot=slides.length;
+function go(n){
+  if(n<0||n>=tot)return;
+  slides[cur].classList.remove('active');
+  cur=n;
+  slides[cur].classList.add('active');
+  document.getElementById('prog').style.width=((cur+1)/tot*100)+'%';
+  if(slides[cur].querySelector('#revenueChart'))initRevenue();
+  if(slides[cur].querySelector('#competitorChart'))initCompetitor();
+}
+document.addEventListener('keydown',function(e){
+  if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();go(cur+1);}
+  if(e.key==='ArrowLeft'){e.preventDefault();go(cur-1);}
+});
+document.addEventListener('click',function(e){
+  if(e.target.closest('canvas'))return;
+  if(e.clientX>window.innerWidth/2)go(cur+1);else go(cur-1);
+});
+var tx=0,ty=0;
+document.addEventListener('touchstart',function(e){tx=e.changedTouches[0].screenX;ty=e.changedTouches[0].screenY;},{passive:true});
+document.addEventListener('touchend',function(e){
+  var dx=tx-e.changedTouches[0].screenX,dy=Math.abs(ty-e.changedTouches[0].screenY);
+  if(Math.abs(dx)>60&&Math.abs(dx)>dy){if(dx>0)go(cur+1);else go(cur-1);}
+},{passive:true});
+document.getElementById('prog').style.width=(1/tot*100)+'%';
+// Handle hash-based navigation (e.g. #slide-16)
+(function(){
+  var h=window.location.hash;
+  if(h&&h.match(/^#slide-\d+$/)){
+    var n=parseInt(h.replace('#slide-',''))-1;
+    if(n>=0&&n<tot)go(n);
+  }
+})();
+</script>
+<script>
+var revDone=false;
+function initRevenue(){
+  if(revDone)return;revDone=true;
+  new Chart(document.getElementById('revenueChart'),{
+    type:'line',
+    data:{
+      labels:['Anno 1','Anno 2','Anno 3','Anno 4','Anno 5'],
+      datasets:[
+        {label:'Ottimistico',data:[474000,797040,1205820,1548000,1900800],borderColor:'#00A896',backgroundColor:'rgba(0,168,150,0.08)',fill:true,tension:0.3,borderWidth:2,pointRadius:4,pointBackgroundColor:'#00A896'},
+        {label:'Base',data:[194400,376200,617760,870000,1076250],borderColor:'#197ACF',backgroundColor:'rgba(25,122,207,0.1)',fill:true,tension:0.3,borderWidth:3,pointRadius:5,pointBackgroundColor:'#197ACF'},
+        {label:'Conservativo',data:[70200,130560,206910,285600,357000],borderColor:'#9E9E9E',backgroundColor:'rgba(158,158,158,0.06)',fill:true,tension:0.3,borderWidth:2,pointRadius:4,pointBackgroundColor:'#9E9E9E'}
+      ]
+    },
+    options:{
+      responsive:true,
+      maintainAspectRatio:false,
+      interaction:{intersect:false,mode:'index'},
+      plugins:{
+        legend:{position:'bottom',labels:{color:'#E1F0FC',padding:14,font:{size:12,family:'Montserrat'}}},
+        datalabels:{display:false},
+        tooltip:{
+          backgroundColor:'#0B3254',
+          titleColor:'#9BBDE3',
+          bodyColor:'#E1F0FC',
+          borderColor:'rgba(155,189,227,0.25)',
+          borderWidth:1,
+          padding:12,
+          callbacks:{label:function(c){return c.dataset.label+': \u20AC'+(c.raw/1000).toFixed(0)+'K';}}
+        }
+      },
+      scales:{
+        x:{grid:{color:'rgba(28,71,111,0.4)'},ticks:{color:'#9E9E9E',font:{size:11,family:'Montserrat'}}},
+        y:{grid:{color:'rgba(28,71,111,0.4)'},ticks:{color:'#9E9E9E',font:{size:11,family:'Montserrat'},callback:function(v){return '\u20AC'+(v/1000).toFixed(0)+'K';}}}
+      }
+    }
+  });
+}
+// Auto-init chart if slide with revenue chart is visible on load
+setTimeout(function(){
+  var allSlides=document.querySelectorAll('.slide');
+  if(allSlides[cur]&&allSlides[cur].querySelector('#revenueChart'))initRevenue();
+  if(allSlides[cur]&&allSlides[cur].querySelector('#competitorChart'))initCompetitor();
+},200);
+</script>
+<script>
+var compDone=false;
+function initCompetitor(){
+  if(compDone)return;compDone=true;
+  new Chart(document.getElementById('competitorChart'),{
+    type:'bar',
+    data:{
+      labels:['Bestprato','erbasintetica','pratosintetico','italfrom','reteplastic','Eurotelo','ilpratofintovero'],
+      datasets:[{
+        label:'Visite organiche/mese (stimate)',
+        data:[95000,63000,60000,58000,48000,45000,6000],
+        backgroundColor:['rgba(155,189,227,0.7)','rgba(25,122,207,0.8)','rgba(25,122,207,0.7)','rgba(76,132,221,0.6)','rgba(76,132,221,0.5)','rgba(28,71,111,0.6)','rgba(28,71,111,0.4)'],
+        borderColor:['#9BBDE3','#197ACF','#197ACF','#4C84DD','#4C84DD','#1C476F','#1C476F'],
+        borderWidth:1,
+        borderRadius:4
+      }]
+    },
+    options:{
+      indexAxis:'y',
+      responsive:true,
+      maintainAspectRatio:false,
+      plugins:{
+        legend:{display:false},
+        datalabels:{
+          color:'#E1F0FC',
+          anchor:'end',
+          align:'end',
+          font:{size:11,weight:'600',family:'Montserrat'},
+          formatter:function(v){return (v/1000).toFixed(0)+'K';}
+        },
+        tooltip:{
+          backgroundColor:'#0B3254',
+          titleColor:'#9BBDE3',
+          bodyColor:'#E1F0FC',
+          borderColor:'rgba(155,189,227,0.25)',
+          borderWidth:1
+        }
+      },
+      scales:{
+        x:{grid:{color:'rgba(28,71,111,0.4)'},ticks:{color:'#9E9E9E',font:{size:10,family:'Montserrat'},callback:function(v){return (v/1000)+'K';}}},
+        y:{grid:{display:false},ticks:{color:'#E1F0FC',font:{size:11,family:'Montserrat'}}}
+      }
+    }
+  });
+}
+</script>
+</body>
+</html>
