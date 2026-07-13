@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wireframe Guida SEO — Caroli E-commerce (Shopify-compatible)</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', -apple-system, sans-serif; background: #f8f8f6; color: #1a1a1a; }
+        .wireframe-label {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            background: #2D5A27; color: white; text-align: center;
+            padding: 8px; font-size: 13px; font-weight: 600;
+        }
+        .page { max-width: 1440px; margin: 40px auto 0; padding: 0 20px 60px; }
+        .utility-nav { background: #2D5A27; color: white; padding: 8px 40px;
+            display: flex; justify-content: space-between; font-size: 12px; }
+        .header { background: white; padding: 16px 40px;
+            display: flex; align-items: center; justify-content: space-between;
+            border-bottom: 1px solid #e8e8e6; }
+        .logo { font-size: 28px; font-weight: 700; color: #2D5A27; }
+        .nav-links { display: flex; gap: 24px; }
+        .nav-links a { text-decoration: none; color: #4a4a4a; font-size: 14px; font-weight: 500; }
+        .header-right { display: flex; align-items: center; gap: 16px; }
+        .search-bar { background: #f5f5f3; border: 1px solid #e8e8e6; border-radius: 6px;
+            padding: 10px 16px; width: 240px; font-size: 13px; color: #9b9b9b; }
+        .icon-btn { width: 40px; height: 40px; border-radius: 50%; background: #f5f5f3;
+            display: flex; align-items: center; justify-content: center; font-size: 18px; }
+        .breadcrumb { padding: 16px 0; font-size: 13px; color: #9b9b9b; }
+        .breadcrumb a { color: #9b9b9b; text-decoration: none; }
+        .breadcrumb a:hover { color: #2D5A27; }
+        .breadcrumb .current { color: #1a1a1a; font-weight: 500; }
+
+        /* Article Layout */
+        .article-layout { display: grid; grid-template-columns: 1fr 300px; gap: 40px; }
+        .article-main { background: white; border-radius: 12px; padding: 40px 48px;
+            border: 1px solid #e8e8e6; }
+        .article-sidebar { position: sticky; top: 60px; align-self: start; }
+
+        /* Article Header */
+        .article-header { margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid #e8e8e6; }
+        .article-header .category-tag { display: inline-block; background: #e8f5e2; color: #2D5A27;
+            font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 4px; margin-bottom: 12px; }
+        .article-header h1 { font-size: 32px; font-weight: 700; line-height: 1.3; margin-bottom: 12px; }
+        .article-header .subtitle { font-size: 16px; color: #4a4a4a; line-height: 1.5; margin-bottom: 16px; }
+        .article-meta { display: flex; align-items: center; gap: 16px; font-size: 12px; color: #9b9b9b; }
+        .author-avatar { width: 32px; height: 32px; border-radius: 50%; background: #e8e8e6;
+            display: flex; align-items: center; justify-content: center; font-size: 14px; }
+
+        /* Table of Contents */
+        .toc { background: #f8f8f6; border-radius: 8px; padding: 20px; margin-bottom: 32px;
+            border-left: 4px solid #2D5A27; }
+        .toc h3 { font-size: 14px; font-weight: 600; margin-bottom: 12px; color: #2D5A27; }
+        .toc ol { padding-left: 20px; }
+        .toc li { padding: 6px 0; font-size: 13px; }
+        .toc a { color: #4a4a4a; text-decoration: none; }
+        .toc a:hover { color: #2D5A27; }
+
+        /* Article Content */
+        .article-content h2 { font-size: 22px; font-weight: 700; margin: 32px 0 16px;
+            padding-top: 24px; border-top: 1px solid #e8e8e6; }
+        .article-content h3 { font-size: 18px; font-weight: 600; margin: 24px 0 12px; }
+        .article-content p { font-size: 15px; line-height: 1.8; color: #4a4a4a; margin-bottom: 16px; }
+        .article-content ul, .article-content ol { margin: 12px 0 16px 24px; }
+        .article-content li { font-size: 15px; line-height: 1.8; color: #4a4a4a; padding: 4px 0; }
+
+        /* Inline CTA */
+        .inline-cta { background: #e8f5e2; border-radius: 8px; padding: 20px 24px;
+            margin: 24px 0; display: flex; align-items: center; justify-content: space-between; }
+        .inline-cta p { font-size: 14px; color: #2D5A27; font-weight: 500; margin: 0; }
+        .btn-inline { background: #2D5A27; color: white; border: none; padding: 10px 20px;
+            border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+
+        /* Comparison Table */
+        .comparison-table { width: 100%; border-collapse: collapse; margin: 24px 0; border-radius: 8px;
+            overflow: hidden; border: 1px solid #e8e8e6; }
+        .comparison-table th { background: #2D5A27; color: white; padding: 12px 16px;
+            font-size: 13px; text-align: left; }
+        .comparison-table td { padding: 12px 16px; font-size: 13px; border-bottom: 1px solid #e8e8e6; }
+        .comparison-table tr:nth-child(even) { background: #f8f8f6; }
+        .comparison-table .recommended { background: #e8f5e2; font-weight: 600; }
+
+        /* Image placeholder */
+        .article-img { background: #f0f0ee; border-radius: 8px; padding: 40px;
+            text-align: center; margin: 24px 0; font-size: 13px; color: #9b9b9b;
+            border: 2px dashed #e8e8e6; }
+
+        /* Product Recommendation */
+        .product-reco { background: white; border: 2px solid #e8f5e2; border-radius: 12px;
+            padding: 20px; margin: 24px 0; display: flex; gap: 16px; align-items: center; }
+        .product-reco .img { width: 100px; height: 100px; background: #f0f0ee; border-radius: 8px;
+            flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+            font-size: 11px; color: #9b9b9b; background-size: cover; background-position: center; }
+        .product-reco .info h4 { font-size: 14px; margin-bottom: 4px; }
+        .product-reco .info .price { font-size: 16px; font-weight: 700; color: #2D5A27; }
+        .product-reco .info .desc { font-size: 12px; color: #9b9b9b; margin: 4px 0; }
+        .product-reco .btn-sm { background: #2D5A27; color: white; border: none;
+            padding: 8px 16px; border-radius: 6px; font-size: 12px; font-weight: 600;
+            cursor: pointer; margin-top: 8px; }
+
+        /* FAQ Section */
+        .faq-section { margin: 32px 0; padding-top: 24px; border-top: 1px solid #e8e8e6; }
+        .faq-section h2 { font-size: 20px; margin-bottom: 16px; border: none; padding: 0; }
+        .faq-item { border: 1px solid #e8e8e6; border-radius: 8px; margin-bottom: 8px; overflow: hidden; }
+        .faq-question { padding: 16px 20px; font-size: 14px; font-weight: 600; cursor: pointer;
+            display: flex; justify-content: space-between; align-items: center; background: white; }
+        .faq-question::after { content: "+"; font-size: 18px; color: #2D5A27; }
+        .faq-answer { padding: 0 20px 16px; font-size: 14px; line-height: 1.7; color: #4a4a4a; }
+
+        /* Sidebar */
+        .sidebar-card { background: white; border-radius: 12px; padding: 20px;
+            border: 1px solid #e8e8e6; margin-bottom: 16px; }
+        .sidebar-card h3 { font-size: 14px; font-weight: 600; margin-bottom: 12px; }
+        .sidebar-card a { display: block; font-size: 13px; color: #4a4a4a; text-decoration: none;
+            padding: 8px 0; border-bottom: 1px solid #f0f0ee; }
+        .sidebar-card a:hover { color: #2D5A27; }
+        .sidebar-product { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid #f0f0ee; }
+        .sidebar-product .img { width: 56px; height: 56px; background: #f0f0ee; border-radius: 6px;
+            flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #9b9b9b; }
+        .sidebar-product .info { font-size: 12px; }
+        .sidebar-product .info h4 { font-size: 12px; margin-bottom: 2px; }
+        .sidebar-product .info .price { font-weight: 700; color: #2D5A27; }
+        .sidebar-cta { background: #2D5A27; color: white; border-radius: 8px; padding: 20px; text-align: center; }
+        .sidebar-cta h3 { color: white; margin-bottom: 8px; }
+        .sidebar-cta p { font-size: 12px; opacity: 0.8; margin-bottom: 12px; }
+        .sidebar-cta .btn-white { background: white; color: #2D5A27; border: none;
+            padding: 10px 20px; border-radius: 6px; font-weight: 600; font-size: 13px; cursor: pointer; }
+
+        /* Author Box */
+        .author-box { background: white; border-radius: 12px; padding: 24px;
+            border: 1px solid #e8e8e6; margin: 32px 0; display: flex; gap: 16px; align-items: center; }
+        .author-box .avatar { width: 56px; height: 56px; border-radius: 50%;
+            background: #e8e8e6; flex-shrink: 0; display: flex;
+            align-items: center; justify-content: center; font-size: 20px; }
+        .author-box .info h4 { font-size: 14px; margin-bottom: 4px; }
+        .author-box .info p { font-size: 12px; color: #9b9b9b; line-height: 1.5; }
+
+        /* Related Guides */
+        .related-guides { margin: 32px 0; }
+        .related-guides h2 { font-size: 20px; margin-bottom: 16px; }
+        .guides-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        .guide-card { background: white; border-radius: 8px; border: 1px solid #e8e8e6;
+            overflow: hidden; cursor: pointer; transition: transform 0.2s; }
+        .guide-card:hover { transform: translateY(-2px); }
+        .guide-card .img { height: 140px; background: #f0f0ee;
+            display: flex; align-items: center; justify-content: center; font-size: 11px; color: #9b9b9b;
+            background-size: cover; background-position: center; }
+        .guide-card .info { padding: 16px; }
+        .guide-card h4 { font-size: 14px; margin-bottom: 8px; line-height: 1.3; }
+        .guide-card .meta { font-size: 11px; color: #9b9b9b; }
+
+        .annotation { position: relative; border: 2px dashed #2D5A27; border-radius: 8px; padding: 4px; }
+        .annotation::after { content: attr(data-note); position: absolute; top: -10px; right: 12px;
+            background: #2D5A27; color: white; font-size: 10px; padding: 2px 8px;
+            border-radius: 4px; white-space: nowrap; }
+    </style>
+</head>
+<body>
+    <!-- Navigazione Wireframes -->
+    <div style="position:fixed;bottom:0;left:0;right:0;z-index:1001;background:#1a1a1a;padding:10px 24px;display:flex;justify-content:center;gap:16px;align-items:center;font-size:13px;">
+        <a href="../index.html" style="color:#9BBDE3;background:#082742;padding:6px 14px;border-radius:4px;text-decoration:none;font-weight:600;margin-right:auto;">&#8592; Presentazione</a>
+        <span style="color:#9b9b9b;margin-right:8px;">Wireframes:</span>
+        <a href="01-homepage.html" style="color:#ccc;padding:6px 14px;border-radius:4px;text-decoration:none;">01 Homepage</a>
+        <a href="02-plp.html" style="color:#ccc;padding:6px 14px;border-radius:4px;text-decoration:none;">02 PLP</a>
+        <a href="03-pdp.html" style="color:#ccc;padding:6px 14px;border-radius:4px;text-decoration:none;">03 PDP</a>
+        <a href="04-guida-seo.html" style="color:#fff;background:#2D5A27;padding:6px 14px;border-radius:4px;text-decoration:none;font-weight:600;">04 Guida SEO</a>
+    </div>
+
+    <div class="wireframe-label">WIREFRAME — Blog Article (Guida SEO) — Shopify Dawn Compatible</div>
+
+    <!-- Shopify Compatibility Legend -->
+    <div style="position:fixed;top:40px;right:16px;z-index:999;background:white;border:1px solid #e8e8e6;border-radius:8px;padding:10px 14px;font-size:10px;line-height:1.7;box-shadow:0 4px 12px rgba(0,0,0,0.1);max-width:220px;opacity:0.95;">
+        <strong style="font-size:11px;">Legenda Shopify</strong><br>
+        <span style="color:#2D5A27;">●</span> Nativo Dawn / OS 2.0<br>
+        <span style="color:#F39C12;">●</span> App Shopify necessaria<br>
+        <span style="color:#3498DB;">●</span> Custom Liquid / JS leggero
+    </div>
+    <div class="page">
+        <!-- Utility Nav -->
+        <div class="utility-nav">
+            <span>🚚 Spedizione GRATUITA per ordini superiori a €99</span>
+            <span>📞 Assistenza: 080 123 4567</span>
+        </div>
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">CAROLI</div>
+            <nav class="nav-links">
+                <a href="#">Prato Sintetico</a>
+                <a href="#">Arelle</a>
+                <a href="#">Ombreggianti</a>
+                <a href="#">Recinzioni</a>
+                <a href="#">Vasi</a>
+                <a href="#">Agricoltura</a>
+                <a href="#">Pannelli</a>
+            </nav>
+            <div class="header-right">
+                <div class="search-bar">🔍 Cerca prodotti...</div>
+                <div class="icon-btn">👤</div>
+                <div class="icon-btn">🛒</div>
+            </div>
+        </div>
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="#">Home</a> / <a href="#">Guide</a> / <span class="current">Come scegliere il prato sintetico</span>
+        </div>
+
+        <!-- Article Layout -->
+        <div class="article-layout">
+            <!-- Main Content -->
+            <article class="article-main">
+                <!-- Article Header -->
+                <div class="article-header annotation" data-note="● Nativo — article.title + article.author + article.published_at">
+                    <span class="category-tag">📖 GUIDA ALL'ACQUISTO</span>
+                    <h1>Come Scegliere il Prato Sintetico: Guida Completa 2025</h1>
+                    <p class="subtitle">Tutto quello che devi sapere prima di acquistare: tipologie, altezze, materiali, destinazioni d'uso e consigli per una scelta consapevole.</p>
+                    <div class="article-meta">
+                        <div class="author-avatar">👤</div>
+                        <span><strong>Marco Caroli</strong> — Esperto outdoor</span>
+                        <span>•</span>
+                        <span>Aggiornato: Luglio 2025</span>
+                        <span>•</span>
+                        <span>12 min lettura</span>
+                    </div>
+                </div>
+
+                <!-- Table of Contents -->
+                <div class="toc annotation" data-note="● Custom Liquid/JS — Auto-generato da H2 nel contenuto (~2h dev)">
+                    <h3>📋 Sommario</h3>
+                    <ol>
+                        <li><a href="#">Cosa considerare prima dell'acquisto</a></li>
+                        <li><a href="#">Tipologie di prato sintetico</a></li>
+                        <li><a href="#">Altezza del filo: quale scegliere</a></li>
+                        <li><a href="#">Tabella comparativa</a></li>
+                        <li><a href="#">Come calcolare i metri quadri</a></li>
+                        <li><a href="#">Installazione: fai-da-te o professionista?</a></li>
+                        <li><a href="#">Manutenzione e durata</a></li>
+                        <li><a href="#">Errori da evitare</a></li>
+                        <li><a href="#">I nostri consigli per destinazione d'uso</a></li>
+                    </ol>
+                </div>
+
+                <!-- Article Content -->
+                <div class="article-content">
+                    <h2>1. Cosa considerare prima dell'acquisto</h2>
+                    <p>La scelta del prato sintetico dipende da diversi fattori che è importante valutare prima dell'acquisto. Non esiste un "prato migliore in assoluto", ma esiste il prato giusto per le tue esigenze specifiche.</p>
+                    <p>I fattori principali da considerare sono:</p>
+                    <ul>
+                        <li><strong>Destinazione d'uso:</strong> giardino, terrazzo, bordo piscina o area giochi hanno esigenze diverse</li>
+                        <li><strong>Esposizione al sole:</strong> zone molto esposte richiedono resistenza UV massima</li>
+                        <li><strong>Calpestio previsto:</strong> aree ad alto traffico necessitano densità maggiore</li>
+                        <li><strong>Budget disponibile:</strong> i prezzi variano da €5 a €35/mq</li>
+                        <li><strong>Aspetto estetico desiderato:</strong> fili più alti = aspetto più lussureggiante</li>
+                    </ul>
+
+                    <div class="article-img" style="background:url('https://pikaso.cdnpk.net/private/production/4868263198/conversions/render-preview.jpg?token=exp=1784332800~hmac=8d952c02c2f25b54614d234cc2eef2961be5c0d1d75a94a5cfbc936bcacefd7c') center/cover no-repeat; height:300px; border:none;"></div>
+
+                    <!-- Inline CTA -->
+                    <div class="inline-cta annotation" data-note="● Nativo — HTML embed nel Rich Text editor dell'articolo">
+                        <p>👉 Vuoi vedere subito i nostri prati sintetici per giardino?</p>
+                        <button class="btn-inline">Scopri la collezione →</button>
+                    </div>
+
+                    <h2>2. Tipologie di prato sintetico</h2>
+                    <p>Sul mercato esistono diverse tipologie di prato sintetico, ognuna pensata per un utilizzo specifico. Ecco le principali categorie:</p>
+
+                    <h3>Prato decorativo (giardino e terrazzo)</h3>
+                    <p>È la tipologia più richiesta. Altezza filo da 30 a 50mm, aspetto molto naturale con fibre bicolore o tricolore. Ideale per aree residenziali dove l'estetica è prioritaria.</p>
+
+                    <h3>Prato sportivo</h3>
+                    <p>Filo corto (15-25mm), alta densità, grande resistenza al calpestio. Pensato per campi da calcetto, paddle, putting green e aree gioco intensive.</p>
+
+                    <h3>Prato drenante (bordo piscina)</h3>
+                    <p>Caratterizzato da un sistema di drenaggio potenziato (>60 l/min/mq) e trattamento anti-muffa. Resistente al cloro e agli agenti chimici.</p>
+
+                    <h2>3. Altezza del filo: quale scegliere</h2>
+                    <p>L'altezza del filo è il parametro più importante nella scelta. Ecco una guida rapida:</p>
+
+                    <!-- Comparison Table -->
+                    <table class="comparison-table annotation" data-note="● Nativo — Tabella HTML nel Rich Text editor">
+                        <thead>
+                            <tr>
+                                <th>Altezza</th>
+                                <th>Ideale per</th>
+                                <th>Aspetto</th>
+                                <th>Prezzo medio</th>
+                                <th>Manutenzione</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>20mm</td>
+                                <td>Sport, aree gioco</td>
+                                <td>Corto, compatto</td>
+                                <td>€8-12/mq</td>
+                                <td>Minima</td>
+                            </tr>
+                            <tr>
+                                <td>30mm</td>
+                                <td>Terrazzo, balcone</td>
+                                <td>Naturale, ordinato</td>
+                                <td>€12-18/mq</td>
+                                <td>Bassa</td>
+                            </tr>
+                            <tr class="recommended">
+                                <td>40mm ⭐</td>
+                                <td>Giardino (consigliato)</td>
+                                <td>Lussureggiante</td>
+                                <td>€18-25/mq</td>
+                                <td>Bassa</td>
+                            </tr>
+                            <tr>
+                                <td>50mm+</td>
+                                <td>Aree luxury, showroom</td>
+                                <td>Ultra-realistico</td>
+                                <td>€25-35/mq</td>
+                                <td>Media (spazzolatura)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- Product Recommendation -->
+                    <div class="product-reco annotation" data-note="● Custom Liquid — Snippet product-card inline o Shopify Buy Button embed">
+                        <div class="img" style="background-image:url('https://pikaso.cdnpk.net/private/production/4868258254/conversions/render-preview.jpg?token=exp=1784332800~hmac=220f7dcc826b4b401e804838d4d7c74ed59a06c331430f2ced2ae5d611436141')"></div>
+                        <div class="info">
+                            <h4>⭐ Il nostro consiglio: Prato "Evergreen" 40mm</h4>
+                            <p class="desc">Il più venduto — Perfetto rapporto qualità/prezzo per giardino residenziale</p>
+                            <div class="price">€18,90/mq</div>
+                            <button class="btn-sm">Vai al prodotto →</button>
+                        </div>
+                    </div>
+
+                    <h2>4. Come calcolare i metri quadri necessari</h2>
+                    <p>Per calcolare la quantità di prato sintetico necessaria, segui questi passaggi:</p>
+                    <ol>
+                        <li>Misura lunghezza e larghezza dell'area in metri</li>
+                        <li>Moltiplica: lunghezza × larghezza = mq</li>
+                        <li>Aggiungi il 5-10% per sfrido e giunzioni</li>
+                        <li>Scegli la larghezza del rotolo più adatta per minimizzare tagli</li>
+                    </ol>
+
+                    <div class="inline-cta">
+                        <p>📐 Usa il nostro calcolatore automatico di superficie</p>
+                        <button class="btn-inline">Calcola i mq →</button>
+                    </div>
+
+                    <h2>5. Installazione: fai-da-te o professionista?</h2>
+                    <p>L'installazione del prato sintetico può essere eseguita sia in autonomia (fai-da-te) che da un professionista. Ecco quando optare per l'una o l'altra soluzione:</p>
+
+                    <div class="article-img" style="background:url('https://pikaso.cdnpk.net/private/production/4868237845/render.jpg?token=exp=1784332800~hmac=fb2081ccd1515ce8f8aeffd1c08cce7b36e4559fa6e4c5c7863b07c59d03608e') center/cover no-repeat; height:260px; border:none;"></div>
+
+                    <p><strong>Fai-da-te consigliato quando:</strong></p>
+                    <ul>
+                        <li>Area inferiore a 50 mq</li>
+                        <li>Superficie piana e già preparata</li>
+                        <li>Applicazione su terrazzo/balcone (senza scavi)</li>
+                    </ul>
+
+                    <p><strong>Professionista consigliato quando:</strong></p>
+                    <ul>
+                        <li>Area superiore a 50 mq</li>
+                        <li>Terreno irregolare da livellare</li>
+                        <li>Forme complesse con molte giunzioni</li>
+                    </ul>
+
+                    <h2>6. Errori da evitare</h2>
+                    <p>Ecco i 5 errori più comuni nell'acquisto del prato sintetico:</p>
+                    <ol>
+                        <li><strong>Scegliere solo in base al prezzo</strong> — Un prato economico può sbiadire in 2-3 anni</li>
+                        <li><strong>Non verificare la resistenza UV</strong> — Cercate un valore di almeno 6/8</li>
+                        <li><strong>Ignorare il drenaggio</strong> — Fondamentale per evitare ristagni e odori</li>
+                        <li><strong>Sottovalutare la preparazione del fondo</strong> — Un fondo mal preparato crea avvallamenti</li>
+                        <li><strong>Non prevedere margine di sfrido</strong> — Aggiungete sempre il 5-10% in più</li>
+                    </ol>
+
+                    <!-- FAQ -->
+                    <div class="faq-section annotation" data-note="● Custom Liquid + Schema JSON-LD per FAQPage (o app SEO Manager)">
+                        <h2>Domande frequenti sul prato sintetico</h2>
+                        <div class="faq-item">
+                            <div class="faq-question">Quanto costa il prato sintetico al metro quadro?</div>
+                            <div class="faq-answer">Il prezzo del prato sintetico varia da €5/mq per modelli base a €35/mq per quelli premium. La fascia più richiesta è €15-25/mq, che offre un ottimo rapporto qualità/prezzo con garanzia 5-8 anni.</div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">Il prato sintetico si rovina con la pioggia?</div>
+                            <div class="faq-answer">No, i prati sintetici di qualità sono dotati di sistema di drenaggio che smaltisce l'acqua rapidamente (fino a 60 l/min/mq). Non si formano pozzanghere e il prato rimane utilizzabile anche subito dopo la pioggia.</div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">Il prato sintetico scotta al sole?</div>
+                            <div class="faq-answer">In piena estate e sole diretto, il prato sintetico può scaldarsi. I modelli con tecnologia "cool" riducono l'assorbimento di calore fino al 30%. Un'irrigazione rapida con acqua fresca riporta immediatamente la temperatura a livelli confortevoli.</div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">Posso posare il prato sintetico da solo?</div>
+                            <div class="faq-answer">Sì, per aree fino a 50 mq è un progetto fai-da-te alla portata di tutti. Servono pochi attrezzi (cutter, nastro, chiodi) e circa mezza giornata di lavoro. Forniamo guide video e testuali per ogni passaggio.</div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">Il prato sintetico è adatto agli animali domestici?</div>
+                            <div class="faq-answer">Assolutamente sì. I nostri prati sono atossici, facili da pulire e dotati di drenaggio per i liquidi. Consigliamo modelli con altezza 30-40mm e drenaggio potenziato per chi ha cani.</div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">Quanto dura un prato sintetico di qualità?</div>
+                            <div class="faq-answer">Un prato sintetico con buona resistenza UV (7-8/8) dura mediamente 10-15 anni in condizioni normali. La nostra garanzia copre fino a 8 anni contro sbiadimento e deterioramento.</div>
+                        </div>
+                    </div>
+
+                    <!-- Author Box -->
+                    <div class="author-box annotation" data-note="● Custom — Metafield autore (bio, foto) + snippet Liquid">
+                        <div class="avatar">👤</div>
+                        <div class="info">
+                            <h4>Marco Caroli — Esperto Outdoor</h4>
+                            <p>Con oltre 20 anni di esperienza nel settore outdoor e giardinaggio, Marco seleziona e testa personalmente ogni prodotto del catalogo Caroli. Specializzato in prato sintetico e soluzioni per il verde residenziale.</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Sidebar -->
+            <aside class="article-sidebar">
+                <!-- Sticky TOC (mini) -->
+                <div class="sidebar-card annotation" data-note="● Custom template — Dawn article è single-column, sidebar richiede custom article template">
+                    <h3>📋 In questa guida</h3>
+                    <a href="#">1. Cosa considerare</a>
+                    <a href="#">2. Tipologie</a>
+                    <a href="#">3. Altezza del filo</a>
+                    <a href="#">4. Calcolare i mq</a>
+                    <a href="#">5. Installazione</a>
+                    <a href="#">6. Errori da evitare</a>
+                    <a href="#" style="border:none">→ FAQ</a>
+                </div>
+
+                <!-- Recommended Products -->
+                <div class="sidebar-card">
+                    <h3>⭐ Prodotti consigliati</h3>
+                    <div class="sidebar-product">
+                        <div class="img">📸</div>
+                        <div class="info">
+                            <h4>Prato "Evergreen" 40mm</h4>
+                            <div class="price">€18,90/mq</div>
+                        </div>
+                    </div>
+                    <div class="sidebar-product">
+                        <div class="img">📸</div>
+                        <div class="info">
+                            <h4>Prato "Premium" 40mm</h4>
+                            <div class="price">€22,50/mq</div>
+                        </div>
+                    </div>
+                    <div class="sidebar-product">
+                        <div class="img">📸</div>
+                        <div class="info">
+                            <h4>Prato "Garden" 35mm</h4>
+                            <div class="price">€14,90/mq</div>
+                        </div>
+                    </div>
+                    <div class="sidebar-product" style="border:none">
+                        <div class="img">📸</div>
+                        <div class="info">
+                            <h4>Kit Posa Completo</h4>
+                            <div class="price">€39,90</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CTA Box -->
+                <div class="sidebar-cta">
+                    <h3>Non sai quale scegliere?</h3>
+                    <p>Il nostro team ti aiuta a trovare il prato perfetto per le tue esigenze</p>
+                    <button class="btn-white">💬 Chiedi consiglio</button>
+                </div>
+
+                <!-- Related Guides -->
+                <div class="sidebar-card">
+                    <h3>📖 Guide correlate</h3>
+                    <a href="#">Come posare il prato sintetico</a>
+                    <a href="#">Manutenzione prato sintetico</a>
+                    <a href="#">Prato sintetico su terrazzo</a>
+                    <a href="#" style="border:none">Prato sintetico bordo piscina</a>
+                </div>
+            </aside>
+        </div>
+
+        <!-- Related Guides Grid -->
+        <div class="related-guides annotation" data-note="● Parzialmente nativo — Dawn ha 'Blog posts' section, ma layout custom per grid 3-col">
+            <h2>Potrebbe interessarti anche</h2>
+            <div class="guides-grid">
+                <div class="guide-card">
+                    <div class="img" style="background-image:url('https://pikaso.cdnpk.net/private/production/4868237845/render.jpg?token=exp=1784332800~hmac=fb2081ccd1515ce8f8aeffd1c08cce7b36e4559fa6e4c5c7863b07c59d03608e')"></div>
+                    <div class="info">
+                        <h4>Guida completa all'installazione del prato sintetico</h4>
+                        <div class="meta">10 min lettura • Tutorial</div>
+                    </div>
+                </div>
+                <div class="guide-card">
+                    <div class="img" style="background-image:url('https://pikaso.cdnpk.net/private/production/4868235852/conversions/render-preview.jpg?token=exp=1784332800~hmac=655574ebe17ee63b44ffb63ddffa71efca1e4fa6ff76802c8e53eb55905f0e78')"></div>
+                    <div class="info">
+                        <h4>Manutenzione del prato sintetico: consigli pratici</h4>
+                        <div class="meta">6 min lettura • Consigli</div>
+                    </div>
+                </div>
+                <div class="guide-card">
+                    <div class="img" style="background-image:url('https://pikaso.cdnpk.net/private/production/4868258165/conversions/render-preview.jpg?token=exp=1784332800~hmac=c193d8aa24f2b660e7ca222b23b9ab19c5e83fd0c4a54a15fbc911936e31f2cb')"></div>
+                    <div class="info">
+                        <h4>Prato sintetico su terrazzo: tutto quello che devi sapere</h4>
+                        <div class="meta">8 min lettura • Guida</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- RIEPILOGO COMPATIBILITÀ SHOPIFY - GUIDA SEO -->
+        <!-- ============================================ -->
+        <div style="background:white;border:2px solid #2D5A27;border-radius:12px;padding:28px;margin:40px 0;">
+            <h2 style="font-size:18px;margin-bottom:16px;color:#2D5A27;">📋 Compatibilità Shopify — Blog Article (Guida SEO)</h2>
+            <p style="font-size:13px;color:#F39C12;font-weight:600;margin-bottom:6px;">⚠️ Pagina più complessa — richiede custom article template (~8-12h dev)</p>
+            <p style="font-size:12px;color:#4a4a4a;margin-bottom:16px;">In Shopify questa pagina è un <strong>Blog Article</strong> (Admin > Blog posts). Dawn ha un template articolo base single-column. Per il layout con sidebar, TOC e product embed serve un template custom.</p>
+
+            <h3 style="font-size:14px;margin:16px 0 10px;color:#2D5A27;">● Funzionalità NATIVE</h3>
+            <table style="width:100%;border-collapse:collapse;font-size:12px;margin-bottom:16px;">
+                <tr style="background:#e8f5e2;"><td style="padding:6px 10px;border:1px solid #e8e8e6;font-weight:600;width:30%;">Article title (H1)</td><td style="padding:6px 10px;border:1px solid #e8e8e6;">article.title</td></tr>
+                <tr><td style="padding:6px 10px;border:1px solid #e8e8e6;font-weight:600;">Autore + data</td><td style="padding:6px 10px;border:1px solid #e8e8e6;">article.author + article.published_at</td></tr>
+                <tr style="background:#e8f5e2;"><td style="padding:6px 10px;border:1px solid #e8e8e6;font-weight:600;">Contenuto ricco (h2, p, ul, tabelle)</td><td style="padding:6px 10px;border:1px solid #e8e8e6;">article.content — Rich Text editor con HTML completo</td></tr>
+                <tr><td style="padding:6px 10px;border:1px solid #e8e8e6;font-weight:600;">Immagini nel testo</td><td style="padding:6px 10px;border:1px solid #e8e8e6;">Embed nel content o article.image per featured</td></tr>
+                <tr style="background:#e8f5e2;"><td style="padding:6px 10px;border:1px solid #e8e8e6;font-weight:600;">Category tag</td><td style="padding:6px 10px;border:1px solid #e8e8e6;">article.tags o blog.title ("Guide")</td></tr>
+                <tr><td style="padding:6px 10px;border:1px solid #e8e8e6;font-weight:600;">Breadcrumb</td><td style="padding:6px 10px;border:1px solid #e8e8e6;">Nativo Dawn</td></tr>
+                <tr style="background:#e8f5e2;"><td style="padding:6px 10px;border:1px solid #e8e8e6;font-weight:600;">CTA inline (bottone nel testo)</td><td style="padding:6px 10px;border:1px solid #e8e8e6;">HTML embed nel Rich Text (button con link)</td></tr>
+                <tr><td style="padding:6px 10px;border:1px solid #e8e8e6;font-weight:600;">Tabella comparativa</td><td style="padding:6px 10px;border:1px solid #e8e8e6;">HTML table nel Rich Text editor</td></tr>
+            </table>
+
+            <h3 style="font-size:14px;margin:16px 0 10px;color:#3498DB;">● Richiedono CUSTOM TEMPLATE ARTICLE Liquid</h3>
+            <table style="width:100%;border-collapse:collapse;font-size:12px;margin-bottom:16px;">
+                <tr style="background:#ebf5fb;"><td style="padding:6px 10px;border:1px solid #e8e8e6;font-weight:600;width:30%;">Layout 2 colonne (main+sidebar)</td><td style="padding:6px 10px;border:1px solid #e8e8e6;">Custom article template con grid — Dawn è single column (~3h)</td></tr>
+                <tr><td style="padding:6px 10px;border:1px solid #e8e8e6;font-weight:600;">Sidebar sticky (TOC + prodotti)</td><td style="padding:6px 10px;border:1px solid #e8e8e6;">Sidebar section nel custom template (~2h)</td></tr>
+                <tr style="background:#ebf5fb;"><td style="padding:6px 10px;border:1px solid #e8e8e6;font-weight:600;">Table of Contents auto</td><td style="padding:6px 10px;border:1px solid #e8e8e6;">JS snippet che estrae H2 e genera anchor links (~2h)</td></tr>
+                <tr><td style="padding:6px 10px;border:1px solid #e8e8e6;font-weight:600;">Product recommendation inline</td><td style="padding:6px 10px;border:1px solid #e8e8e6;">Snippet Liquid con product handle o Shopify Buy Button embed (~1h)</td></tr>
+                <tr style="background:#ebf5fb;"><td style="padding:6px 10px;border:1px solid #e8e8e6;font-weight:600;">FAQ accordion</td><td style="padding:6px 10px;border:1px solid #e8e8e6;">HTML+JS nel content, oppure custom section con metafield FAQ (~1h)</td></tr>
+                <tr><td style="padding:6px 10px;border:1px solid #e8e8e6;font-weight:600;">Author box esteso (bio+foto)</td><td style="padding:6px 10px;border:1px solid #e8e8e6;">Metafield "author_bio" + snippet nel template (~1h)</td></tr>
+                <tr style="background:#ebf5fb;"><td style="padding:6px 10px;border:1px solid #e8e8e6;font-weight:600;">Schema.org FAQPage</td><td style="padding:6px 10px;border:1px solid #e8e8e6;">JSON-LD script nel template, o app SEO Manager (~30min)</td></tr>
+                <tr><td style="padding:6px 10px;border:1px solid #e8e8e6;font-weight:600;">Related articles grid (3 col)</td><td style="padding:6px 10px;border:1px solid #e8e8e6;">Custom section con blog.articles loop filtrato per tag (~1h)</td></tr>
+                <tr style="background:#ebf5fb;"><td style="padding:6px 10px;border:1px solid #e8e8e6;font-weight:600;">Sidebar prodotti consigliati</td><td style="padding:6px 10px;border:1px solid #e8e8e6;">Section con collection filtrata o product handles via metafield (~1h)</td></tr>
+            </table>
+
+            <h3 style="font-size:14px;margin:16px 0 8px;">💡 Strategia implementazione</h3>
+            <ul style="font-size:12px;line-height:2.2;padding-left:20px;color:#4a4a4a;">
+                <li><strong>Template custom:</strong> Creare <code>templates/article.guide.json</code> + <code>sections/article-guide.liquid</code> con layout a 2 colonne</li>
+                <li><strong>Alternativa semplificata:</strong> Usare il template article nativo (single column) e inserire tutto nel Rich Text. Si perde la sidebar ma si risparmiano ~6h dev</li>
+                <li><strong>Contenuto dell'articolo:</strong> Scritto come HTML ricco nel Rich Text editor di Shopify — tabelle, CTA, immagini inline funzionano tutti nativamente</li>
+                <li><strong>SEO structured data:</strong> Shopify include automaticamente schema Article. Per FAQPage aggiungere script JSON-LD manuale nel template</li>
+                <li><strong>Sidebar prodotti:</strong> Usare metafield "recommended_products" (tipo list.product_reference) per collegare prodotti specifici per articolo</li>
+                <li><strong>"Tempo di lettura":</strong> Calcolabile in Liquid con <code>article.content | strip_html | split: ' ' | size | divided_by: 200</code></li>
+                <li><strong>App alternativa:</strong> Se il budget dev è limitato, app come "Blog Studio" o "DropInBlog" offrono layout avanzati out-of-the-box (~$10-25/mese)</li>
+            </ul>
+
+            <h3 style="font-size:14px;margin:16px 0 8px;">⏱️ Stima effort totale</h3>
+            <table style="width:100%;border-collapse:collapse;font-size:12px;">
+                <tr style="background:#e8f5e2;"><td style="padding:6px 10px;border:1px solid #e8e8e6;font-weight:600;">Opzione A: Template custom completo</td><td style="padding:6px 10px;border:1px solid #e8e8e6;">~10-12h sviluppo Liquid/JS</td></tr>
+                <tr><td style="padding:6px 10px;border:1px solid #e8e8e6;font-weight:600;">Opzione B: Single column + HTML ricco</td><td style="padding:6px 10px;border:1px solid #e8e8e6;">~2-3h (solo TOC JS + schema FAQPage)</td></tr>
+                <tr style="background:#fef9e7;"><td style="padding:6px 10px;border:1px solid #e8e8e6;font-weight:600;">Opzione C: App blog avanzata</td><td style="padding:6px 10px;border:1px solid #e8e8e6;">~1h setup + $10-25/mese (DropInBlog / BlogStudio)</td></tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

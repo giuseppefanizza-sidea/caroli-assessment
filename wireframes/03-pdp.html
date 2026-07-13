@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wireframe PDP — Caroli E-commerce (Shopify-compatible)</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', -apple-system, sans-serif; background: #f8f8f6; color: #1a1a1a; }
+        .wireframe-label {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            background: #2D5A27; color: white; text-align: center;
+            padding: 8px; font-size: 13px; font-weight: 600;
+        }
+        .page { max-width: 1440px; margin: 36px auto 0; padding: 0 20px 60px; }
+        .utility-nav { background: #2D5A27; color: white; padding: 8px 40px;
+            display: flex; justify-content: space-between; font-size: 12px; }
+        .header { background: white; padding: 16px 40px;
+            display: flex; align-items: center; justify-content: space-between;
+            border-bottom: 1px solid #e8e8e6; }
+        .logo { font-size: 28px; font-weight: 700; color: #2D5A27; }
+        .nav-links { display: flex; gap: 24px; }
+        .nav-links a { text-decoration: none; color: #4a4a4a; font-size: 14px; font-weight: 500; }
+        .nav-links a.active { color: #2D5A27; border-bottom: 2px solid #2D5A27; padding-bottom: 4px; }
+        .header-right { display: flex; align-items: center; gap: 16px; }
+        .search-bar { background: #f5f5f3; border: 1px solid #e8e8e6; border-radius: 6px;
+            padding: 10px 16px; width: 240px; font-size: 13px; color: #9b9b9b; }
+        .icon-btn { width: 40px; height: 40px; border-radius: 50%; background: #f5f5f3;
+            display: flex; align-items: center; justify-content: center; font-size: 18px; }
+        .breadcrumb { padding: 16px 0; font-size: 13px; color: #9b9b9b; }
+        .breadcrumb a { color: #9b9b9b; text-decoration: none; }
+        .breadcrumb a:hover { color: #2D5A27; }
+        .breadcrumb .current { color: #1a1a1a; font-weight: 500; }
+
+        /* PDP Layout */
+        .pdp-top { display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+            background: white; border-radius: 12px; padding: 24px;
+            border: 1px solid #e8e8e6; margin-bottom: 32px; }
+
+        /* Gallery */
+        .gallery { display: grid; grid-template-columns: 60px 1fr; gap: 10px; }
+        .thumbnails { display: flex; flex-direction: column; gap: 6px; }
+        .thumb { width: 56px; height: 56px; border-radius: 6px; background: #f0f0ee;
+            border: 2px solid transparent; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; font-size: 10px; color: #9b9b9b; }
+        .thumb.active { border-color: #2D5A27; }
+        .main-image { background: #f0f0ee; border-radius: 12px; aspect-ratio: 4/3;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 14px; color: #9b9b9b; position: relative; cursor: zoom-in; max-height: 360px; }
+        .zoom-hint { position: absolute; bottom: 12px; right: 12px; background: white;
+            padding: 6px 10px; border-radius: 4px; font-size: 11px; color: #4a4a4a;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+
+        /* Product Info */
+        .product-info-panel { display: flex; flex-direction: column; gap: 10px; }
+        .product-info-panel h1 { font-size: 22px; font-weight: 700; line-height: 1.3; }
+        .rating-row { display: flex; align-items: center; gap: 8px; }
+        .stars { color: #F39C12; font-size: 16px; }
+        .rating-count { font-size: 13px; color: #9b9b9b; }
+        .price-block { padding: 10px 0; border-top: 1px solid #e8e8e6; border-bottom: 1px solid #e8e8e6; }
+        .price-main { font-size: 26px; font-weight: 700; }
+        .price-unit { font-size: 16px; font-weight: 400; color: #4a4a4a; }
+        .price-old { font-size: 18px; color: #9b9b9b; text-decoration: line-through; margin-left: 12px; }
+        .price-vat { font-size: 12px; color: #9b9b9b; margin-top: 4px; }
+
+        /* Variants */
+        .variant-section { margin: 4px 0; }
+        .variant-label { font-size: 12px; font-weight: 600; margin-bottom: 6px; }
+        .variant-label span { font-weight: 400; color: #4a4a4a; }
+        .color-swatches { display: flex; gap: 8px; }
+        .color-swatch { width: 30px; height: 30px; border-radius: 50%;
+            border: 3px solid transparent; cursor: pointer; position: relative; }
+        .color-swatch.active { border-color: #2D5A27; }
+        .color-swatch::after { content: "✓"; position: absolute; inset: 0;
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 14px; font-weight: 700; opacity: 0; }
+        .color-swatch.active::after { opacity: 1; }
+        .size-options { display: flex; gap: 8px; }
+        .size-btn { padding: 10px 20px; border: 2px solid #e8e8e6; border-radius: 6px;
+            font-size: 14px; font-weight: 500; cursor: pointer; background: white; }
+        .size-btn.active { border-color: #2D5A27; background: #e8f5e2; color: #2D5A27; }
+
+        /* Quantity Calculator */
+        .calc-section { background: #f8f8f6; border-radius: 8px; padding: 12px; margin: 6px 0; }
+        .calc-section h4 { font-size: 12px; font-weight: 600; margin-bottom: 8px; }
+        .calc-row { display: flex; align-items: center; gap: 8px; }
+        .calc-input { display: flex; flex-direction: column; gap: 2px; }
+        .calc-input label { font-size: 10px; color: #9b9b9b; }
+        .calc-input input { width: 70px; padding: 8px; border: 1px solid #e8e8e6;
+            border-radius: 6px; font-size: 13px; text-align: center; }
+        .calc-result { margin-top: 8px; padding: 8px 12px; background: #e8f5e2;
+            border-radius: 6px; font-size: 13px; }
+        .calc-result strong { color: #2D5A27; }
+        .calc-link { font-size: 12px; color: #2D5A27; cursor: pointer; margin-top: 8px;
+            display: inline-block; }
+
+        /* CTA */
+        .cta-area { margin: 10px 0; }
+        .btn-cart { width: 100%; padding: 12px; background: #2D5A27; color: white;
+            border: none; border-radius: 8px; font-size: 15px; font-weight: 700;
+            cursor: pointer; transition: background 0.2s; }
+        .btn-cart:hover { background: #1E3D1A; }
+        .secondary-actions { display: flex; gap: 8px; margin-top: 8px; }
+        .btn-sec { flex: 1; padding: 8px; border: 1px solid #e8e8e6; border-radius: 6px;
+            font-size: 12px; background: white; cursor: pointer; text-align: center; }
+        .btn-sec:hover { border-color: #2D5A27; color: #2D5A27; }
+
+        /* Shipping Info */
+        .shipping-info { border-top: 1px solid #e8e8e6; padding-top: 10px; margin-top: 6px; }
+        .info-row { display: flex; align-items: center; gap: 8px; padding: 4px 0; font-size: 12px; }
+        .info-row .icon { font-size: 14px; }
+        .info-row strong { color: #2D5A27; }
+
+        /* Trust Badges */
+        .trust-badges { display: flex; gap: 12px; margin-top: 10px; padding-top: 10px;
+            border-top: 1px solid #e8e8e6; }
+        .trust-badge { flex: 1; text-align: center; padding: 8px 4px;
+            background: #f8f8f6; border-radius: 6px; }
+        .trust-badge .icon { font-size: 18px; margin-bottom: 2px; }
+        .trust-badge span { font-size: 10px; display: block; color: #4a4a4a; }
+
+        /* Tabs */
+        .tabs-section { background: white; border-radius: 12px; padding: 0;
+            border: 1px solid #e8e8e6; margin-bottom: 32px; overflow: hidden; }
+        .tabs-nav { display: flex; border-bottom: 1px solid #e8e8e6; }
+        .tab-btn { padding: 16px 24px; font-size: 14px; font-weight: 500; cursor: pointer;
+            border-bottom: 2px solid transparent; color: #4a4a4a; }
+        .tab-btn.active { color: #2D5A27; border-bottom-color: #2D5A27; }
+        .tab-content { padding: 32px; }
+        .tab-content h3 { font-size: 18px; margin-bottom: 16px; }
+        .tab-content p { font-size: 14px; line-height: 1.7; color: #4a4a4a; margin-bottom: 12px; }
+        .spec-table { width: 100%; border-collapse: collapse; }
+        .spec-table tr:nth-child(even) { background: #f8f8f6; }
+        .spec-table td { padding: 12px 16px; font-size: 13px; border-bottom: 1px solid #e8e8e6; }
+        .spec-table td:first-child { font-weight: 600; width: 200px; color: #4a4a4a; }
+
+        /* Cross-sell */
+        .cross-sell { background: white; border-radius: 12px; padding: 32px;
+            border: 1px solid #e8e8e6; margin-bottom: 32px; }
+        .cross-sell h2 { font-size: 20px; margin-bottom: 20px; }
+        .bundle-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+        .bundle-card { border: 1px solid #e8e8e6; border-radius: 8px; padding: 16px; text-align: center; }
+        .bundle-card .img { height: 100px; background: #f0f0ee; border-radius: 6px;
+            margin-bottom: 12px; display: flex; align-items: center;
+            justify-content: center; font-size: 11px; color: #9b9b9b; }
+        .bundle-card h4 { font-size: 13px; margin-bottom: 4px; }
+        .bundle-card .price { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+        .bundle-card .add-check { display: flex; align-items: center; justify-content: center;
+            gap: 6px; font-size: 12px; color: #2D5A27; }
+        .bundle-total { margin-top: 20px; padding: 16px; background: #e8f5e2; border-radius: 8px;
+            display: flex; justify-content: space-between; align-items: center; }
+        .bundle-total span { font-size: 14px; }
+        .bundle-total strong { font-size: 18px; color: #2D5A27; }
+        .btn-bundle { background: #2D5A27; color: white; border: none; padding: 12px 24px;
+            border-radius: 6px; font-weight: 600; cursor: pointer; }
+
+        /* Similar Products */
+        .similar { margin-bottom: 48px; }
+        .similar h2 { font-size: 20px; margin-bottom: 20px; }
+        .similar-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+        .sim-card { background: white; border-radius: 8px; border: 1px solid #e8e8e6;
+            overflow: hidden; cursor: pointer; }
+        .sim-card .img { height: 160px; background: #f0f0ee;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 11px; color: #9b9b9b; background-size: cover; background-position: center; }
+        .sim-card .info { padding: 12px; }
+        .sim-card h4 { font-size: 13px; margin-bottom: 4px; }
+        .sim-card .price { font-weight: 700; }
+
+        .annotation { position: relative; border: 2px dashed #2D5A27; border-radius: 8px; padding: 4px; }
+        .annotation::after { content: attr(data-note); position: absolute; top: -10px; right: 12px;
+            background: #2D5A27; color: white; font-size: 10px; padding: 2px 8px;
+            border-radius: 4px; white-space: nowrap; }
+    </style>
+</head>
+<body>
+    <!-- Navigazione Wireframes -->
+    <div style="position:fixed;bottom:0;left:0;right:0;z-index:1001;background:#1a1a1a;padding:10px 24px;display:flex;justify-content:center;gap:16px;align-items:center;font-size:13px;">
+        <a href="../index.html" style="color:#9BBDE3;background:#082742;padding:6px 14px;border-radius:4px;text-decoration:none;font-weight:600;margin-right:auto;">&#8592; Presentazione</a>
+        <span style="color:#9b9b9b;margin-right:8px;">Wireframes:</span>
+        <a href="01-homepage.html" style="color:#ccc;padding:6px 14px;border-radius:4px;text-decoration:none;">01 Homepage</a>
+        <a href="02-plp.html" style="color:#ccc;padding:6px 14px;border-radius:4px;text-decoration:none;">02 PLP</a>
+        <a href="03-pdp.html" style="color:#fff;background:#2D5A27;padding:6px 14px;border-radius:4px;text-decoration:none;font-weight:600;">03 PDP</a>
+        <a href="04-guida-seo.html" style="color:#ccc;padding:6px 14px;border-radius:4px;text-decoration:none;">04 Guida SEO</a>
+    </div>
+
+    <div class="wireframe-label">WIREFRAME — PDP (Product Detail Page) — Shopify Dawn Compatible</div>
+
+    <!-- Shopify Compatibility Legend -->
+    <div style="position:fixed;top:40px;right:16px;z-index:999;background:white;border:1px solid #e8e8e6;border-radius:8px;padding:10px 14px;font-size:10px;line-height:1.7;box-shadow:0 4px 12px rgba(0,0,0,0.1);max-width:220px;opacity:0.95;">
+        <strong style="font-size:11px;">Legenda Shopify</strong><br>
+        <span style="color:#2D5A27;">●</span> Nativo Dawn / OS 2.0<br>
+        <span style="color:#F39C12;">●</span> App Shopify necessaria<br>
+        <span style="color:#3498DB;">●</span> Custom Liquid / JS leggero
+    </div>
+    <div class="page">
+
+        <!-- Utility Nav -->
+        <div class="utility-nav">
+            <span>🚚 Spedizione GRATUITA per ordini superiori a €99</span>
+            <span>📞 Assistenza: 080 123 4567</span>
+        </div>
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">CAROLI</div>
+            <nav class="nav-links">
+                <a href="#" class="active">Prato Sintetico</a>
+                <a href="#">Arelle</a>
+                <a href="#">Ombreggianti</a>
+                <a href="#">Recinzioni</a>
+                <a href="#">Vasi</a>
+                <a href="#">Agricoltura</a>
+                <a href="#">Pannelli</a>
+            </nav>
+            <div class="header-right">
+                <div class="search-bar">🔍 Cerca prodotti...</div>
+                <div class="icon-btn">👤</div>
+                <div class="icon-btn">🛒</div>
+            </div>
+        </div>
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="#">Home</a> / <a href="#">Prato Sintetico</a> / <span class="current">Prato Sintetico "Evergreen" 40mm</span>
+        </div>
+
+        <!-- PDP Top Section -->
+        <div class="pdp-top annotation" data-note="● Nativo — Sezione 'Product information' Dawn">
+            <!-- Gallery -->
+            <div class="gallery">
+                <div class="thumbnails">
+                    <div class="thumb active">1</div>
+                    <div class="thumb">2</div>
+                    <div class="thumb">3</div>
+                    <div class="thumb">4</div>
+                    <div class="thumb">5</div>
+                    <div class="thumb">6</div>
+                </div>
+                <div class="main-image" style="background:url('https://pikaso.cdnpk.net/private/production/4868258254/render.jpg?token=exp=1784332800~hmac=1077df455117311e69a9850c70cfebbe47c7d4ac7cadaf317b8633852d2fc5c5') center/cover no-repeat; border-radius:12px;">
+                    <div class="zoom-hint">🔍 Zoom on hover</div>
+                </div>
+            </div>
+
+            <!-- Product Info Panel -->
+            <div class="product-info-panel">
+                <h1>Prato Sintetico "Evergreen" 40mm</h1>
+                <div class="rating-row">
+                    <span class="stars">★★★★★</span>
+                    <span class="rating-count">4.8/5 — 47 recensioni</span>
+                    <span style="font-size:10px;background:#F39C12;color:white;padding:2px 6px;border-radius:3px;margin-left:8px;">APP: Judge.me / Loox</span>
+                </div>
+
+                <div class="price-block">
+                    <span class="price-main">€18,90</span>
+                    <span class="price-unit">/mq</span>
+                    <span class="price-old">€23,90</span>
+                    <p class="price-vat">IVA inclusa • Spedizione calcolata al checkout</p>
+                </div>
+
+                <!-- Color Variant — Nativo Shopify con Category Metafields -->
+                <div class="variant-section">
+                    <p class="variant-label">Colore: <span>Verde Naturale</span> <span style="font-size:10px;background:#2D5A27;color:white;padding:2px 6px;border-radius:3px;margin-left:4px;">NATIVO</span></p>
+                    <div class="color-swatches">
+                        <div class="color-swatch active" style="background:#4a7c40"></div>
+                        <div class="color-swatch" style="background:#2d5a27"></div>
+                        <div class="color-swatch" style="background:#6b9b3a"></div>
+                    </div>
+                    <p style="font-size:10px;color:#9b9b9b;margin-top:6px;font-style:italic;">
+                        Implementazione: Category Metafields (color swatch) — nativo da Shopify OS 2.0
+                    </p>
+                </div>
+
+                <!-- Size Variant — Nativo Shopify (variant option pills) -->
+                <div class="variant-section">
+                    <p class="variant-label">Larghezza rotolo: <span>2 metri</span> <span style="font-size:10px;background:#2D5A27;color:white;padding:2px 6px;border-radius:3px;margin-left:4px;">NATIVO</span></p>
+                    <div class="size-options">
+                        <div class="size-btn">1m</div>
+                        <div class="size-btn active">2m</div>
+                        <div class="size-btn">4m</div>
+                    </div>
+                    <p style="font-size:10px;color:#9b9b9b;margin-top:6px;font-style:italic;">
+                        Implementazione: Variant option "Larghezza" con display "Pill" (nativo Dawn)
+                    </p>
+                </div>
+
+                <!-- Quantity Calculator -->
+                <div class="calc-section annotation" data-note="● App: Measurement Price Calculator o Custom Liquid + JS">
+                    <h4>📐 Calcola la quantità necessaria</h4>
+                    <div class="calc-row">
+                        <div class="calc-input">
+                            <label>Lunghezza (mt)</label>
+                            <input type="number" value="5">
+                        </div>
+                        <span style="font-size:20px;color:#9b9b9b">×</span>
+                        <div class="calc-input">
+                            <label>Larghezza rotolo</label>
+                            <input type="text" value="2m" disabled style="background:#e8e8e6">
+                        </div>
+                        <span style="font-size:20px;color:#9b9b9b">=</span>
+                        <div class="calc-input">
+                            <label>Totale mq</label>
+                            <input type="text" value="10 mq" disabled style="background:#e8f5e2;font-weight:700">
+                        </div>
+                    </div>
+                    <div class="calc-result">
+                        Totale: <strong>10 mq × €18,90 = €189,00</strong>
+                    </div>
+                    <p style="font-size:11px;color:#9b9b9b;margin-top:8px;font-style:italic;">
+                        Implementazione: App "Measurement Price Calculator" (Shopify App Store) oppure custom Liquid snippet + JS nel blocco product-form.
+                        Il campo "quantity" nativo di Shopify viene calcolato = lunghezza × larghezza.
+                    </p>
+                </div>
+
+                <!-- CTA -->
+                <div class="cta-area">
+                    <button class="btn-cart">🛒 Aggiungi al carrello — €189,00</button>
+                    <p style="font-size:11px;color:#9b9b9b;margin-top:4px;font-style:italic;">
+                        Nota: il prezzo nel bottone si aggiorna via JS custom (non nativo Dawn, richiede snippet)
+                    </p>
+                    <div class="secondary-actions">
+                        <div class="btn-sec" style="position:relative;">♡ Wishlist
+                            <span style="position:absolute;top:-8px;right:-4px;background:#F39C12;color:white;font-size:8px;padding:1px 4px;border-radius:3px;">APP</span>
+                        </div>
+                        <div class="btn-sec">📤 Condividi</div>
+                    </div>
+                    <p style="font-size:11px;color:#9b9b9b;margin-top:6px;font-style:italic;">
+                        Wishlist → App: Wishlist Plus / Growave / Wishlist King<br>
+                        Condividi → Blocco nativo "Share" di Dawn
+                    </p>
+                </div>
+
+                <!-- Shipping Info — Nativo con blocco "Collapsible row" o Custom Liquid -->
+                <div class="shipping-info">
+                    <p style="font-size:10px;color:#9b9b9b;font-style:italic;margin-bottom:8px;">● Nativo: blocco "Text" o "Collapsible row" nella sezione Product con metafield per disponibilità</p>
+                    <div class="info-row">
+                        <span class="icon">✓</span>
+                        <span><strong>Disponibile</strong> — Spedizione in 3-5 giorni lavorativi</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="icon">🚚</span>
+                        <span><strong>Spedizione gratuita</strong> — Ordine superiore a €99</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="icon">↩️</span>
+                        <span>Reso gratuito entro 30 giorni</span>
+                    </div>
+                </div>
+
+                <!-- Trust Badges -->
+                <div class="trust-badges">
+                    <div class="trust-badge"><div class="icon">🔒</div><span>Pagamento sicuro</span></div>
+                    <div class="trust-badge"><div class="icon">🛡️</div><span>Garanzia 8 anni</span></div>
+                    <div class="trust-badge"><div class="icon">📞</div><span>Assistenza dedicata</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabs Section — Shopify: Collapsible Rows (nativo) o Tab con custom section -->
+        <div class="tabs-section annotation" data-note="● Nativo come Collapsible Rows / ● Custom Liquid per Tab orizzontali">
+            <div class="tabs-nav">
+                <div class="tab-btn active">Descrizione</div>
+                <div class="tab-btn">Specifiche tecniche</div>
+                <div class="tab-btn">Installazione</div>
+                <div class="tab-btn">Recensioni (47)</div>
+                <div class="tab-btn">FAQ</div>
+            </div>
+            <p style="padding:8px 32px 0;font-size:11px;color:#9b9b9b;font-style:italic;">
+                ⚠️ Dawn nativo usa "Collapsible row" (accordion), non tab orizzontali. Per questo layout serve una custom section Liquid, oppure si converte in accordion (consigliato per mobile). Le tab "Recensioni" vengono dalla app Judge.me/Loox.
+            </p>
+            <div class="tab-content">
+                <h3>Prato Sintetico Evergreen 40mm — Il più realistico della gamma</h3>
+                <p>Il prato sintetico Evergreen è la nostra soluzione premium per chi cerca l'aspetto più naturale possibile. Con un'altezza del filo di 40mm e una densità di 16.800 punti/mq, questo prodotto è ideale per giardini residenziali, aree relax e spazi dove l'estetica è fondamentale.</p>
+                <p><strong>Caratteristiche principali:</strong></p>
+                <ul style="margin: 12px 0 12px 24px; font-size: 14px; line-height: 2; color: #4a4a4a;">
+                    <li>Filo C-shape per massima resilienza e aspetto naturale</li>
+                    <li>Trattamento UV 8/8 — non sbiadisce nel tempo</li>
+                    <li>Drenaggio da 60 litri/min/mq — perfetto anche per zone piovose</li>
+                    <li>Morbido al tatto — sicuro per bambini e animali</li>
+                    <li>Zero manutenzione — niente taglio, irrigazione o fertilizzanti</li>
+                </ul>
+
+                <table class="spec-table" style="margin-top: 24px;">
+                    <tr><td>Altezza filo</td><td>40mm</td></tr>
+                    <tr><td>Densità</td><td>16.800 punti/mq</td></tr>
+                    <tr><td>Peso totale</td><td>2.850 g/mq</td></tr>
+                    <tr><td>Materiale filo</td><td>PE (Polietilene) + PP (Polipropilene)</td></tr>
+                    <tr><td>Backing</td><td>Doppio strato lattice + drenaggio perforato</td></tr>
+                    <tr><td>Resistenza UV</td><td>8/8 (massima)</td></tr>
+                    <tr><td>Drenaggio</td><td>60 litri/min/mq</td></tr>
+                    <tr><td>Larghezze disponibili</td><td>1m / 2m / 4m</td></tr>
+                    <tr><td>Ignifugo</td><td>Classe Cfl-s1</td></tr>
+                    <tr><td>Garanzia</td><td>8 anni</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- Cross-sell Bundle — Richiede App -->
+        <div class="cross-sell annotation" data-note="● App: Frequently Bought Together / PickyStory / Bundler">
+            <h2>🔧 Completa il tuo progetto</h2>
+            <p style="font-size:11px;color:#9b9b9b;font-style:italic;margin-bottom:16px;">
+                Implementazione: App "Frequently Bought Together" (Code Black Belt) o "PickyStory".<br>
+                Alternativa nativa parziale: sezione "Complementary products" di Dawn (solo raccomandazioni, senza checkbox/bundle sconto).
+            </p>
+            <div class="bundle-grid">
+                <div class="bundle-card">
+                    <div class="img">📸 Nastro giunzione</div>
+                    <h4>Nastro Giunzione 5m</h4>
+                    <div class="price">€12,90</div>
+                    <div class="add-check"><input type="checkbox" checked> Aggiungi</div>
+                </div>
+                <div class="bundle-card">
+                    <div class="img">📸 Chiodi fissaggio</div>
+                    <h4>Chiodi a U (50pz)</h4>
+                    <div class="price">€18,90</div>
+                    <div class="add-check"><input type="checkbox" checked> Aggiungi</div>
+                </div>
+                <div class="bundle-card">
+                    <div class="img">📸 Geotessuto</div>
+                    <h4>Geotessuto Anti-erba 2×10m</h4>
+                    <div class="price">€24,90</div>
+                    <div class="add-check"><input type="checkbox"> Aggiungi</div>
+                </div>
+                <div class="bundle-card">
+                    <div class="img">📸 Colla</div>
+                    <h4>Colla Bicomponente 600ml</h4>
+                    <div class="price">€16,50</div>
+                    <div class="add-check"><input type="checkbox"> Aggiungi</div>
+                </div>
+            </div>
+            <div class="bundle-total">
+                <span>Acquista insieme e <strong>risparmia il 10%</strong></span>
+                <div style="display:flex;align-items:center;gap:16px">
+                    <strong>€217,60 <small style="text-decoration:line-through;color:#9b9b9b;font-weight:400">€241,80</small></strong>
+                    <button class="btn-bundle">Aggiungi bundle →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Similar Products — Nativo Shopify "Related products" section -->
+        <div class="similar annotation" data-note="● Nativo — Sezione 'Related products' di Dawn (Product Recommendations API)">
+            <h2>Prodotti simili</h2>
+            <div class="similar-grid">
+                <div class="sim-card">
+                    <div class="img" style="background-image:url('https://pikaso.cdnpk.net/private/production/4868258274/conversions/render-preview.jpg?token=exp=1784332800~hmac=c4c70b002d2afacc53a6d673011624a180320e0c031f26e6b431af58bfa95c93')"></div>
+                    <div class="info">
+                        <h4>Prato "Premium" 40mm</h4>
+                        <div class="price">€22,50/mq</div>
+                        <div style="font-size:12px;color:#F39C12;margin-top:4px">★★★★☆ (32)</div>
+                    </div>
+                </div>
+                <div class="sim-card">
+                    <div class="img" style="background-image:url('https://pikaso.cdnpk.net/private/production/4868259239/conversions/render-preview.jpg?token=exp=1784332800~hmac=6ae59c927c1a51d566e2a37819d4488485a9e7e14d054888ba2551099a865651')"></div>
+                    <div class="info">
+                        <h4>Prato "Natural" 40mm</h4>
+                        <div class="price">€21,50/mq</div>
+                        <div style="font-size:12px;color:#F39C12;margin-top:4px">★★★★★ (73)</div>
+                    </div>
+                </div>
+                <div class="sim-card">
+                    <div class="img" style="background-image:url('https://pikaso.cdnpk.net/private/production/4868258165/conversions/render-preview.jpg?token=exp=1784332800~hmac=c193d8aa24f2b660e7ca222b23b9ab19c5e83fd0c4a54a15fbc911936e31f2cb')"></div>
+                    <div class="info">
+                        <h4>Prato "Luxury" 45mm</h4>
+                        <div class="price">€28,90/mq</div>
+                        <div style="font-size:12px;color:#F39C12;margin-top:4px">★★★★★ (18)</div>
+                    </div>
+                </div>
+                <div class="sim-card">
+                    <div class="img" style="background-image:url('https://pikaso.cdnpk.net/private/production/4868260048/conversions/render-preview.jpg?token=exp=1784332800~hmac=3c008c6dd1e66dd462b616ea7b330de090fe775dbaa90e6d2ad9451f9dc9e083')"></div>
+                    <div class="info">
+                        <h4>Prato "Garden" 35mm</h4>
+                        <div class="price">€14,90/mq</div>
+                        <div style="font-size:12px;color:#F39C12;margin-top:4px">★★★★☆ (61)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- RIEPILOGO COMPATIBILITÀ SHOPIFY -->
+        <!-- ============================================ -->
+        <div style="background:white;border:2px solid #2D5A27;border-radius:12px;padding:32px;margin-bottom:48px;">
+            <h2 style="font-size:20px;margin-bottom:20px;color:#2D5A27;">📋 Riepilogo Compatibilità Shopify (Tema Dawn / OS 2.0)</h2>
+
+            <h3 style="font-size:15px;margin:20px 0 12px;color:#2D5A27;">● Funzionalità NATIVE (incluse nel tema)</h3>
+            <table style="width:100%;border-collapse:collapse;font-size:13px;margin-bottom:24px;">
+                <tr style="background:#e8f5e2;"><td style="padding:8px 12px;border:1px solid #e8e8e6;font-weight:600;">Galleria immagini + thumbnails + zoom</td><td style="padding:8px 12px;border:1px solid #e8e8e6;">Sezione "Product information" — Media gallery</td></tr>
+                <tr><td style="padding:8px 12px;border:1px solid #e8e8e6;font-weight:600;">Varianti colore (swatch)</td><td style="padding:8px 12px;border:1px solid #e8e8e6;">Category Metafields + Color swatch nativo (OS 2.0)</td></tr>
+                <tr style="background:#e8f5e2;"><td style="padding:8px 12px;border:1px solid #e8e8e6;font-weight:600;">Varianti larghezza (pills/dropdown)</td><td style="padding:8px 12px;border:1px solid #e8e8e6;">Variant option con display "Pill" nativo</td></tr>
+                <tr><td style="padding:8px 12px;border:1px solid #e8e8e6;font-weight:600;">Prezzo + Compare-at price + IVA</td><td style="padding:8px 12px;border:1px solid #e8e8e6;">Blocco "Price" nativo</td></tr>
+                <tr style="background:#e8f5e2;"><td style="padding:8px 12px;border:1px solid #e8e8e6;font-weight:600;">Add to Cart</td><td style="padding:8px 12px;border:1px solid #e8e8e6;">Blocco "Buy buttons" nativo</td></tr>
+                <tr><td style="padding:8px 12px;border:1px solid #e8e8e6;font-weight:600;">Condividi</td><td style="padding:8px 12px;border:1px solid #e8e8e6;">Blocco "Share" nativo</td></tr>
+                <tr style="background:#e8f5e2;"><td style="padding:8px 12px;border:1px solid #e8e8e6;font-weight:600;">Breadcrumb</td><td style="padding:8px 12px;border:1px solid #e8e8e6;">Nativo Dawn</td></tr>
+                <tr><td style="padding:8px 12px;border:1px solid #e8e8e6;font-weight:600;">Descrizione / Specifiche (accordion)</td><td style="padding:8px 12px;border:1px solid #e8e8e6;">Blocco "Collapsible row" con metafields per prodotto</td></tr>
+                <tr style="background:#e8f5e2;"><td style="padding:8px 12px;border:1px solid #e8e8e6;font-weight:600;">Prodotti simili</td><td style="padding:8px 12px;border:1px solid #e8e8e6;">Sezione "Related products" (Product Recommendations API)</td></tr>
+                <tr><td style="padding:8px 12px;border:1px solid #e8e8e6;font-weight:600;">Trust badges / Icone spedizione</td><td style="padding:8px 12px;border:1px solid #e8e8e6;">Blocco "Icon with text" o "Custom Liquid"</td></tr>
+                <tr style="background:#e8f5e2;"><td style="padding:8px 12px;border:1px solid #e8e8e6;font-weight:600;">Info spedizione / Disponibilità</td><td style="padding:8px 12px;border:1px solid #e8e8e6;">Blocco "Text" / pickup availability nativo</td></tr>
+            </table>
+
+            <h3 style="font-size:15px;margin:20px 0 12px;color:#F39C12;">● Funzionalità che richiedono APP (Shopify App Store)</h3>
+            <table style="width:100%;border-collapse:collapse;font-size:13px;margin-bottom:24px;">
+                <tr style="background:#fef9e7;"><td style="padding:8px 12px;border:1px solid #e8e8e6;font-weight:600;width:35%;">Recensioni + Rating stelle</td><td style="padding:8px 12px;border:1px solid #e8e8e6;">Judge.me (free plan disponibile) o Loox (photo reviews)</td></tr>
+                <tr><td style="padding:8px 12px;border:1px solid #e8e8e6;font-weight:600;">Wishlist</td><td style="padding:8px 12px;border:1px solid #e8e8e6;">Wishlist Plus (Swym) — free fino a 100 items</td></tr>
+                <tr style="background:#fef9e7;"><td style="padding:8px 12px;border:1px solid #e8e8e6;font-weight:600;">Bundle cross-sell con sconto</td><td style="padding:8px 12px;border:1px solid #e8e8e6;">Frequently Bought Together (~$10/mese) o PickyStory</td></tr>
+                <tr><td style="padding:8px 12px;border:1px solid #e8e8e6;font-weight:600;">Calcolatore mq → quantità</td><td style="padding:8px 12px;border:1px solid #e8e8e6;">Measurement Price Calculator (Byte Commerce ~$20/mese)</td></tr>
+            </table>
+
+            <h3 style="font-size:15px;margin:20px 0 12px;color:#3498DB;">● Funzionalità che richiedono CUSTOM LIQUID / JS (~4-6h dev totali)</h3>
+            <table style="width:100%;border-collapse:collapse;font-size:13px;margin-bottom:24px;">
+                <tr style="background:#ebf5fb;"><td style="padding:8px 12px;border:1px solid #e8e8e6;font-weight:600;width:35%;">Tab orizzontali</td><td style="padding:8px 12px;border:1px solid #e8e8e6;">Custom section Liquid (~2h) — Alternativa consigliata: accordion nativo</td></tr>
+                <tr><td style="padding:8px 12px;border:1px solid #e8e8e6;font-weight:600;">Prezzo dinamico nel bottone CTA</td><td style="padding:8px 12px;border:1px solid #e8e8e6;">JS snippet nel product-form.js (~1h)</td></tr>
+                <tr style="background:#ebf5fb;"><td style="padding:8px 12px;border:1px solid #e8e8e6;font-weight:600;">Announcement bar doppio testo</td><td style="padding:8px 12px;border:1px solid #e8e8e6;">Customizzazione sezione announcement-bar.liquid (~30min)</td></tr>
+            </table>
+
+            <h3 style="font-size:15px;margin:20px 0 12px;">💡 Raccomandazioni per implementazione</h3>
+            <ul style="font-size:13px;line-height:2.2;padding-left:20px;color:#4a4a4a;">
+                <li><strong>Tab → Accordion:</strong> Su mobile le tab orizzontali funzionano male. Usare collapsible rows nativi = 0 dev, migliore UX mobile</li>
+                <li><strong>Calcolatore mq:</strong> Priorità alta (core business). Consiglio: app Measurement Price Calculator + setup line item properties per tracciare i mq nell'ordine</li>
+                <li><strong>Bundle:</strong> La sezione nativa "Complementary products" mostra prodotti correlati ma senza sconto automatico. Per il bundle con -10% serve app</li>
+                <li><strong>Struttura prodotti:</strong> Ogni prato → prezzo = €/metro lineare (non mq). La variante "Larghezza" determina il costo reale al mq</li>
+                <li><strong>Metafields da creare:</strong> specifiche_tecniche (JSON), istruzioni_installazione (rich text), garanzia_anni (integer), drenaggio (text)</li>
+                <li><strong>Tema consigliato:</strong> Dawn (gratuito) con personalizzazioni CSS + 2-3 custom sections. Alternativa premium: Prestige o Impulse (hanno tab nativi)</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

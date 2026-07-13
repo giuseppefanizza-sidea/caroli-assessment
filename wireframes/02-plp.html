@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wireframe PLP — Caroli E-commerce (Shopify-compatible)</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', -apple-system, sans-serif; background: #f8f8f6; color: #1a1a1a; }
+        .wireframe-label {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            background: #2D5A27; color: white; text-align: center;
+            padding: 8px; font-size: 13px; font-weight: 600;
+        }
+        .page { max-width: 1440px; margin: 40px auto 0; padding: 0 20px 60px; }
+        .utility-nav {
+            background: #2D5A27; color: white; padding: 8px 40px;
+            display: flex; justify-content: space-between; font-size: 12px;
+        }
+        .header {
+            background: white; padding: 16px 40px;
+            display: flex; align-items: center; justify-content: space-between;
+            border-bottom: 1px solid #e8e8e6;
+        }
+        .logo { font-size: 28px; font-weight: 700; color: #2D5A27; }
+        .nav-links { display: flex; gap: 24px; }
+        .nav-links a { text-decoration: none; color: #4a4a4a; font-size: 14px; font-weight: 500; }
+        .nav-links a.active { color: #2D5A27; border-bottom: 2px solid #2D5A27; padding-bottom: 4px; }
+        .header-right { display: flex; align-items: center; gap: 16px; }
+        .search-bar {
+            background: #f5f5f3; border: 1px solid #e8e8e6; border-radius: 6px;
+            padding: 10px 16px; width: 240px; font-size: 13px; color: #9b9b9b;
+        }
+        .icon-btn { width: 40px; height: 40px; border-radius: 50%; background: #f5f5f3;
+            display: flex; align-items: center; justify-content: center; font-size: 18px; }
+
+        /* Breadcrumb */
+        .breadcrumb { padding: 16px 0; font-size: 13px; color: #9b9b9b; }
+        .breadcrumb a { color: #9b9b9b; text-decoration: none; }
+        .breadcrumb a:hover { color: #2D5A27; }
+        .breadcrumb .current { color: #1a1a1a; font-weight: 500; }
+
+        /* Category Header */
+        .cat-header { margin-bottom: 24px; }
+        .cat-header h1 { font-size: 32px; font-weight: 700; margin-bottom: 8px; }
+        .cat-header .desc { font-size: 14px; color: #4a4a4a; line-height: 1.6; max-width: 700px; }
+        .cat-header .count { font-size: 13px; color: #9b9b9b; margin-top: 8px; }
+
+        /* Layout */
+        .plp-layout { display: grid; grid-template-columns: 260px 1fr; gap: 32px; }
+
+        /* Sidebar Filters */
+        .sidebar { position: sticky; top: 60px; align-self: start; }
+        .filter-group { background: white; border-radius: 8px; padding: 20px;
+            border: 1px solid #e8e8e6; margin-bottom: 16px; }
+        .filter-group h3 { font-size: 14px; font-weight: 600; margin-bottom: 12px;
+            display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+        .filter-group h3::after { content: "▾"; font-size: 12px; color: #9b9b9b; }
+        .filter-option { display: flex; align-items: center; gap: 8px; padding: 6px 0; font-size: 13px; }
+        .filter-option input[type="checkbox"] { accent-color: #2D5A27; }
+        .filter-option .count { margin-left: auto; color: #9b9b9b; font-size: 11px; }
+        .filter-range { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
+        .filter-range input {
+            width: 80px; padding: 8px; border: 1px solid #e8e8e6; border-radius: 4px; font-size: 13px;
+        }
+        .filter-swatch { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+        .swatch { width: 28px; height: 28px; border-radius: 50%; border: 2px solid #e8e8e6; cursor: pointer; }
+        .swatch.active { border-color: #2D5A27; box-shadow: 0 0 0 2px #2D5A27; }
+        .btn-reset { background: none; border: none; color: #C0392B; font-size: 12px;
+            cursor: pointer; margin-top: 12px; }
+
+        /* Toolbar */
+        .toolbar {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 12px 0; border-bottom: 1px solid #e8e8e6; margin-bottom: 20px;
+        }
+        .toolbar-left { display: flex; align-items: center; gap: 12px; }
+        .active-filters { display: flex; gap: 8px; }
+        .filter-tag {
+            background: #e8f5e2; color: #2D5A27; font-size: 12px;
+            padding: 4px 10px; border-radius: 20px; display: flex; align-items: center; gap: 4px;
+        }
+        .filter-tag .remove { cursor: pointer; font-weight: 700; }
+        .toolbar-right { display: flex; align-items: center; gap: 16px; }
+        .sort-select {
+            padding: 8px 12px; border: 1px solid #e8e8e6; border-radius: 6px;
+            font-size: 13px; background: white;
+        }
+        .view-toggle { display: flex; gap: 4px; }
+        .view-btn { width: 32px; height: 32px; border: 1px solid #e8e8e6; border-radius: 4px;
+            display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px; }
+        .view-btn.active { background: #2D5A27; color: white; border-color: #2D5A27; }
+
+        /* Product Grid */
+        .product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        .product-card {
+            background: white; border-radius: 12px; border: 1px solid #e8e8e6;
+            overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; cursor: pointer;
+        }
+        .product-card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+        .product-img {
+            height: 220px; background: #f0f0ee; position: relative;
+            display: flex; align-items: center; justify-content: center; font-size: 12px; color: #9b9b9b;
+            background-size: cover; background-position: center;
+        }
+        .badge { position: absolute; top: 12px; left: 12px; background: #C0392B; color: white;
+            font-size: 11px; font-weight: 600; padding: 4px 8px; border-radius: 4px; }
+        .badge.best { background: #8B6914; }
+        .badge.new { background: #2D5A27; }
+        .wishlist-btn { position: absolute; top: 12px; right: 12px; font-size: 18px; cursor: pointer; }
+        .quickview-btn { position: absolute; bottom: 12px; right: 12px; background: white;
+            border-radius: 50%; width: 32px; height: 32px; display: flex;
+            align-items: center; justify-content: center; font-size: 14px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1); opacity: 0; transition: opacity 0.2s; }
+        .product-card:hover .quickview-btn { opacity: 1; }
+        .product-info { padding: 16px; }
+        .product-info h4 { font-size: 14px; font-weight: 500; margin-bottom: 4px; line-height: 1.3; }
+        .product-info .variant { font-size: 12px; color: #9b9b9b; margin-bottom: 8px; }
+        .price-row { display: flex; align-items: baseline; gap: 8px; }
+        .price { font-size: 18px; font-weight: 700; }
+        .price-old { font-size: 14px; color: #9b9b9b; text-decoration: line-through; }
+        .price-unit { font-size: 12px; color: #9b9b9b; }
+        .stars { font-size: 12px; color: #F39C12; margin-top: 6px; }
+        .btn-add { width: 100%; margin-top: 12px; padding: 10px; background: #2D5A27;
+            color: white; border: none; border-radius: 6px; font-size: 13px;
+            font-weight: 600; cursor: pointer; }
+        .btn-add:hover { background: #1E3D1A; }
+
+        /* Mid-grid Banner */
+        .mid-banner {
+            grid-column: 1 / -1; background: #e8f5e2; border-radius: 12px;
+            padding: 32px; display: flex; align-items: center; justify-content: space-between;
+        }
+        .mid-banner h3 { font-size: 18px; color: #2D5A27; }
+        .mid-banner p { font-size: 14px; color: #4a4a4a; margin-top: 4px; }
+        .btn-secondary { background: transparent; border: 2px solid #2D5A27; color: #2D5A27;
+            padding: 10px 20px; border-radius: 6px; font-weight: 600; font-size: 13px; cursor: pointer; }
+
+        /* Pagination */
+        .pagination { display: flex; justify-content: center; align-items: center;
+            gap: 8px; margin: 40px 0; }
+        .page-btn { width: 36px; height: 36px; border-radius: 6px; border: 1px solid #e8e8e6;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 14px; cursor: pointer; background: white; }
+        .page-btn.active { background: #2D5A27; color: white; border-color: #2D5A27; }
+
+        /* SEO Content */
+        .seo-content { background: white; border-radius: 12px; padding: 32px;
+            border: 1px solid #e8e8e6; margin: 40px 0; }
+        .seo-content h2 { font-size: 20px; margin-bottom: 12px; }
+        .seo-content p { font-size: 14px; line-height: 1.7; color: #4a4a4a; margin-bottom: 12px; }
+        .faq-item { border-top: 1px solid #e8e8e6; padding: 16px 0; }
+        .faq-item h3 { font-size: 15px; font-weight: 600; cursor: pointer;
+            display: flex; justify-content: space-between; }
+        .faq-item h3::after { content: "+"; color: #2D5A27; }
+        .faq-item p { font-size: 14px; color: #4a4a4a; margin-top: 8px; line-height: 1.6; }
+
+        .annotation { position: relative; border: 2px dashed #2D5A27; border-radius: 8px; padding: 4px; }
+        .annotation::after { content: attr(data-note); position: absolute; top: -10px; right: 12px;
+            background: #2D5A27; color: white; font-size: 10px; padding: 2px 8px; border-radius: 4px; white-space: nowrap; }
+    </style>
+</head>
+<body>
+    <!-- Navigazione Wireframes -->
+    <div style="position:fixed;bottom:0;left:0;right:0;z-index:1001;background:#1a1a1a;padding:10px 24px;display:flex;justify-content:center;gap:16px;align-items:center;font-size:13px;">
+        <a href="../index.html" style="color:#9BBDE3;background:#082742;padding:6px 14px;border-radius:4px;text-decoration:none;font-weight:600;margin-right:auto;">&#8592; Presentazione</a>
+        <span style="color:#9b9b9b;margin-right:8px;">Wireframes:</span>
+        <a href="01-homepage.html" style="color:#ccc;padding:6px 14px;border-radius:4px;text-decoration:none;">01 Homepage</a>
+        <a href="02-plp.html" style="color:#fff;background:#2D5A27;padding:6px 14px;border-radius:4px;text-decoration:none;font-weight:600;">02 PLP</a>
+        <a href="03-pdp.html" style="color:#ccc;padding:6px 14px;border-radius:4px;text-decoration:none;">03 PDP</a>
+        <a href="04-guida-seo.html" style="color:#ccc;padding:6px 14px;border-radius:4px;text-decoration:none;">04 Guida SEO</a>
+    </div>
+
+    <div class="wireframe-label">WIREFRAME — PLP (Collection Page) — Shopify Dawn Compatible</div>
+
+    <!-- Shopify Compatibility Legend -->
+    <div style="position:fixed;top:40px;right:16px;z-index:999;background:white;border:1px solid #e8e8e6;border-radius:8px;padding:10px 14px;font-size:10px;line-height:1.7;box-shadow:0 4px 12px rgba(0,0,0,0.1);max-width:220px;opacity:0.95;">
+        <strong style="font-size:11px;">Legenda Shopify</strong><br>
+        <span style="color:#2D5A27;">●</span> Nativo Dawn / OS 2.0<br>
+        <span style="color:#F39C12;">●</span> App Shopify necessaria<br>
+        <span style="color:#3498DB;">●</span> Custom Liquid / JS leggero
+    </div>
+    <div class="page">
+
+        <!-- Utility Nav -->
+        <div class="utility-nav">
+            <span>🚚 Spedizione GRATUITA per ordini superiori a €99</span>
+            <span>📞 Assistenza: 080 123 4567</span>
+        </div>
+
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">CAROLI</div>
+            <nav class="nav-links">
+                <a href="#" class="active">Prato Sintetico</a>
+                <a href="#">Arelle</a>
+                <a href="#">Ombreggianti</a>
+                <a href="#">Recinzioni</a>
+                <a href="#">Vasi</a>
+                <a href="#">Agricoltura</a>
+                <a href="#">Pannelli</a>
+            </nav>
+            <div class="header-right">
+                <div class="search-bar">🔍 Cerca prodotti...</div>
+                <div class="icon-btn">👤</div>
+                <div class="icon-btn">🛒</div>
+            </div>
+        </div>
+
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+            <a href="#">Home</a> / <a href="#">Catalogo</a> / <span class="current">Prato Sintetico</span>
+        </div>
+
+        <!-- Category Header -->
+        <div class="cat-header annotation" data-note="● Nativo — collection.title + collection.description">
+            <h1>Prato Sintetico</h1>
+            <p class="desc">Scopri la nostra selezione di prato sintetico per giardino, terrazzo e bordo piscina. Qualità professionale con resistenza UV garantita fino a 8 anni. <a href="#" style="color:#2D5A27">Leggi tutto ↓</a></p>
+            <p class="count">142 prodotti disponibili</p>
+        </div>
+
+        <!-- PLP Layout -->
+        <div class="plp-layout">
+            <!-- Sidebar -->
+            <aside class="sidebar annotation" data-note="● Nativo — Storefront Filtering API (setup filtri da Admin > Navigation)">
+                <div class="filter-group">
+                    <h3>Destinazione d'uso</h3>
+                    <div class="filter-option"><input type="checkbox"> Giardino <span class="count">(68)</span></div>
+                    <div class="filter-option"><input type="checkbox"> Terrazzo <span class="count">(42)</span></div>
+                    <div class="filter-option"><input type="checkbox"> Bordo piscina <span class="count">(24)</span></div>
+                    <div class="filter-option"><input type="checkbox"> Sportivo <span class="count">(8)</span></div>
+                </div>
+                <div class="filter-group">
+                    <h3>Altezza filo</h3>
+                    <div class="filter-option"><input type="checkbox"> 20mm <span class="count">(18)</span></div>
+                    <div class="filter-option"><input type="checkbox"> 30mm <span class="count">(34)</span></div>
+                    <div class="filter-option"><input type="checkbox" checked> 40mm <span class="count">(52)</span></div>
+                    <div class="filter-option"><input type="checkbox"> 50mm+ <span class="count">(38)</span></div>
+                </div>
+                <div class="filter-group">
+                    <h3>Colore</h3>
+                    <div class="filter-swatch">
+                        <div class="swatch active" style="background:#4a7c40"></div>
+                        <div class="swatch" style="background:#2d5a27"></div>
+                        <div class="swatch" style="background:#6b9b3a"></div>
+                        <div class="swatch" style="background:#8B6914"></div>
+                    </div>
+                </div>
+                <div class="filter-group">
+                    <h3>Prezzo</h3>
+                    <div class="filter-range">
+                        <input placeholder="€ Min"> — <input placeholder="€ Max">
+                    </div>
+                </div>
+                <div class="filter-group">
+                    <h3>Larghezza rotolo</h3>
+                    <div class="filter-option"><input type="checkbox"> 1 metro <span class="count">(28)</span></div>
+                    <div class="filter-option"><input type="checkbox" checked> 2 metri <span class="count">(86)</span></div>
+                    <div class="filter-option"><input type="checkbox"> 4 metri <span class="count">(42)</span></div>
+                </div>
+                <div class="filter-group">
+                    <h3>Disponibilità</h3>
+                    <div class="filter-option"><input type="checkbox" checked> In stock <span class="count">(128)</span></div>
+                    <div class="filter-option"><input type="checkbox"> In offerta <span class="count">(12)</span></div>
+                </div>
+                <button class="btn-reset">✕ Reset filtri</button>
+            </aside>
+
+            <!-- Main Content -->
+            <main>
+                <!-- Toolbar -->
+                <div class="toolbar annotation" data-note="● Nativo (sort) / ● Custom (view toggle griglia/lista)">
+                    <div class="toolbar-left">
+                        <span style="font-size:13px;color:#9b9b9b">Filtri attivi:</span>
+                        <div class="active-filters">
+                            <span class="filter-tag">40mm <span class="remove">×</span></span>
+                            <span class="filter-tag">2 metri <span class="remove">×</span></span>
+                            <span class="filter-tag">In stock <span class="remove">×</span></span>
+                        </div>
+                    </div>
+                    <div class="toolbar-right">
+                        <select class="sort-select">
+                            <option>Ordina per: Più venduti</option>
+                            <option>Prezzo: basso → alto</option>
+                            <option>Prezzo: alto → basso</option>
+                            <option>Più recenti</option>
+                            <option>Rating più alto</option>
+                        </select>
+                        <div class="view-toggle">
+                            <div class="view-btn active">▦</div>
+                            <div class="view-btn">☰</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Grid -->
+                <div class="product-grid annotation" data-note="● Nativo — Product card Dawn / ● App: Wishlist + Quick View">
+                    <div class="product-card">
+                        <div class="product-img" style="background-image:url('https://pikaso.cdnpk.net/private/production/4868258254/conversions/render-preview.jpg?token=exp=1784332800~hmac=220f7dcc826b4b401e804838d4d7c74ed59a06c331430f2ced2ae5d611436141')">
+                            <div class="badge best">Bestseller</div>
+                            <span class="wishlist-btn">♡</span>
+                            <div class="quickview-btn">👁</div>
+                        </div>
+                        <div class="product-info">
+                            <h4>Prato Sintetico "Evergreen" 40mm</h4>
+                            <div class="variant">Verde naturale — Larghezza 2m</div>
+                            <div class="price-row">
+                                <span class="price">€18,90</span>
+                                <span class="price-unit">/mq</span>
+                            </div>
+                            <div class="stars">★★★★★ (47)</div>
+                            <button class="btn-add">Scegli opzioni</button>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-img" style="background-image:url('https://pikaso.cdnpk.net/private/production/4868258274/conversions/render-preview.jpg?token=exp=1784332800~hmac=c4c70b002d2afacc53a6d673011624a180320e0c031f26e6b431af58bfa95c93')">
+                            <div class="badge">-25%</div>
+                            <span class="wishlist-btn">♡</span>
+                            <div class="quickview-btn">👁</div>
+                        </div>
+                        <div class="product-info">
+                            <h4>Prato Sintetico "Premium" 40mm</h4>
+                            <div class="variant">Bicolore — Larghezza 2m</div>
+                            <div class="price-row">
+                                <span class="price">€22,50</span>
+                                <span class="price-old">€29,90</span>
+                                <span class="price-unit">/mq</span>
+                            </div>
+                            <div class="stars">★★★★☆ (32)</div>
+                            <button class="btn-add">Scegli opzioni</button>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-img" style="background-image:url('https://pikaso.cdnpk.net/private/production/4868259239/conversions/render-preview.jpg?token=exp=1784332800~hmac=6ae59c927c1a51d566e2a37819d4488485a9e7e14d054888ba2551099a865651')">
+                            <div class="badge new">Novità</div>
+                            <span class="wishlist-btn">♡</span>
+                            <div class="quickview-btn">👁</div>
+                        </div>
+                        <div class="product-info">
+                            <h4>Prato Sintetico "Luxury" 45mm</h4>
+                            <div class="variant">Verde scuro — Larghezza 4m</div>
+                            <div class="price-row">
+                                <span class="price">€28,90</span>
+                                <span class="price-unit">/mq</span>
+                            </div>
+                            <div class="stars">★★★★★ (18)</div>
+                            <button class="btn-add">Scegli opzioni</button>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-img" style="background-image:url('https://pikaso.cdnpk.net/private/production/4868258165/conversions/render-preview.jpg?token=exp=1784332800~hmac=c193d8aa24f2b660e7ca222b23b9ab19c5e83fd0c4a54a15fbc911936e31f2cb')"><span class="wishlist-btn">♡</span></div>
+                        <div class="product-info">
+                            <h4>Prato Sintetico "Garden" 35mm</h4>
+                            <div class="variant">Verde chiaro — Larghezza 2m</div>
+                            <div class="price-row"><span class="price">€14,90</span><span class="price-unit">/mq</span></div>
+                            <div class="stars">★★★★☆ (61)</div>
+                            <button class="btn-add">Scegli opzioni</button>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-img" style="background-image:url('https://pikaso.cdnpk.net/private/production/4868235852/conversions/render-preview.jpg?token=exp=1784332800~hmac=655574ebe17ee63b44ffb63ddffa71efca1e4fa6ff76802c8e53eb55905f0e78')"><span class="wishlist-btn">♡</span></div>
+                        <div class="product-info">
+                            <h4>Prato Sintetico "Terrace" 30mm</h4>
+                            <div class="variant">Verde naturale — Larghezza 1m</div>
+                            <div class="price-row"><span class="price">€12,50</span><span class="price-unit">/mq</span></div>
+                            <div class="stars">★★★★★ (28)</div>
+                            <button class="btn-add">Scegli opzioni</button>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-img" style="background-image:url('https://pikaso.cdnpk.net/private/production/4868260048/conversions/render-preview.jpg?token=exp=1784332800~hmac=3c008c6dd1e66dd462b616ea7b330de090fe775dbaa90e6d2ad9451f9dc9e083')"><div class="badge">-15%</div><span class="wishlist-btn">♡</span></div>
+                        <div class="product-info">
+                            <h4>Prato Sintetico "Pool" 40mm</h4>
+                            <div class="variant">Bicolore — Larghezza 2m — Drenaggio max</div>
+                            <div class="price-row"><span class="price">€24,90</span><span class="price-old">€29,30</span><span class="price-unit">/mq</span></div>
+                            <div class="stars">★★★★★ (42)</div>
+                            <button class="btn-add">Scegli opzioni</button>
+                        </div>
+                    </div>
+
+                    <!-- Mid-grid Banner -->
+                    <div class="mid-banner annotation" data-note="● Custom Liquid — Inserimento banner tra prodotti (non nativo Dawn)">
+                        <div>
+                            <h3>📖 Non sai quale scegliere?</h3>
+                            <p>Leggi la nostra guida completa al prato sintetico</p>
+                        </div>
+                        <button class="btn-secondary">Leggi la guida →</button>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-img" style="background-image:url('https://pikaso.cdnpk.net/private/production/4868258254/conversions/render-preview.jpg?token=exp=1784332800~hmac=220f7dcc826b4b401e804838d4d7c74ed59a06c331430f2ced2ae5d611436141')"><span class="wishlist-btn">♡</span></div>
+                        <div class="product-info">
+                            <h4>Prato Sintetico "Sport" 20mm</h4>
+                            <div class="variant">Verde — Larghezza 4m — Alta densità</div>
+                            <div class="price-row"><span class="price">€16,90</span><span class="price-unit">/mq</span></div>
+                            <div class="stars">★★★★☆ (15)</div>
+                            <button class="btn-add">Scegli opzioni</button>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-img" style="background-image:url('https://pikaso.cdnpk.net/private/production/4868258274/conversions/render-preview.jpg?token=exp=1784332800~hmac=c4c70b002d2afacc53a6d673011624a180320e0c031f26e6b431af58bfa95c93')"><span class="wishlist-btn">♡</span></div>
+                        <div class="product-info">
+                            <h4>Prato Sintetico "Economy" 25mm</h4>
+                            <div class="variant">Verde chiaro — Larghezza 2m</div>
+                            <div class="price-row"><span class="price">€8,90</span><span class="price-unit">/mq</span></div>
+                            <div class="stars">★★★☆☆ (9)</div>
+                            <button class="btn-add">Scegli opzioni</button>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-img" style="background-image:url('https://pikaso.cdnpk.net/private/production/4868259239/conversions/render-preview.jpg?token=exp=1784332800~hmac=6ae59c927c1a51d566e2a37819d4488485a9e7e14d054888ba2551099a865651')"><div class="badge best">Bestseller</div><span class="wishlist-btn">♡</span></div>
+                        <div class="product-info">
+                            <h4>Prato Sintetico "Natural" 40mm</h4>
+                            <div class="variant">Verde/marrone — Larghezza 2m</div>
+                            <div class="price-row"><span class="price">€21,50</span><span class="price-unit">/mq</span></div>
+                            <div class="stars">★★★★★ (73)</div>
+                            <button class="btn-add">Scegli opzioni</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination annotation" data-note="● Nativo — Paginazione Dawn con URL parametrizzati">
+                    <div class="page-btn">←</div>
+                    <div class="page-btn active">1</div>
+                    <div class="page-btn">2</div>
+                    <div class="page-btn">3</div>
+                    <div class="page-btn">4</div>
+                    <div class="page-btn">...</div>
+                    <div class="page-btn">6</div>
+                    <div class="page-btn">→</div>
+                </div>
+
+                <!-- SEO Content Bottom -->
+                <div class="seo-content annotation" data-note="● Custom Liquid — Sezione 'Rich text' sotto collection (o metafield collection_seo_text)">
+                    <h2>Prato Sintetico: guida alla scelta</h2>
+                    <p>Il prato sintetico è la soluzione ideale per chi desidera un giardino sempre verde senza manutenzione. Disponibile in diverse altezze del filo (da 20mm a 50mm+), il prato artificiale si adatta a ogni esigenza: dal terrazzo al bordo piscina, dal giardino residenziale all'area giochi.</p>
+                    <p>I nostri prati sintetici sono realizzati con materiali di alta qualità (PE + PP), trattati anti-UV per garantire una durata fino a 8 anni senza sbiadire. Il sistema di drenaggio integrato permette lo smaltimento rapido dell'acqua piovana.</p>
+                    <p style="margin-top:16px"><a href="#" style="color:#2D5A27; font-weight:500">→ Leggi la guida completa all'installazione</a> &nbsp;|&nbsp; <a href="#" style="color:#2D5A27; font-weight:500">→ Come calcolare i mq necessari</a></p>
+
+                    <h2 style="margin-top:32px; font-size:18px;">Domande frequenti</h2>
+                    <div class="faq-item">
+                        <h3>Come si posa il prato sintetico?</h3>
+                        <p>La posa del prato sintetico richiede una preparazione del fondo (livellamento, geotessuto), lo srotolamento dei teli, il taglio a misura e la giunzione con nastro e colla bicomponente. Scopri la nostra guida passo-passo.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Quanto dura il prato sintetico?</h3>
+                        <p>I nostri prati sintetici hanno una garanzia da 5 a 8 anni. Con corretta manutenzione possono durare fino a 15 anni mantenendo un aspetto naturale.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Si può posare il prato sintetico sul terrazzo?</h3>
+                        <p>Sì, il prato sintetico è perfetto per terrazzi e balconi. Consigliamo altezze tra 20-30mm per terrazzi, con ottimo drenaggio per evitare ristagni.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Come si pulisce il prato sintetico?</h3>
+                        <p>La pulizia è semplice: rimuovere foglie con soffiatore o rastrello, lavare con acqua per la polvere. Per macchie, acqua tiepida e sapone neutro.</p>
+                    </div>
+                </div>
+
+                <!-- ============================================ -->
+                <!-- RIEPILOGO COMPATIBILITÀ SHOPIFY - PLP -->
+                <!-- ============================================ -->
+                <div style="background:white;border:2px solid #2D5A27;border-radius:12px;padding:28px;margin:40px 0;">
+                    <h2 style="font-size:18px;margin-bottom:16px;color:#2D5A27;">📋 Compatibilità Shopify — Collection Page (PLP)</h2>
+                    <p style="font-size:13px;color:#2D5A27;font-weight:600;margin-bottom:12px;">✅ PLP compatibile ~80% nativa Dawn — filtri e griglia sono il core nativo</p>
+
+                    <table style="width:100%;border-collapse:collapse;font-size:12px;margin-bottom:16px;">
+                        <tr style="background:#e8f5e2;"><td style="padding:6px 10px;border:1px solid #e8e8e6;font-weight:600;width:30%;">Collection header (H1+desc)</td><td style="padding:6px 10px;border:1px solid #e8e8e6;"><span style="color:#2D5A27;">● Nativo</span> — collection.title + collection.description</td></tr>
+                        <tr><td style="padding:6px 10px;border:1px solid #e8e8e6;font-weight:600;">Filtri sidebar</td><td style="padding:6px 10px;border:1px solid #e8e8e6;"><span style="color:#2D5A27;">● Nativo</span> — Storefront Filtering API (Admin > Navigation > Filtri). Filtri custom via metafields (es. "Destinazione d'uso", "Altezza filo")</td></tr>
+                        <tr style="background:#e8f5e2;"><td style="padding:6px 10px;border:1px solid #e8e8e6;font-weight:600;">Color swatch nei filtri</td><td style="padding:6px 10px;border:1px solid #e8e8e6;"><span style="color:#2D5A27;">● Nativo</span> — Category metafield "color" con swatch automatici</td></tr>
+                        <tr><td style="padding:6px 10px;border:1px solid #e8e8e6;font-weight:600;">Prezzo range</td><td style="padding:6px 10px;border:1px solid #e8e8e6;"><span style="color:#2D5A27;">● Nativo</span> — Price filter con min/max slider</td></tr>
+                        <tr style="background:#e8f5e2;"><td style="padding:6px 10px;border:1px solid #e8e8e6;font-weight:600;">Sort by</td><td style="padding:6px 10px;border:1px solid #e8e8e6;"><span style="color:#2D5A27;">● Nativo</span> — sort_by param (price-asc, price-desc, best-selling, created-desc)</td></tr>
+                        <tr><td style="padding:6px 10px;border:1px solid #e8e8e6;font-weight:600;">Filtri attivi (tags)</td><td style="padding:6px 10px;border:1px solid #e8e8e6;"><span style="color:#2D5A27;">● Nativo</span> — Dawn mostra active filters con rimozione</td></tr>
+                        <tr style="background:#e8f5e2;"><td style="padding:6px 10px;border:1px solid #e8e8e6;font-weight:600;">Product grid + card</td><td style="padding:6px 10px;border:1px solid #e8e8e6;"><span style="color:#2D5A27;">● Nativo</span> — card-product.liquid con badge sale, immagine hover (2nd image)</td></tr>
+                        <tr><td style="padding:6px 10px;border:1px solid #e8e8e6;font-weight:600;">Paginazione</td><td style="padding:6px 10px;border:1px solid #e8e8e6;"><span style="color:#2D5A27;">● Nativo</span> — paginate tag Liquid</td></tr>
+                        <tr style="background:#fef9e7;"><td style="padding:6px 10px;border:1px solid #e8e8e6;font-weight:600;">Wishlist (♡)</td><td style="padding:6px 10px;border:1px solid #e8e8e6;"><span style="color:#F39C12;">● App</span> — Wishlist Plus / Growave</td></tr>
+                        <tr><td style="padding:6px 10px;border:1px solid #e8e8e6;font-weight:600;">Quick View (👁)</td><td style="padding:6px 10px;border:1px solid #e8e8e6;"><span style="color:#F39C12;">● App</span> — Quick View app, oppure custom drawer Liquid (~3h dev)</td></tr>
+                        <tr style="background:#fef9e7;"><td style="padding:6px 10px;border:1px solid #e8e8e6;font-weight:600;">Badge "Bestseller" / "Novità"</td><td style="padding:6px 10px;border:1px solid #e8e8e6;"><span style="color:#3498DB;">● Custom</span> — Metafield booleano + snippet badge in card-product.liquid (~1h). Badge "Sale" è nativo (compare-at price)</td></tr>
+                        <tr><td style="padding:6px 10px;border:1px solid #e8e8e6;font-weight:600;">View toggle (griglia/lista)</td><td style="padding:6px 10px;border:1px solid #e8e8e6;"><span style="color:#3498DB;">● Custom</span> — JS snippet + CSS variant (~2h dev). Non prioritario</td></tr>
+                        <tr style="background:#fef9e7;"><td style="padding:6px 10px;border:1px solid #e8e8e6;font-weight:600;">Banner mid-grid</td><td style="padding:6px 10px;border:1px solid #e8e8e6;"><span style="color:#3498DB;">● Custom</span> — Inserimento condizionale in loop prodotti via Liquid (~1h)</td></tr>
+                        <tr><td style="padding:6px 10px;border:1px solid #e8e8e6;font-weight:600;">Contenuto SEO bottom + FAQ</td><td style="padding:6px 10px;border:1px solid #e8e8e6;"><span style="color:#3498DB;">● Custom</span> — Metafield "seo_bottom_text" (rich text) + sezione custom sotto la collection. Dawn non ha questa sezione nativa nella collection page</td></tr>
+                        <tr style="background:#e8f5e2;"><td style="padding:6px 10px;border:1px solid #e8e8e6;font-weight:600;">Stelle rating in card</td><td style="padding:6px 10px;border:1px solid #e8e8e6;"><span style="color:#F39C12;">● App</span> — Judge.me (inietta badge stelle automaticamente nelle card)</td></tr>
+                    </table>
+
+                    <h3 style="font-size:14px;margin:16px 0 8px;">💡 Note implementazione PLP</h3>
+                    <ul style="font-size:12px;line-height:2;padding-left:20px;color:#4a4a4a;">
+                        <li><strong>Filtri custom:</strong> "Destinazione d'uso" e "Altezza filo" → creare metafield per prodotto, poi abilitarli in Admin > Navigation > Filtri</li>
+                        <li><strong>"Sort by: Rating più alto"</strong> → non nativo Shopify. Rimuovere o usare metafield numerico con sorting via app (Search & Discovery)</li>
+                        <li><strong>Contatore prodotti</strong> ("142 prodotti disponibili") → nativo con <code>collection.products_count</code></li>
+                        <li><strong>Secondo immagine on hover</strong> → Dawn supporta nativamente l'hover sulla seconda immagine media del prodotto</li>
+                        <li><strong>SEO bottom text:</strong> Alternativa semplice → usare il campo "description" della collection (supporta HTML ricco)</li>
+                    </ul>
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+</html>
