@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Caroli — Business Plan Strategico</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fahkwang:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+<style>
+:root{--navy:#082742;--navy2:#0B3254;--navy3:#0F3D66;--blue:#197ACF;--bluel:#9BBDE3;--ice:#E1F0FC;--white:#FFF;--muted:#9E9E9E;--linen:#1C476F;--gold:#E0A100;--teal:#00A896;--red:#C62828;--border:rgba(155,189,227,.25);--glow-blue:rgba(25,122,207,.4)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Montserrat',sans-serif;background:var(--navy);color:var(--white);overflow:hidden;height:100vh}
+.slide{display:none;width:100vw;height:100vh;padding:48px 64px;flex-direction:column;justify-content:center;position:relative;overflow-y:auto}
+.slide.active{display:flex}
+.slide-num{position:absolute;bottom:24px;right:36px;font-size:11px;color:var(--muted)}
+.sidea-footer{position:absolute;bottom:24px;left:36px;font-size:10px;color:var(--bluel);opacity:.7}
+h1{font-family:'Fahkwang',sans-serif;font-size:3rem;font-weight:700;line-height:1.1;margin-bottom:20px}
+h2{font-family:'Fahkwang',sans-serif;font-size:1.9rem;font-weight:700;line-height:1.15;margin-bottom:14px}
+h3{font-family:'Fahkwang',sans-serif;font-size:1rem;font-weight:600;color:var(--bluel);margin-bottom:8px}
+p,li{font-size:.92rem;line-height:1.6;color:var(--ice)}
+.hi{color:var(--bluel);font-weight:700}
+.hi-gold{color:var(--gold);font-weight:700}
+.subtitle{font-size:1rem;color:var(--ice);margin-bottom:24px;line-height:1.6;font-weight:300}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.card{background:linear-gradient(180deg,rgba(15,61,102,.7),rgba(8,39,66,.85));border:1px solid var(--border);border-radius:12px;padding:20px}
+.card-hi{background:linear-gradient(180deg,rgba(25,122,207,.15),rgba(8,39,66,.9));border:2px solid var(--blue);border-radius:12px;padding:20px;box-shadow:0 0 20px rgba(25,122,207,.15)}
+.stat{font-family:'Fahkwang',sans-serif;font-size:2.4rem;font-weight:700;color:var(--bluel);line-height:1}
+.stat-sm{font-family:'Fahkwang',sans-serif;font-size:1.8rem;font-weight:700;color:var(--bluel);line-height:1}
+.label{font-size:.72rem;color:var(--muted);margin-top:6px;text-transform:uppercase;letter-spacing:.5px;font-weight:500}
+table{width:100%;border-collapse:collapse;margin-top:10px}
+th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--linen);font-size:.84rem}
+th{color:var(--bluel);font-weight:600;font-size:.72rem;text-transform:uppercase;letter-spacing:.5px;border-bottom:2px solid var(--blue)}
+td{color:var(--ice)}
+tr:nth-child(even){background:rgba(15,61,102,.3)}
+.tag{display:inline-block;padding:3px 9px;border-radius:6px;font-size:.7rem;font-weight:600}
+.t-green{background:rgba(0,168,150,.15);color:var(--teal);border:1px solid rgba(0,168,150,.3)}
+.t-gold{background:rgba(224,161,0,.15);color:var(--gold);border:1px solid rgba(224,161,0,.3)}
+.t-red{background:rgba(198,40,40,.15);color:#ef5350;border:1px solid rgba(198,40,40,.3)}
+.progress{position:fixed;top:0;left:0;height:3px;background:var(--gradient-primary);transition:width .3s;z-index:100}
+.eyebrow{font-size:.7rem;color:var(--bluel);text-transform:uppercase;letter-spacing:1.5px;font-weight:600;margin-bottom:8px}
+.nav-hint{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);font-size:10px;color:var(--muted);opacity:.35}
+.tl-row{display:flex;align-items:center;margin:20px 0}.tl-node{text-align:center;flex:1;position:relative}
+.tl-node::before{content:'';position:absolute;top:18px;left:0;right:0;height:3px;background:var(--linen);z-index:0}
+.tl-node:first-child::before{left:50%}.tl-node:last-child::before{right:50%;left:0;width:50%}
+.tl-dot{width:13px;height:13px;background:var(--blue);border-radius:50%;margin:10px auto 8px;position:relative;z-index:1;box-shadow:0 0 10px var(--glow-blue)}
+.tl-dot.done{background:var(--teal);box-shadow:0 0 12px rgba(0,168,150,.5)}
+.tl-date{font-size:.68rem;color:var(--muted)}.tl-label{font-size:.78rem;color:var(--ice);font-weight:500;margin-top:3px}
+.risk-badge{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:7px}
+.risk-high{background:var(--red)}.risk-mid{background:var(--gold)}.risk-low{background:var(--teal)}
+.chart-box{position:relative;width:100%;min-height:300px}
+.divider{border-left:3px solid var(--blue);padding-left:14px;margin-bottom:10px}
+@media(max-width:768px){.slide{padding:20px 16px;padding-top:36px;justify-content:flex-start}h1{font-size:1.6rem}h2{font-size:1.2rem}.stat{font-size:1.7rem}.g2,.g3,.g4{grid-template-columns:1fr;gap:10px}.card,.card-hi{padding:14px}table{display:block;overflow-x:auto;white-space:nowrap}th,td{padding:7px 9px;font-size:.76rem}.tl-row{flex-wrap:wrap;gap:6px}.tl-node::before{display:none}}
+</style>
+</head>
+<body>
+<div class="progress" id="prog"></div>
+
+<div id="s1" class="slide active">
+<div class="eyebrow">Business Plan Strategico &middot; Approccio McKinsey</div>
+<h1>Caroli<br><span class="hi">E-commerce Strategy</span></h1>
+<p class="subtitle">Assessment completato. Piano validato con dati reali. Decisione da prendere.<br>Dati SEOZoom verificati (142K ricerche/mese) &middot; Modello finanziario 5 anni &middot; 3 scenari</p>
+<div style="margin-top:28px;display:flex;gap:16px;flex-wrap:wrap">
+<div class="card" style="padding:12px 18px"><span style="font-size:.78rem;color:var(--bluel);font-weight:600">Luglio 2026</span></div>
+<div class="card" style="padding:12px 18px"><span style="font-size:.78rem;color:var(--bluel);font-weight:600">4 Incontri &middot; 99 keyword analizzate</span></div>
+<div class="card" style="padding:12px 18px"><span style="font-size:.78rem;color:var(--teal);font-weight:600">&#10003; Raccomandazione: PROCEDERE</span></div>
+</div>
+<span class="sidea-footer">Sidea Group S.r.l. &mdash; Documento riservato</span>
+<span class="slide-num">1 / 21</span>
+</div>
+
+<div id="s2" class="slide">
+<div class="eyebrow">Executive Summary</div>
+<h2>Il progetto in 60 secondi</h2>
+<div class="g2" style="margin-top:14px">
+<div>
+<div class="card-hi" style="margin-bottom:14px">
+<h3 style="color:var(--teal)">Raccomandazione finale</h3>
+<p style="font-size:1.1rem;color:var(--white);font-weight:700;margin:6px 0">PROCEDERE CON CONDIZIONI</p>
+<ul style="list-style:none;padding:0;margin-top:10px">
+<li style="padding:4px 0;font-size:.84rem">&#9312; Conferma budget &euro;55-60K</li>
+<li style="padding:4px 0;font-size:.84rem">&#9313; Tariffari corrieri negoziati pre-lancio</li>
+<li style="padding:4px 0;font-size:.84rem">&#9314; Pilota ottobre 2026 come gate decisionale</li>
+<li style="padding:4px 0;font-size:.84rem">&#9315; Primi 12-18 mesi in perdita (accettare)</li>
+</ul>
+</div>
+<div class="card" style="border-left:3px solid var(--gold)">
+<p style="font-size:.84rem;color:var(--gold);font-weight:600">Worst case: perdita &euro;50-60K in 2 anni = 0,5% del fatturato fisico. Assorbibile.</p>
+<p style="font-size:.84rem;color:var(--ice);margin-top:6px">Best case: canale da &euro;500K+/anno entro anno 5.</p>
+</div>
+</div>
+<div>
+<table>
+<thead><tr><th>Metrica</th><th>Anno 1</th><th>Anno 3</th><th>Anno 5</th></tr></thead>
+<tbody>
+<tr><td style="color:var(--white)">Fatturato</td><td>&euro;70-194K</td><td>&euro;207-618K</td><td style="color:var(--teal);font-weight:600">&euro;357K-1,08M</td></tr>
+<tr><td style="color:var(--white)">EBITDA</td><td style="color:#ef5350">-&euro;15K/+&euro;28K</td><td style="color:var(--teal)">+&euro;50-163K</td><td style="color:var(--teal)">+&euro;92-304K</td></tr>
+<tr><td style="color:var(--white)">Break-even</td><td colspan="3">&euro;13.373/mese = 89 ordini &middot; Anno 3 (base)</td></tr>
+<tr><td style="color:var(--white)">Payback</td><td colspan="3">~30 mesi (base) &middot; ~48 mesi (conservativo)</td></tr>
+<tr><td style="color:var(--white)">LTV/CAC</td><td colspan="3" style="color:var(--teal)">9-18x (eccellente: &gt;3x = sostenibile)</td></tr>
+</tbody>
+</table>
+<div class="card" style="margin-top:12px">
+<h3>Target Gianvito: &euro;200K/anno</h3>
+<p style="font-size:.84rem">Raggiunto: Anno 2 (base) oppure Anno 3 (conservativo). Coerente con aspettativa &ldquo;break-even 2,5-3 anni come nel fisico&rdquo;.</p>
+</div>
+</div>
+</div>
+<span class="sidea-footer">Sidea Group S.r.l. &mdash; Documento riservato</span>
+<span class="slide-num">2 / 21</span>
+</div>
+
+<div id="s3" class="slide">
+<div class="eyebrow">Issue-Driven Analysis</div>
+<h2>Le 10 domande strategiche</h2>
+<p class="subtitle">7/10 hanno risposta positiva. 2 parziali. 1 critica (logistica) da risolvere pre-lancio.</p>
+<table style="font-size:.8rem">
+<thead><tr><th>#</th><th>Domanda</th><th>Stato</th><th>Sintesi</th></tr></thead>
+<tbody>
+<tr><td>1</td><td style="color:var(--white)">Domanda online sufficiente?</td><td><span class="tag t-green">&#10003;</span></td><td>142.180 ricerche/mese verificate SEOZoom</td></tr>
+<tr><td>2</td><td style="color:var(--white)">Vantaggio competitivo difendibile?</td><td><span class="tag t-green">&#10003;</span></td><td>Container diretto = -30/40% vs competitor</td></tr>
+<tr><td>3</td><td style="color:var(--white)">Integrazione tech fattibile?</td><td><span class="tag t-green">&#10003;</span></td><td>API REST native, Donato collaborativo</td></tr>
+<tr><td>4</td><td style="color:var(--white)">Modello economico sostenibile?</td><td><span class="tag t-gold">~</span></td><td>Break-even anno 3. Serve &euro;55-60K</td></tr>
+<tr><td>5</td><td style="color:var(--white)">Organizzazione pu&ograve; assorbire?</td><td><span class="tag t-gold">~</span></td><td>1 risorsa OK anno 1, rischio in picco</td></tr>
+<tr><td>6</td><td style="color:var(--white)">Logistica gestibile?</td><td><span class="tag t-red">!</span></td><td style="color:var(--gold)">Tariffari corrieri da negoziare</td></tr>
+<tr><td>7</td><td style="color:var(--white)">Budget sufficiente?</td><td><span class="tag t-gold">~</span></td><td>&euro;40-50K dichiarati vs &euro;55-60K necessari</td></tr>
+<tr><td>8</td><td style="color:var(--white)">Posizionamento difendibile?</td><td><span class="tag t-green">&#10003;</span></td><td>Nessun competitor nel perimetro</td></tr>
+<tr><td>9</td><td style="color:var(--white)">Rischi accettabili?</td><td><span class="tag t-green">&#10003;</span></td><td>15 rischi mappati, nessuno bloccante</td></tr>
+<tr><td>10</td><td style="color:var(--white)">Costo inazione?</td><td><span class="tag t-green">&#10003;</span></td><td>Elevato: &euro;50-100K/anno mancato guadagno</td></tr>
+</tbody>
+</table>
+<span class="sidea-footer">Sidea Group S.r.l. &mdash; Documento riservato</span>
+<span class="slide-num">3 / 21</span>
+</div>
+
+<div id="s4" class="slide" style="justify-content:center;align-items:flex-start">
+<div style="opacity:.1;font-family:'Fahkwang',sans-serif;font-size:11rem;font-weight:700;color:var(--bluel);position:absolute;right:50px;top:50%;transform:translateY(-50%)">01</div>
+<div class="eyebrow">Sezione 01</div>
+<h1 style="font-size:2.6rem">Mercato &amp;<br>Posizionamento</h1>
+<p class="subtitle" style="max-width:500px">&euro;556M di mercato Garden online, +12%/anno. Due categorie hero con 55K ricerche/mese ciascuna. Zero leader verticali nel perimetro Caroli.</p>
+<span class="sidea-footer">Sidea Group S.r.l. &mdash; Documento riservato</span>
+<span class="slide-num">4 / 21</span>
+</div>
+
+<div id="s5" class="slide">
+<div class="eyebrow">Mercato &middot; Domanda Verificata SEOZoom</div>
+<h2>142.180 ricerche/mese: il mercato esiste</h2>
+<div class="g4" style="margin-top:16px">
+<div class="card" style="text-align:center"><div class="stat">&euro;556M</div><div class="label">Garden e-comm Italia 2024</div></div>
+<div class="card" style="text-align:center"><div class="stat" style="color:var(--teal)">+12%</div><div class="label">Crescita YoY</div></div>
+<div class="card" style="text-align:center"><div class="stat">142K</div><div class="label">Ricerche/mese (verificato)</div></div>
+<div class="card" style="text-align:center"><div class="stat" style="color:var(--gold)">0</div><div class="label">Leader multi-categoria</div></div>
+</div>
+<div class="g3" style="margin-top:18px">
+<div class="card" style="border-left:3px solid var(--teal)"><h3 style="color:var(--teal)">Erba sintetica</h3><div class="stat-sm">55.610</div><p style="font-size:.75rem;color:var(--muted);margin-top:4px">39% &middot; CPC &euro;0,28-0,47</p></div>
+<div class="card" style="border-left:3px solid var(--gold)"><h3 style="color:var(--gold)">Frangivista + Arelle</h3><div class="stat-sm" style="color:var(--gold)">55.250</div><p style="font-size:.75rem;color:var(--gold);margin-top:4px">39% &middot; CPC &euro;0,07-0,13 &#9889;</p></div>
+<div class="card" style="border-left:3px solid var(--blue)"><h3>Teloni + Reti</h3><div class="stat-sm">31.320</div><p style="font-size:.75rem;color:var(--muted);margin-top:4px">22% &middot; Stagionale</p></div>
+</div>
+<div class="card" style="margin-top:14px;border:1px solid var(--gold);padding:12px 16px">
+<p style="font-size:.84rem;color:var(--gold);font-weight:600">&#9889; Scoperta chiave: &ldquo;Frangivista&rdquo; genera 43.480/mese con CPC 3-5x pi&ugrave; basso dell'erba sintetica. Nessun competitor dedicato. Secondo pilastro hero.</p>
+</div>
+<span class="sidea-footer">Sidea Group S.r.l. &mdash; Documento riservato</span>
+<span class="slide-num">5 / 21</span>
+</div>
+
+<div id="s6" class="slide">
+<div class="eyebrow">Mercato &middot; Benchmark Prezzi (Scraping Playwright, Lug 2026)</div>
+<h2>Vantaggio strutturale: <span class="hi">-30/40%</span> con margine pieno</h2>
+<div class="g2" style="margin-top:14px">
+<div>
+<h3>Prato sintetico &mdash; &euro;/mq</h3>
+<table>
+<thead><tr><th>Fascia</th><th>Competitor</th><th>Caroli</th><th>&Delta;</th></tr></thead>
+<tbody>
+<tr><td style="color:var(--white)">Raso 7-10mm</td><td>&euro;4,90-5,39</td><td style="color:var(--teal);font-weight:600">&euro;3,30</td><td style="color:var(--teal)">-33%</td></tr>
+<tr><td style="color:var(--white)">Medio 25-30mm</td><td>&euro;11-12</td><td style="color:var(--teal);font-weight:600">&euro;8,00</td><td style="color:var(--teal)">-30%</td></tr>
+<tr><td style="color:var(--white)">Alto 35-40mm</td><td>&euro;12-14</td><td style="color:var(--teal);font-weight:600">&euro;10,00</td><td style="color:var(--teal)">-25%</td></tr>
+</tbody>
+</table>
+<h3 style="margin-top:14px">Arelle &mdash; &euro;/pezzo</h3>
+<table>
+<thead><tr><th>Prodotto</th><th>Online</th><th>Caroli</th><th>Margine</th></tr></thead>
+<tbody>
+<tr><td style="color:var(--white)">Bamb&ugrave; 2x3m</td><td>&euro;24-37</td><td style="color:var(--teal)">&euro;19,90</td><td>66%</td></tr>
+<tr><td style="color:var(--white)">Time 2,5x3m</td><td>&euro;40-70</td><td style="color:var(--teal)">&euro;39,90</td><td>53%</td></tr>
+<tr><td style="color:var(--white)">PVC 1,5x3m</td><td>&euro;22-35</td><td style="color:var(--teal)">&euro;22,90</td><td style="color:var(--gold)">91%</td></tr>
+</tbody>
+</table>
+</div>
+<div>
+<div class="card-hi" style="text-align:center;margin-bottom:14px"><p style="font-size:.72rem;color:var(--muted)">RICARICO MEDIO</p><div class="stat" style="margin:6px 0">80-100%</div><p style="font-size:.84rem">vendendo sotto mercato del 25-40%</p></div>
+<div class="card">
+<h3>Perch&eacute; difendibile</h3>
+<ul style="list-style:none;padding:0">
+<li style="padding:4px 0;font-size:.82rem">&#10003; Relazione diretta produttori cinesi</li>
+<li style="padding:4px 0;font-size:.82rem">&#10003; Magazzino &euro;100K pre-investito</li>
+<li style="padding:4px 0;font-size:.82rem">&#10003; Furgone proprio (60-100km gratis)</li>
+<li style="padding:4px 0;font-size:.82rem">&#10003; 10 anni competenza di prodotto</li>
+<li style="padding:4px 0;font-size:.82rem">&#10003; Marchio proprio prato + arelle</li>
+</ul>
+</div>
+<div class="card" style="margin-top:12px;border:1px solid var(--gold);padding:12px 16px">
+<p style="font-size:.8rem;color:var(--gold)">Sunita (Cisternino): Arella Time 2,5x3 = &euro;69,90<br>Costo Caroli: &euro;26 &rarr; <strong>Margine: 170%</strong></p>
+</div>
+</div>
+</div>
+<span class="sidea-footer">Sidea Group S.r.l. &mdash; Documento riservato</span>
+<span class="slide-num">6 / 21</span>
+</div>
+
+<div id="s7" class="slide">
+<div class="eyebrow">Mercato &middot; Competitor</div>
+<h2>Nessuno occupa lo spazio di Caroli</h2>
+<div class="g2" style="margin-top:14px">
+<div>
+<table style="font-size:.8rem">
+<thead><tr><th>Competitor</th><th>Focus</th><th>Traffico</th><th>Gap vs Caroli</th></tr></thead>
+<tbody>
+<tr><td style="color:var(--white)">erbasintetica.eu</td><td>Solo prato</td><td>63K/m</td><td>No arelle/ombreggianti</td></tr>
+<tr><td style="color:var(--white)">pratosintetico.eu</td><td>Solo prato</td><td>60K/m</td><td>Mono-categoria</td></tr>
+<tr><td style="color:var(--white)">reteplastic.it</td><td>Recinzioni</td><td>48K/m</td><td>No prato, no contenuti</td></tr>
+<tr><td style="color:var(--white)">Eurotelo.it</td><td>Teli (1998)</td><td>~40K/m</td><td>UX datata, no prato</td></tr>
+<tr><td style="color:var(--white)">Polsinelli.it</td><td>Enologia</td><td>272K/m</td><td>No outdoor</td></tr>
+<tr><td style="color:var(--white)">Amazon/ManoMano</td><td>Generalisti</td><td>Altissimo</td><td>No consulenza, no brand</td></tr>
+</tbody>
+</table>
+</div>
+<div>
+<div class="card-hi">
+<h3 style="color:var(--teal)">Gap di mercato confermati</h3>
+<ul style="list-style:none;padding:0">
+<li style="padding:5px 0;font-size:.84rem">&#9312; Nessuno vende INSIEME outdoor + agricoltura</li>
+<li style="padding:5px 0;font-size:.84rem">&#9313; &ldquo;Frangivista&rdquo; (43K/mese) senza leader dedicato</li>
+<li style="padding:5px 0;font-size:.84rem">&#9314; Sud Italia sotto-servito (tutti al Nord)</li>
+<li style="padding:5px 0;font-size:.84rem">&#9315; Nessuno offre consulenza specialistica online</li>
+<li style="padding:5px 0;font-size:.84rem">&#9316; Categorie agri coprono mesi morti outdoor</li>
+</ul>
+</div>
+</div>
+</div>
+<span class="sidea-footer">Sidea Group S.r.l. &mdash; Documento riservato</span>
+<span class="slide-num">7 / 21</span>
+</div>
+
+<div id="s8" class="slide" style="justify-content:center;align-items:flex-start">
+<div style="opacity:.1;font-family:'Fahkwang',sans-serif;font-size:11rem;font-weight:700;color:var(--bluel);position:absolute;right:50px;top:50%;transform:translateY(-50%)">02</div>
+<div class="eyebrow">Sezione 02</div>
+<h1 style="font-size:2.6rem">Piano Economico<br>&amp; Scenari</h1>
+<p class="subtitle" style="max-width:500px">Investimento &euro;55-60K, P&amp;L a 5 anni su 3 scenari, break-even anno 3. Modello scriptato e ricalcolabile.</p>
+<span class="sidea-footer">Sidea Group S.r.l. &mdash; Documento riservato</span>
+<span class="slide-num">8 / 21</span>
+</div>
+
+<div id="s9" class="slide">
+<div class="eyebrow">Piano Finanziario &middot; Investimento</div>
+<h2>Investimento totale: &euro;55-60K primo anno</h2>
+<div class="g2" style="margin-top:14px">
+<div>
+<h3>Capex setup (una tantum)</h3>
+<table>
+<tbody>
+<tr><td style="color:var(--white)">Shopify (setup + tema custom)</td><td>&euro;6.500</td></tr>
+<tr><td style="color:var(--white)">Integrazione Amiko3 &harr; Shopify</td><td>&euro;4.000</td></tr>
+<tr><td style="color:var(--white)">Brand identity (Massimo)</td><td>&euro;5.500</td></tr>
+<tr><td style="color:var(--white)">Contenuti (foto + copy 50-100 SKU)</td><td>&euro;4.000</td></tr>
+<tr><td style="color:var(--white)">Logistica + formazione + lancio</td><td>&euro;3.500</td></tr>
+<tr style="border-top:2px solid var(--blue)"><td style="color:var(--bluel);font-weight:700">TOTALE SETUP</td><td style="color:var(--bluel);font-weight:700">&euro;23.500</td></tr>
+</tbody>
+</table>
+<h3 style="margin-top:14px">Costi fissi mensili</h3>
+<table>
+<tbody>
+<tr><td style="color:var(--white)">Marta (full cost)</td><td>&euro;2.000</td></tr>
+<tr><td style="color:var(--white)">Consulenza agenzia</td><td>&euro;1.500</td></tr>
+<tr><td style="color:var(--white)">Google Ads</td><td>&euro;750</td></tr>
+<tr><td style="color:var(--white)">SEO / Content</td><td>&euro;600</td></tr>
+<tr><td style="color:var(--white)">Shopify + app + buffer</td><td>&euro;700</td></tr>
+<tr style="border-top:2px solid var(--blue)"><td style="color:var(--bluel);font-weight:700">TOTALE FISSI</td><td style="color:var(--bluel);font-weight:700">&euro;5.550/mese</td></tr>
+</tbody>
+</table>
+</div>
+<div>
+<div class="card-hi" style="text-align:center;margin-bottom:14px;padding:20px">
+<p style="font-size:.72rem;color:var(--muted)">BREAK-EVEN OPERATIVO</p>
+<div class="stat" style="margin:6px 0;font-size:2.2rem">&euro;13.373/mese</div>
+<p style="font-size:.92rem">=<strong style="color:var(--white)"> 89 ordini</strong> a &euro;150 AOV</p>
+<p style="font-size:.8rem;color:var(--teal);margin-top:8px">Margine contribuzione: 41,5%</p>
+</div>
+<div class="card">
+<h3>Fabbisogno totale anno 1</h3>
+<table style="font-size:.82rem">
+<tbody>
+<tr><td style="color:var(--white)">Capex setup</td><td>&euro;23.500</td></tr>
+<tr><td style="color:var(--white)">Copertura perdita operativa</td><td>&euro;25-35K</td></tr>
+<tr><td style="color:var(--white)">Buffer sicurezza</td><td>&euro;5-10K</td></tr>
+<tr style="border-top:2px solid var(--gold)"><td style="color:var(--gold);font-weight:700">TOTALE RACCOMANDATO</td><td style="color:var(--gold);font-weight:700">&euro;55-60K</td></tr>
+<tr><td style="color:var(--muted)">Budget dichiarato Gianvito</td><td style="color:var(--muted)">&euro;40-50K</td></tr>
+</tbody>
+</table>
+<p style="font-size:.78rem;color:var(--gold);margin-top:8px;font-weight:500">&#9888; Gap &euro;10-15K da colmare. Gate di rilascio progressivo raccomandato.</p>
+</div>
+</div>
+</div>
+<span class="sidea-footer">Sidea Group S.r.l. &mdash; Documento riservato</span>
+<span class="slide-num">9 / 21</span>
+</div>
+
+<div id="s10" class="slide">
+<div class="eyebrow">Piano Finanziario &middot; P&amp;L 5 Anni</div>
+<h2>Tre scenari: da &euro;70K a &euro;474K anno 1</h2>
+<div class="g2" style="margin-top:14px">
+<div class="chart-box"><canvas id="revenueChart"></canvas></div>
+<div>
+<table style="font-size:.78rem">
+<thead><tr><th></th><th>Anno 1</th><th>Anno 2</th><th>Anno 3</th><th>Anno 5</th></tr></thead>
+<tbody>
+<tr><td style="color:var(--teal);font-weight:600">Ottimistico</td><td>&euro;474K</td><td>&euro;797K</td><td>&euro;1,2M</td><td>&euro;1,9M</td></tr>
+<tr><td style="color:var(--bluel);font-weight:600">Base</td><td>&euro;194K</td><td>&euro;376K</td><td>&euro;618K</td><td>&euro;1,08M</td></tr>
+<tr><td style="color:var(--muted)">Conservativo</td><td>&euro;70K</td><td>&euro;131K</td><td>&euro;207K</td><td>&euro;357K</td></tr>
+</tbody>
+</table>
+<div class="card" style="margin-top:12px">
+<h3>EBITDA per scenario</h3>
+<table style="font-size:.78rem">
+<thead><tr><th></th><th>Anno 1</th><th>Anno 3</th><th>Anno 5</th></tr></thead>
+<tbody>
+<tr><td style="color:var(--teal)">Ottimistico</td><td>+&euro;121K</td><td>+&euro;370K</td><td>+&euro;637K</td></tr>
+<tr><td style="color:var(--bluel)">Base</td><td style="color:var(--teal)">+&euro;28K</td><td style="color:var(--teal)">+&euro;163K</td><td style="color:var(--teal)">+&euro;304K</td></tr>
+<tr><td style="color:var(--muted)">Conservativo</td><td style="color:#ef5350">-&euro;15K</td><td>+&euro;50K</td><td>+&euro;92K</td></tr>
+</tbody>
+</table>
+</div>
+<div class="card" style="margin-top:12px;border:1px solid var(--teal)">
+<p style="font-size:.82rem;color:var(--teal);font-weight:600">Cassa cumulata (scenario base, partenza &euro;45K):</p>
+<p style="font-size:.82rem">Anno 1: &euro;47K &middot; Anno 3: &euro;237K &middot; Anno 5: &euro;640K</p>
+<p style="font-size:.78rem;color:var(--muted);margin-top:4px">Mai sotto &euro;18K (conservativo). Sempre positiva (base).</p>
+</div>
+</div>
+</div>
+<span class="sidea-footer">Sidea Group S.r.l. &mdash; Documento riservato</span>
+<span class="slide-num">10 / 21</span>
+</div>
+
+<div id="s11" class="slide">
+<div class="eyebrow">Piano Finanziario &middot; Sensitivity</div>
+<h2>Variabili critiche: CR e AOV dominano</h2>
+<div class="g2" style="margin-top:14px">
+<div>
+<h3>Sensitivity analysis</h3>
+<table>
+<thead><tr><th>Variabile</th><th>Base</th><th>-20%</th><th>+20%</th><th>Impatto</th></tr></thead>
+<tbody>
+<tr><td style="color:var(--white)">Tasso conversione</td><td>1,5-2,0%</td><td>1,2%</td><td>2,4%</td><td style="color:var(--gold);font-weight:600">&plusmn;30%</td></tr>
+<tr><td style="color:var(--white)">AOV</td><td>&euro;150-180</td><td>&euro;120</td><td>&euro;216</td><td style="color:var(--gold);font-weight:600">&plusmn;20%</td></tr>
+<tr><td style="color:var(--white)">CPC Google Ads</td><td>&euro;0,45</td><td>&euro;0,54</td><td>&euro;0,36</td><td>&plusmn;15%</td></tr>
+<tr><td style="color:var(--white)">Budget ads</td><td>&euro;750/m</td><td>&euro;600</td><td>&euro;900</td><td>&plusmn;20%</td></tr>
+<tr><td style="color:var(--white)">Traffico SEO</td><td>800/m</td><td>500/m</td><td>1.200/m</td><td>&plusmn;10%</td></tr>
+</tbody>
+</table>
+<p style="font-size:.78rem;color:var(--gold);margin-top:10px;font-weight:500">Le variabili pi&ugrave; sensibili (CR e AOV) saranno validate nel pilota ott-dic 2026.</p>
+</div>
+<div>
+<div class="card-hi" style="margin-bottom:14px">
+<h3 style="color:var(--gold)">Target &euro;200K (Gianvito)</h3>
+<table style="font-size:.82rem">
+<thead><tr><th>Scenario</th><th>Quando</th></tr></thead>
+<tbody>
+<tr><td style="color:var(--teal)">Ottimistico</td><td style="color:var(--teal);font-weight:600">Anno 1 (&euro;474K)</td></tr>
+<tr><td style="color:var(--bluel)">Base</td><td style="color:var(--bluel);font-weight:600">Anno 2 (&euro;376K)</td></tr>
+<tr><td style="color:var(--muted)">Conservativo</td><td>Anno 3 (&euro;207K)</td></tr>
+</tbody>
+</table>
+</div>
+<div class="card">
+<h3>Assunzioni chiave scenario base</h3>
+<ul style="list-style:none;padding:0;font-size:.82rem">
+<li style="padding:3px 0">Visite: 4.500/mese (Ads 53% + SEO 25% + Diretto 22%)</li>
+<li style="padding:3px 0">CR: 2,0% &middot; AOV: &euro;180 &middot; CPC: &euro;0,45</li>
+<li style="padding:3px 0">COGS: 50% (ricarico 100%)</li>
+<li style="padding:3px 0">Costi variabili: 8,5% fatturato</li>
+<li style="padding:3px 0">Crescita: +25% opex/anno, personale +1 anno 3</li>
+</ul>
+</div>
+</div>
+</div>
+<span class="sidea-footer">Sidea Group S.r.l. &mdash; Documento riservato</span>
+<span class="slide-num">11 / 21</span>
+</div>
+
+<div id="s12" class="slide" style="justify-content:center;align-items:flex-start">
+<div style="opacity:.1;font-family:'Fahkwang',sans-serif;font-size:11rem;font-weight:700;color:var(--bluel);position:absolute;right:50px;top:50%;transform:translateY(-50%)">03</div>
+<div class="eyebrow">Sezione 03</div>
+<h1 style="font-size:2.6rem">Operating Model<br>&amp; Roadmap</h1>
+<p class="subtitle" style="max-width:500px">Chi fa cosa, come funziona, e quando si parte. 6 fasi, pilota ottobre 2026, scaling primavera 2027.</p>
+<span class="sidea-footer">Sidea Group S.r.l. &mdash; Documento riservato</span>
+<span class="slide-num">12 / 21</span>
+</div>
+
+<div id="s13" class="slide">
+<div class="eyebrow">Operating Model &middot; Team e Governance</div>
+<h2>Chi fa cosa: un modello snello</h2>
+<div class="g2" style="margin-top:14px">
+<div>
+<table>
+<thead><tr><th>Ruolo</th><th>Chi</th><th>Focus</th></tr></thead>
+<tbody>
+<tr><td style="color:var(--white);font-weight:600">Decision Maker</td><td>Gianvito Caroli</td><td>Strategia, acquisti, pricing</td></tr>
+<tr><td style="color:var(--white);font-weight:600">Operatrice e-commerce</td><td>Marta (da assumere)</td><td>Ordini, catalogo, CS, spedizioni</td></tr>
+<tr><td style="color:var(--white);font-weight:600">Sviluppatore</td><td>Donato Legrottaglie</td><td>Integrazione Amiko3 &harr; Shopify</td></tr>
+<tr><td style="color:var(--white);font-weight:600">Team digitale</td><td>Agenzia partner</td><td>SEO, Ads, strategia, piattaforma</td></tr>
+<tr><td style="color:var(--white);font-weight:600">Art Director</td><td>Massimo</td><td>Brand identity, materiali</td></tr>
+</tbody>
+</table>
+</div>
+<div>
+<div class="card">
+<h3>Flusso ordine (end-to-end)</h3>
+<div style="font-size:.8rem;line-height:2;color:var(--ice)">
+<p>&#9312; Ordine Shopify &rarr; Notifica Marta</p>
+<p>&#9313; Verifica giacenza (sync auto Amiko3)</p>
+<p>&#9314; Picking + imballo (magazzino)</p>
+<p>&#9315; Spedizione: locale (&lt;100km) = furgone 24-48h<br>&nbsp;&nbsp;&nbsp;&nbsp;nazionale = corriere ARCO 3-5gg</p>
+<p>&#9316; Fatturazione auto (Amiko3 &rarr; SDI)</p>
+<p>&#9317; Follow-up WhatsApp (cross-sell + review)</p>
+</div>
+</div>
+<div class="card" style="margin-top:12px">
+<h3>Capacit&agrave;</h3>
+<table style="font-size:.8rem">
+<tbody>
+<tr><td style="color:var(--white)">Anno 1 (Marta)</td><td>2-5 ordini/giorno</td></tr>
+<tr><td style="color:var(--white)">Anno 3 (+1 risorsa)</td><td>10-15 ordini/giorno</td></tr>
+<tr><td style="color:var(--white)">Anno 5 (+2 risorse)</td><td>15-25 ordini/giorno</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<span class="sidea-footer">Sidea Group S.r.l. &mdash; Documento riservato</span>
+<span class="slide-num">13 / 21</span>
+</div>
+
+<div id="s14" class="slide">
+<div class="eyebrow">Roadmap &middot; 6 Fasi su 18 Mesi</div>
+<h2>Dal brand al break-even in 6 fasi</h2>
+<div class="tl-row" style="margin-top:20px;margin-bottom:20px">
+<div class="tl-node"><div class="tl-date">Lug-Ago</div><div class="tl-dot done"></div><div class="tl-label">Assessment<br>+ Brand</div></div>
+<div class="tl-node"><div class="tl-date">Ago-Set</div><div class="tl-dot"></div><div class="tl-label">Setup<br>Piattaforma</div></div>
+<div class="tl-node"><div class="tl-date">Ott-Dic '26</div><div class="tl-dot"></div><div class="tl-label" style="color:var(--gold)">PILOTA<br>(gate)</div></div>
+<div class="tl-node"><div class="tl-date">Gen-Feb '27</div><div class="tl-dot"></div><div class="tl-label">Ottimizzazione</div></div>
+<div class="tl-node"><div class="tl-date">Mar-Set '27</div><div class="tl-dot"></div><div class="tl-label">Scaling<br>Nazionale</div></div>
+<div class="tl-node"><div class="tl-date">Est-Aut '27</div><div class="tl-dot"></div><div class="tl-label">Espansione<br>Agricoltura</div></div>
+</div>
+<div class="g3">
+<div class="card" style="border-top:3px solid var(--teal)">
+<h3>Fase 3: PILOTA (Ott-Dic '26)</h3>
+<p style="font-size:.82rem"><strong style="color:var(--white)">Obiettivo:</strong> Validare CR, AOV, logistica con dati reali.</p>
+<p style="font-size:.82rem;margin-top:6px"><strong style="color:var(--teal)">Successo:</strong> CR &ge;1,2%, AOV &ge;&euro;120, &ge;30 ordini evasi</p>
+<p style="font-size:.82rem;margin-top:4px"><strong style="color:#ef5350">Stop:</strong> CR &lt;0,8%, logistica insostenibile</p>
+</div>
+<div class="card" style="border-top:3px solid var(--blue)">
+<h3>Fase 5: SCALING (Mar-Set '27)</h3>
+<p style="font-size:.82rem"><strong style="color:var(--white)">Obiettivo:</strong> Sfruttare picco primaverile, espansione nazionale.</p>
+<p style="font-size:.82rem;margin-top:6px">Target: fatturato &gt;&euro;10K/mese &middot; ManoMano attivo &middot; Break-even raggiunto</p>
+</div>
+<div class="card" style="border-top:3px solid var(--gold)">
+<h3>Fase 6: AGRICOLTURA (Est-Aut '27)</h3>
+<p style="font-size:.82rem"><strong style="color:var(--white)">Obiettivo:</strong> Coprire mesi morti outdoor con viticoltura (lug-set) e olivicoltura (set-nov).</p>
+<p style="font-size:.82rem;margin-top:6px;color:var(--gold)">Puglia = 1&deg; produttore olio Italia</p>
+</div>
+</div>
+<span class="sidea-footer">Sidea Group S.r.l. &mdash; Documento riservato</span>
+<span class="slide-num">14 / 21</span>
+</div>
+
+<div id="s15" class="slide">
+<div class="eyebrow">Roadmap &middot; Primi 90 Giorni</div>
+<h2>Da oggi al go-live: 21 attivit&agrave; in 90 giorni</h2>
+<div class="g3" style="margin-top:14px">
+<div class="card" style="border-top:3px solid var(--blue)">
+<h3>Giorni 1-30 (Lug)</h3>
+<ul style="list-style:none;padding:0;font-size:.8rem">
+<li style="padding:4px 0">&#9744; Incontro 3+4 (catalogo, numeri)</li>
+<li style="padding:4px 0">&#9744; Negoziare corrieri ARCO/Susa</li>
+<li style="padding:4px 0">&#9744; Preventivo Donato integrazione</li>
+<li style="padding:4px 0">&#9744; Incontro 5 &rarr; GO formale</li>
+<li style="padding:4px 0">&#9744; Avvio brand (Massimo)</li>
+</ul>
+<p style="font-size:.75rem;color:var(--teal);margin-top:8px;font-weight:600">Milestone: Budget confermato &euro;60K + GO</p>
+</div>
+<div class="card" style="border-top:3px solid var(--blue)">
+<h3>Giorni 31-60 (Ago-Set)</h3>
+<ul style="list-style:none;padding:0;font-size:.8rem">
+<li style="padding:4px 0">&#9744; Brand approvato</li>
+<li style="padding:4px 0">&#9744; Shopify in staging</li>
+<li style="padding:4px 0">&#9744; Connettore Amiko3 sviluppato</li>
+<li style="padding:4px 0">&#9744; Shooting foto 50-100 SKU</li>
+<li style="padding:4px 0">&#9744; Assunzione Marta</li>
+</ul>
+<p style="font-size:.75rem;color:var(--teal);margin-top:8px;font-weight:600">Milestone: Sito in staging funzionante</p>
+</div>
+<div class="card" style="border-top:3px solid var(--teal)">
+<h3>Giorni 61-90 (Set-Ott)</h3>
+<ul style="list-style:none;padding:0;font-size:.8rem">
+<li style="padding:4px 0">&#9744; Test end-to-end (10 ordini)</li>
+<li style="padding:4px 0">&#9744; Formazione Marta</li>
+<li style="padding:4px 0">&#9744; Setup Google Ads</li>
+<li style="padding:4px 0">&#9744; Analytics + dashboard KPI</li>
+<li style="padding:4px 0;color:var(--teal);font-weight:700">&#9744; GO-LIVE PILOTA &#9889;</li>
+</ul>
+<p style="font-size:.75rem;color:var(--teal);margin-top:8px;font-weight:600">Milestone: Primo ordine reale evaso</p>
+</div>
+</div>
+<span class="sidea-footer">Sidea Group S.r.l. &mdash; Documento riservato</span>
+<span class="slide-num">15 / 21</span>
+</div>
+
+<div id="s16" class="slide" style="justify-content:center;align-items:flex-start">
+<div style="opacity:.1;font-family:'Fahkwang',sans-serif;font-size:11rem;font-weight:700;color:var(--bluel);position:absolute;right:50px;top:50%;transform:translateY(-50%)">04</div>
+<div class="eyebrow">Sezione 04</div>
+<h1 style="font-size:2.6rem">Rischi &amp;<br>Mitigazioni</h1>
+<p class="subtitle" style="max-width:500px">15 rischi mappati. 3 critici, tutti mitigabili. Nessuno bloccante. Piano di contingency per scenari estremi.</p>
+<span class="sidea-footer">Sidea Group S.r.l. &mdash; Documento riservato</span>
+<span class="slide-num">16 / 21</span>
+</div>
+
+<div id="s17" class="slide">
+<div class="eyebrow">Rischi &middot; Top 6 con Mitigazione</div>
+<h2>Rischi gestibili, nessun &ldquo;show-stopper&rdquo;</h2>
+<table style="margin-top:14px;font-size:.8rem">
+<thead><tr><th></th><th>Rischio</th><th>Prob.</th><th>Impatto</th><th>Mitigazione</th></tr></thead>
+<tbody>
+<tr><td><span class="risk-badge risk-high"></span></td><td style="color:var(--white)">Costi spedizione fuori standard</td><td>Alta</td><td>Alto</td><td>Contratto ARCO pre-lancio + focus locale anno 1</td></tr>
+<tr><td><span class="risk-badge risk-high"></span></td><td style="color:var(--white)">Stagionalit&agrave; forte (-70% inverno)</td><td>Alta</td><td>Alto</td><td>Categorie agricoltura (lug-nov) + budget ads flex</td></tr>
+<tr><td><span class="risk-badge risk-high"></span></td><td style="color:var(--white)">Anno 1-2 in perdita (strutturale)</td><td>Alta</td><td>Alto</td><td>Budget &euro;55-60K dimensionato. Gate review trimestrale</td></tr>
+<tr><td><span class="risk-badge risk-mid"></span></td><td style="color:var(--white)">Overselling giacenze</td><td>Media</td><td>Alto</td><td>Webhook 5-10min + sync notturna + piano B manuale</td></tr>
+<tr><td><span class="risk-badge risk-mid"></span></td><td style="color:var(--white)">Budget &euro;40-50K insufficiente</td><td>Media</td><td>Alto</td><td>Presentare P&amp;L in Incontro 4, chiedere &euro;60K</td></tr>
+<tr><td><span class="risk-badge risk-low"></span></td><td style="color:var(--white)">Tempi SEO lunghi (6-12 mesi)</td><td>Alta</td><td>Medio</td><td>Google Ads come driver anno 1 + ManoMano ponte</td></tr>
+</tbody>
+</table>
+<div class="g2" style="margin-top:16px">
+<div class="card" style="border:1px solid var(--gold)">
+<h3 style="color:var(--gold)">Piano di contingency</h3>
+<p style="font-size:.82rem"><strong style="color:var(--white)">Se fatt. anno 1 &lt; &euro;25K:</strong> ridurre ads, 100% locale, pivot B2B</p>
+<p style="font-size:.82rem;margin-top:4px"><strong style="color:var(--white)">Se anno 2 &lt; &euro;100K:</strong> decisione go/stop estate 2028</p>
+<p style="font-size:.82rem;margin-top:4px"><strong style="color:var(--white)">Se tech Amiko3 fallisce:</strong> manuale fino a 10-15 ordini/giorno</p>
+</div>
+<div class="card" style="border:1px solid var(--teal)">
+<h3 style="color:var(--teal)">Scenario &ldquo;stop controllato&rdquo;</h3>
+<p style="font-size:.82rem">Se dopo 18 mesi fatturato &lt;&euro;100K cumulato:</p>
+<ul style="list-style:none;padding:0;margin-top:6px;font-size:.82rem">
+<li style="padding:3px 0">Perdita totale: ~&euro;50-60K</li>
+<li style="padding:3px 0">Impatto su attivit&agrave; fisica: <strong style="color:var(--teal)">trascurabile</strong> (0,5%)</li>
+<li style="padding:3px 0">Asset recuperabili: brand, competenze, contenuti</li>
+</ul>
+</div>
+</div>
+<span class="sidea-footer">Sidea Group S.r.l. &mdash; Documento riservato</span>
+<span class="slide-num">17 / 21</span>
+</div>
+
+<div id="s18" class="slide" style="justify-content:center;align-items:flex-start">
+<div style="opacity:.1;font-family:'Fahkwang',sans-serif;font-size:11rem;font-weight:700;color:var(--bluel);position:absolute;right:50px;top:50%;transform:translateY(-50%)">05</div>
+<div class="eyebrow">Sezione 05</div>
+<h1 style="font-size:2.6rem">Raccomandazioni<br>&amp; Decisioni</h1>
+<p class="subtitle" style="max-width:500px">5 raccomandazioni prioritarie. 8 decisioni da prendere. Le prime 3 sono bloccanti: senza di esse il progetto non avanza.</p>
+<span class="sidea-footer">Sidea Group S.r.l. &mdash; Documento riservato</span>
+<span class="slide-num">18 / 21</span>
+</div>
+
+<div id="s19" class="slide">
+<div class="eyebrow">Raccomandazioni Strategiche</div>
+<h2>Le 5 priorit&agrave; per il successo</h2>
+<div class="g2" style="margin-top:14px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<div class="card" style="border-left:3px solid var(--teal)">
+<h3 style="font-size:.9rem;color:var(--teal)">&#9312; Negoziare corrieri SUBITO</h3>
+<p style="font-size:.82rem">Il rischio #1 (logistica fuori standard) &egrave; il pi&ugrave; critico. Contattare ARCO/Susa entro fine luglio con tabella pesi/dimensioni.</p>
+</div>
+<div class="card" style="border-left:3px solid var(--gold)">
+<h3 style="font-size:.9rem;color:var(--gold)">&#9313; &ldquo;Frangivista&rdquo; come keyword primaria</h3>
+<p style="font-size:.82rem">43.480/mese con CPC &euro;0,07-0,13 e zero competitor. La landing page &ldquo;Frangivista da giardino&rdquo; deve essere prioritaria quanto &ldquo;Prato sintetico&rdquo;.</p>
+</div>
+<div class="card" style="border-left:3px solid var(--blue)">
+<h3 style="font-size:.9rem;color:var(--bluel)">&#9314; Brand = &ldquo;outdoor + privacy + sud&rdquo;</h3>
+<p style="font-size:.82rem">Due pilastri di domanda equivalenti (erba 39% + frangivista 39%). Il brand deve evocare &ldquo;il tuo spazio esterno&rdquo;, non solo prato.</p>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px">
+<div class="card" style="border-left:3px solid var(--teal)">
+<h3 style="font-size:.9rem;color:var(--teal)">&#9315; Pilota = gate decisionale rigoroso</h3>
+<p style="font-size:.82rem">Definire criteri PRIMA del pilota. Successo: CR &ge;1,2%, AOV &ge;&euro;120, &ge;30 ordini. Stop: CR &lt;0,8% o logistica insostenibile.</p>
+</div>
+<div class="card" style="border-left:3px solid var(--gold)">
+<h3 style="font-size:.9rem;color:var(--gold)">&#9316; Budget &euro;55-60K con gate di rilascio</h3>
+<p style="font-size:.82rem">30% all'avvio, 40% al go-live pilota, 30% a regime (primavera '27). Protegge da impegno cieco.</p>
+</div>
+<div class="card-hi" style="text-align:center;padding:16px">
+<p style="font-size:.72rem;color:var(--muted)">POSIZIONE NETTA</p>
+<p style="font-size:1.1rem;color:var(--teal);font-weight:700;margin-top:6px">PROCEDERE CON CONDIZIONI</p>
+<p style="font-size:.82rem;margin-top:6px">Mercato validato. Vantaggio reale. Rischi gestibili. Il costo dell'inazione supera il rischio dell'investimento.</p>
+</div>
+</div>
+</div>
+<span class="sidea-footer">Sidea Group S.r.l. &mdash; Documento riservato</span>
+<span class="slide-num">19 / 21</span>
+</div>
+
+<div id="s20" class="slide">
+<div class="eyebrow">Decisioni Richieste</div>
+<h2>8 decisioni. 3 bloccanti entro fine luglio.</h2>
+<div class="g2" style="margin-top:14px">
+<div>
+<h3 style="color:#ef5350">Decisioni bloccanti (entro 31 luglio)</h3>
+<table style="font-size:.82rem">
+<thead><tr><th>#</th><th>Decisione</th><th>Raccomandazione</th></tr></thead>
+<tbody>
+<tr><td style="color:#ef5350;font-weight:700">1</td><td style="color:var(--white)">Conferma budget &euro;55-60K</td><td style="color:var(--teal)">S&igrave;, con gate di rilascio</td></tr>
+<tr><td style="color:#ef5350;font-weight:700">2</td><td style="color:var(--white)">GO/NO-GO formale</td><td style="color:var(--teal)">Procedere</td></tr>
+<tr><td style="color:#ef5350;font-weight:700">3</td><td style="color:var(--white)">Canone agenzia &euro;1.500/mese</td><td style="color:var(--teal)">Accettare per 24 mesi</td></tr>
+</tbody>
+</table>
+<p style="font-size:.78rem;color:#ef5350;margin-top:8px;font-weight:500">&#9888; Senza queste 3 decisioni il progetto non pu&ograve; avanzare.</p>
+</div>
+<div>
+<h3>Decisioni importanti (entro agosto)</h3>
+<table style="font-size:.82rem">
+<thead><tr><th>#</th><th>Decisione</th></tr></thead>
+<tbody>
+<tr><td>4</td><td style="color:var(--white)">Naming e brand (Incontro 5)</td></tr>
+<tr><td>5</td><td style="color:var(--white)">Soglia spedizione gratuita (&euro;500 / solo locale)</td></tr>
+<tr><td>6</td><td style="color:var(--white)">Inquadramento Marta (full-time da settembre)</td></tr>
+</tbody>
+</table>
+<h3 style="margin-top:14px">Post-pilota (dicembre 2026)</h3>
+<table style="font-size:.82rem">
+<tbody>
+<tr><td>7</td><td style="color:var(--white)">Scaling budget ads (&euro;750 &rarr; &euro;1.200+)</td></tr>
+<tr><td>8</td><td style="color:var(--white)">Attivazione ManoMano marketplace</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<span class="sidea-footer">Sidea Group S.r.l. &mdash; Documento riservato</span>
+<span class="slide-num">20 / 21</span>
+</div>
+
+<div id="s21" class="slide" style="justify-content:center;align-items:center;text-align:center">
+<div style="font-size:3.5rem;color:var(--blue);margin-bottom:14px;opacity:.4">&ldquo;</div>
+<p style="font-size:1.3rem;color:var(--white);max-width:680px;line-height:1.6;font-weight:300;font-style:italic">Io voglio partire dal basso, con la base, e fare in modo che sia il mercato stesso a farmi crescere.</p>
+<div style="margin-top:20px">
+<p style="font-size:.88rem;color:var(--bluel);font-weight:600">Gianvito Caroli</p>
+<p style="font-size:.75rem;color:var(--muted)">Titolare &mdash; Incontro 1, 8 luglio 2026</p>
+</div>
+<p style="font-size:.9rem;color:var(--teal);margin-top:28px;font-weight:500">Il piano rispetta questa filosofia: crescita graduale, controllata, guidata dai dati.</p>
+<span class="sidea-footer">Sidea Group S.r.l. &mdash; Documento riservato</span>
+<span class="slide-num">21 / 21</span>
+</div>
+
+<!-- Navigation hint -->
+<div class="nav-hint">&larr; &rarr; Frecce / Click / Swipe per navigare</div>
+
+<script>
+Chart.register(ChartDataLabels);
+var slides=document.querySelectorAll('.slide'),cur=0,tot=slides.length;
+function go(n){if(n<0||n>=tot)return;slides[cur].classList.remove('active');cur=n;slides[cur].classList.add('active');document.getElementById('prog').style.width=((cur+1)/tot*100)+'%';if(slides[cur].querySelector('#revenueChart'))initRevenue();}
+document.addEventListener('keydown',function(e){if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();go(cur+1);}if(e.key==='ArrowLeft'){e.preventDefault();go(cur-1);}});
+document.addEventListener('click',function(e){if(e.target.closest('canvas'))return;if(e.clientX>window.innerWidth/2)go(cur+1);else go(cur-1);});
+var tx=0;document.addEventListener('touchstart',function(e){tx=e.changedTouches[0].screenX;},{passive:true});
+document.addEventListener('touchend',function(e){var dx=tx-e.changedTouches[0].screenX;if(Math.abs(dx)>60){if(dx>0)go(cur+1);else go(cur-1);}},{passive:true});
+document.getElementById('prog').style.width=(1/tot*100)+'%';
+(function(){var h=window.location.hash;if(h&&h.match(/^#s\d+$/)){var n=parseInt(h.replace('#s',''))-1;if(n>=0&&n<tot)go(n);}})();
+</script>
+<script>
+var revDone=false;
+function initRevenue(){
+if(revDone)return;revDone=true;
+new Chart(document.getElementById('revenueChart'),{
+type:'line',
+data:{labels:['Anno 1','Anno 2','Anno 3','Anno 4','Anno 5'],datasets:[
+{label:'Ottimistico',data:[474000,797040,1205820,1548000,1900800],borderColor:'#00A896',backgroundColor:'rgba(0,168,150,.08)',fill:true,tension:.3,borderWidth:2,pointRadius:4,pointBackgroundColor:'#00A896'},
+{label:'Base',data:[194400,376200,617760,870000,1076250],borderColor:'#197ACF',backgroundColor:'rgba(25,122,207,.1)',fill:true,tension:.3,borderWidth:3,pointRadius:5,pointBackgroundColor:'#197ACF'},
+{label:'Conservativo',data:[70200,130560,206910,285600,357000],borderColor:'#9E9E9E',backgroundColor:'rgba(158,158,158,.06)',fill:true,tension:.3,borderWidth:2,pointRadius:4,pointBackgroundColor:'#9E9E9E'}
+]},
+options:{responsive:true,maintainAspectRatio:false,interaction:{intersect:false,mode:'index'},
+plugins:{legend:{position:'bottom',labels:{color:'#E1F0FC',padding:12,font:{size:11,family:'Montserrat'}}},datalabels:{display:false},tooltip:{backgroundColor:'#0B3254',titleColor:'#9BBDE3',bodyColor:'#E1F0FC',borderColor:'rgba(155,189,227,.25)',borderWidth:1,padding:10,callbacks:{label:function(c){return c.dataset.label+': \u20AC'+(c.raw/1000).toFixed(0)+'K';}}}},
+scales:{x:{grid:{color:'rgba(28,71,111,.4)'},ticks:{color:'#9E9E9E',font:{size:10,family:'Montserrat'}}},y:{grid:{color:'rgba(28,71,111,.4)'},ticks:{color:'#9E9E9E',font:{size:10,family:'Montserrat'},callback:function(v){return'\u20AC'+(v/1000).toFixed(0)+'K';}}}}
+}});
+}
+setTimeout(function(){if(slides[cur]&&slides[cur].querySelector('#revenueChart'))initRevenue();},200);
+</script>
+</body>
+</html>
