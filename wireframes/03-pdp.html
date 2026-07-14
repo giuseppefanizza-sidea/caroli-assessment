@@ -317,27 +317,46 @@
                         Nota: il prezzo nel bottone si aggiorna via JS custom (non nativo Dawn, richiede snippet)
                     </p>
                     <div class="secondary-actions">
+                        <div class="btn-sec" style="position:relative;background:#25D366;color:white;border-color:#25D366;font-weight:600;">💬 Chiedi a Gianvito
+                            <span style="position:absolute;top:-8px;right:-4px;background:#3498DB;color:white;font-size:8px;padding:1px 4px;border-radius:3px;">WA</span>
+                        </div>
                         <div class="btn-sec" style="position:relative;">♡ Wishlist
                             <span style="position:absolute;top:-8px;right:-4px;background:#F39C12;color:white;font-size:8px;padding:1px 4px;border-radius:3px;">APP</span>
                         </div>
                         <div class="btn-sec">📤 Condividi</div>
                     </div>
                     <p style="font-size:11px;color:#9b9b9b;margin-top:6px;font-style:italic;">
+                        WhatsApp → Link diretto wa.me con messaggio pre-compilato ("Ciao, chiedo info su Evergreen 40mm")<br>
                         Wishlist → App: Wishlist Plus / Growave / Wishlist King<br>
                         Condividi → Blocco nativo "Share" di Dawn
                     </p>
+                    <!-- WhatsApp Consultazione Box -->
+                    <div style="margin-top:12px;padding:14px 16px;background:#f0faf0;border:1px solid #25D366;border-radius:8px;display:flex;align-items:center;gap:12px;">
+                        <span style="font-size:28px;">💬</span>
+                        <div>
+                            <p style="font-size:13px;font-weight:600;color:#1a1a1a;margin-bottom:2px;">Non sei sicuro della quantità o del modello?</p>
+                            <p style="font-size:12px;color:#4a4a4a;">Scrivi su WhatsApp — Gianvito risponde in meno di 4h con il consiglio giusto per il tuo progetto.</p>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Shipping Info — Nativo con blocco "Collapsible row" o Custom Liquid -->
+                <!-- Shipping Info — Consegna locale differenziante -->
                 <div class="shipping-info">
-                    <p style="font-size:10px;color:#9b9b9b;font-style:italic;margin-bottom:8px;">● Nativo: blocco "Text" o "Collapsible row" nella sezione Product con metafield per disponibilità</p>
+                    <p style="font-size:10px;color:#9b9b9b;font-style:italic;margin-bottom:8px;">● Nativo: blocco "Text" o "Collapsible row" + metafield geo per logica condizionale</p>
                     <div class="info-row">
                         <span class="icon">✓</span>
-                        <span><strong>Disponibile</strong> — Spedizione in 3-5 giorni lavorativi</span>
+                        <span><strong>Disponibile</strong> — In stock nel nostro magazzino di Locorotondo</span>
+                    </div>
+                    <div style="padding:12px;background:#e8f5e2;border-radius:8px;margin:8px 0;border:1px solid rgba(45,90,39,0.2);">
+                        <div class="info-row" style="padding:0;">
+                            <span class="icon">🚚</span>
+                            <span><strong style="color:#2D5A27;">Puglia (Bari, Brindisi, Taranto):</strong> Consegna GRATUITA con il nostro furgone in 24-48h</span>
+                        </div>
+                        <p style="font-size:11px;color:#4a4a4a;margin-top:6px;padding-left:22px;">Niente corriere per colli ingombranti — te lo portiamo noi direttamente in cantiere o a casa.</p>
                     </div>
                     <div class="info-row">
-                        <span class="icon">🚚</span>
-                        <span><strong>Spedizione gratuita</strong> — Ordine superiore a €99</span>
+                        <span class="icon">📦</span>
+                        <span><strong>Resto d'Italia:</strong> Corriere specializzato in 3-5 giorni lavorativi — Gratuito da €99</span>
                     </div>
                     <div class="info-row">
                         <span class="icon">↩️</span>
