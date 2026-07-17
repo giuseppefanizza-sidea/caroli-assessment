@@ -78,6 +78,10 @@ tr:nth-child(even) { background:rgba(15,61,102,0.3); }
 .divider { border-left:3px solid var(--blue); padding-left:16px; margin-bottom:12px; }
 .eyebrow { font-size:0.72rem; color:var(--bluel); text-transform:uppercase; letter-spacing:1.5px; font-weight:600; margin-bottom:8px; }
 .nav-hint { position:fixed; bottom:16px; left:50%; transform:translateX(-50%); font-size:10px; color:var(--muted); opacity:.35; }
+.nav-btns { position:fixed; bottom:14px; right:14px; display:none; gap:10px; z-index:120; }
+.nav-btn { width:48px; height:48px; border-radius:50%; border:1px solid var(--border); background:rgba(11,50,84,0.92); color:var(--bluel); font-size:1.6rem; line-height:1; display:flex; align-items:center; justify-content:center; cursor:pointer; -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); box-shadow:0 3px 12px rgba(0,0,0,0.35); -webkit-tap-highlight-color:transparent; }
+.nav-btn:active { background:var(--blue); color:#fff; }
+.nav-btn:disabled { opacity:.3; }
 .timeline-row { display:flex; align-items:center; gap:0; margin:24px 0; }
 .tl-node { text-align:center; flex:1; position:relative; }
 .tl-node::before { content:''; position:absolute; top:18px; left:0; right:0; height:3px; background:var(--linen); z-index:0; }
@@ -92,13 +96,8 @@ tr:nth-child(even) { background:rgba(15,61,102,0.3); }
 .risk-mid { background:var(--gold); }
 .risk-low { background:var(--teal); }
 @media(max-width:768px){
-  /* --- Mobile reading mode: stack every slide vertically so the deck is fully scrollable/consultable --- */
-  html { scroll-behavior:smooth; }
-  body { overflow:auto; overflow-x:hidden; height:auto; -webkit-text-size-adjust:100%; }
-  .slide { display:flex !important; width:100%; height:auto; min-height:auto;
-           padding:44px 20px 32px; justify-content:flex-start; overflow:visible;
-           border-bottom:1px solid var(--border); scroll-margin-top:56px; }
-  .slide:last-of-type { border-bottom:none; }
+  /* Slide format preserved: one full-screen slide at a time, tall slides scroll internally */
+  .slide { padding:44px 18px 74px; justify-content:flex-start; }
   h1 { font-size:1.7rem; } h2 { font-size:1.3rem; } h3 { font-size:0.95rem; }
   p,li { font-size:0.88rem; } .subtitle { font-size:0.9rem; }
   .stat { font-size:1.8rem; } .stat-sm { font-size:1.5rem; }
@@ -113,17 +112,16 @@ tr:nth-child(even) { background:rgba(15,61,102,0.3); }
   .tl-node::before { display:none; }
   /* decorative watermark numbers must not create horizontal scroll */
   .slide > div[style*="position:absolute"] { right:-10px !important; font-size:6rem !important; opacity:0.08 !important; }
-  /* footer + page number flow inline instead of overlapping content */
-  .slide-num { position:static; display:block; text-align:right; margin-top:14px; }
-  .sidea-footer { position:static; display:block; margin-top:6px; }
-  /* desktop-only affordances hidden on mobile */
-  .progress, .nav-hint { display:none !important; }
   /* nested wireframe previews stack full width */
   #slide-20 > div[style*="grid-template-columns"] { grid-template-columns:1fr !important; }
-  #slide-20 { padding:44px 20px 32px !important; }
+  /* show touch navigation controls, hide desktop-only keyboard hint */
+  .nav-btns { display:flex !important; }
+  .nav-hint { display:none; }
+  .slide-num { bottom:26px; left:18px; right:auto; }
+  .sidea-footer { display:none; }
 }
 @media(max-width:480px){
-  .slide { padding:36px 14px 28px; }
+  .slide { padding:40px 14px 74px; }
   h1 { font-size:1.4rem; } h2 { font-size:1.15rem; }
   .g4,.g5 { grid-template-columns:1fr; }
 }
@@ -1242,62 +1240,57 @@ tr:nth-child(even) { background:rgba(15,61,102,0.3); }
 
 <!-- Navigation -->
 <div class="nav-hint">&#8592; &#8594; Frecce / Click / Swipe per navigare</div>
+<div class="nav-btns" id="navBtns">
+  <button class="nav-btn" id="btnPrev" type="button" aria-label="Slide precedente">&#8249;</button>
+  <button class="nav-btn" id="btnNext" type="button" aria-label="Slide successiva">&#8250;</button>
+</div>
 
 <script>
 Chart.register(ChartDataLabels);
 var slides=document.querySelectorAll('.slide');
 var cur=0,tot=slides.length;
-function isScrollMode(){return window.matchMedia('(max-width:768px)').matches;}
+function updateNav(){
+  var bp=document.getElementById('btnPrev'),bn=document.getElementById('btnNext');
+  if(bp)bp.disabled=(cur<=0);
+  if(bn)bn.disabled=(cur>=tot-1);
+}
 function go(n){
-  if(isScrollMode())return; // on mobile all slides are stacked & scrollable
   if(n<0||n>=tot)return;
   slides[cur].classList.remove('active');
   cur=n;
   slides[cur].classList.add('active');
+  slides[cur].scrollTop=0; // start each slide from the top (mobile tall slides)
   document.getElementById('prog').style.width=((cur+1)/tot*100)+'%';
+  updateNav();
   if(slides[cur].querySelector('#revenueChart'))initRevenue();
   if(slides[cur].querySelector('#competitorChart'))initCompetitor();
 }
 document.addEventListener('keydown',function(e){
-  if(isScrollMode())return;
   if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();go(cur+1);}
   if(e.key==='ArrowLeft'){e.preventDefault();go(cur-1);}
 });
 document.addEventListener('click',function(e){
-  if(isScrollMode())return; // let taps scroll / follow links on mobile
   if(e.target.closest('canvas'))return;
   if(e.target.closest('a'))return;
+  if(e.target.closest('.nav-btn'))return;
   if(e.clientX>window.innerWidth/2)go(cur+1);else go(cur-1);
 });
+// Explicit touch-friendly navigation buttons (shown on mobile)
+var _bp=document.getElementById('btnPrev'),_bn=document.getElementById('btnNext');
+if(_bp)_bp.addEventListener('click',function(e){e.stopPropagation();go(cur-1);});
+if(_bn)_bn.addEventListener('click',function(e){e.stopPropagation();go(cur+1);});
 var tx=0,ty=0;
 document.addEventListener('touchstart',function(e){tx=e.changedTouches[0].screenX;ty=e.changedTouches[0].screenY;},{passive:true});
 document.addEventListener('touchend',function(e){
-  if(isScrollMode())return; // native vertical scroll instead of swipe-to-navigate
   var dx=tx-e.changedTouches[0].screenX,dy=Math.abs(ty-e.changedTouches[0].screenY);
   if(Math.abs(dx)>60&&Math.abs(dx)>dy){if(dx>0)go(cur+1);else go(cur-1);}
 },{passive:true});
 document.getElementById('prog').style.width=(1/tot*100)+'%';
-// In mobile scroll mode, render charts as their slide enters the viewport
-if(isScrollMode()&&'IntersectionObserver' in window){
-  var chartObs=new IntersectionObserver(function(entries){
-    entries.forEach(function(en){
-      if(!en.isIntersecting)return;
-      if(en.target.querySelector('#revenueChart'))initRevenue();
-      if(en.target.querySelector('#competitorChart'))initCompetitor();
-    });
-  },{rootMargin:'0px 0px 200px 0px',threshold:0.05});
-  slides.forEach(function(s){chartObs.observe(s);});
-}
+updateNav();
 // Handle hash-based navigation (e.g. #slide-16)
 (function(){
   var h=window.location.hash;
-  if(!h)return;
-  if(isScrollMode()){
-    var el=document.querySelector(h);
-    if(el)setTimeout(function(){el.scrollIntoView({behavior:'smooth'});},300);
-    return;
-  }
-  if(h.match(/^#slide-\d+$/)){
+  if(h&&h.match(/^#slide-\d+$/)){
     var n=parseInt(h.replace('#slide-',''))-1;
     if(n>=0&&n<tot)go(n);
   }
