@@ -156,6 +156,37 @@
     </style>
 </head>
 <body>
+    <!-- Toggle Annotazioni -->
+    <style>
+        .toggle-annotations-btn {
+            position: fixed; top: 44px; left: 16px; z-index: 1002;
+            background: #2D5A27; color: white; border: 2px solid white; padding: 8px 14px;
+            border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.3); transition: background 0.2s;
+        }
+        .toggle-annotations-btn:hover { background: #1E3D1A; }
+        .toggle-annotations-btn.off { background: #9b9b9b; }
+        body.hide-annotations .annotation { border-color: transparent !important; }
+        body.hide-annotations .annotation::after { opacity: 0 !important; visibility: hidden !important; }
+        body.hide-annotations .shopify-legend { display: none !important; }
+        body.hide-annotations .shopify-compat-summary { display: none !important; }
+    </style>
+    <button class="toggle-annotations-btn" onclick="toggleAnnotations()">👁 Nascondi note sviluppo</button>
+    <script>
+        function toggleAnnotations() {
+            const body = document.body;
+            const btn = document.querySelector('.toggle-annotations-btn');
+            body.classList.toggle('hide-annotations');
+            if (body.classList.contains('hide-annotations')) {
+                btn.textContent = '👁 Mostra note sviluppo';
+                btn.classList.add('off');
+            } else {
+                btn.textContent = '👁 Nascondi note sviluppo';
+                btn.classList.remove('off');
+            }
+        }
+    </script>
+
     <!-- Navigazione Wireframes -->
     <div style="position:fixed;bottom:0;left:0;right:0;z-index:1001;background:#1a1a1a;padding:10px 24px;display:flex;justify-content:center;gap:16px;align-items:center;font-size:13px;">
         <a href="https://giuseppefanizza-sidea.github.io/caroli-assessment/#slide-16" style="color:#9BBDE3;background:#082742;padding:6px 14px;border-radius:4px;text-decoration:none;font-weight:600;margin-right:auto;">&#8592; Presentazione</a>
@@ -169,7 +200,7 @@
     <div class="wireframe-label">WIREFRAME — Blog Article (Guida SEO) — Shopify Dawn Compatible</div>
 
     <!-- Shopify Compatibility Legend -->
-    <div style="position:fixed;top:40px;right:16px;z-index:999;background:white;border:1px solid #e8e8e6;border-radius:8px;padding:10px 14px;font-size:10px;line-height:1.7;box-shadow:0 4px 12px rgba(0,0,0,0.1);max-width:220px;opacity:0.95;">
+    <div class="shopify-legend" style="position:fixed;top:40px;right:16px;z-index:999;background:white;border:1px solid #e8e8e6;border-radius:8px;padding:10px 14px;font-size:10px;line-height:1.7;box-shadow:0 4px 12px rgba(0,0,0,0.1);max-width:220px;opacity:0.95;">
         <strong style="font-size:11px;">Legenda Shopify</strong><br>
         <span style="color:#2D5A27;">●</span> Nativo Dawn / OS 2.0<br>
         <span style="color:#F39C12;">●</span> App Shopify necessaria<br>
@@ -508,7 +539,7 @@
         <!-- ============================================ -->
         <!-- RIEPILOGO COMPATIBILITÀ SHOPIFY - GUIDA SEO -->
         <!-- ============================================ -->
-        <div style="background:white;border:2px solid #2D5A27;border-radius:12px;padding:28px;margin:40px 0;">
+        <div class="shopify-compat-summary" style="background:white;border:2px solid #2D5A27;border-radius:12px;padding:28px;margin:40px 0;">
             <h2 style="font-size:18px;margin-bottom:16px;color:#2D5A27;">📋 Compatibilità Shopify — Blog Article (Guida SEO)</h2>
             <p style="font-size:13px;color:#F39C12;font-weight:600;margin-bottom:6px;">⚠️ Pagina più complessa — richiede custom article template (~8-12h dev)</p>
             <p style="font-size:12px;color:#4a4a4a;margin-bottom:16px;">In Shopify questa pagina è un <strong>Blog Article</strong> (Admin > Blog posts). Dawn ha un template articolo base single-column. Per il layout con sidebar, TOC e product embed serve un template custom.</p>
