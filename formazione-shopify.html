@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Caroli &mdash; Formazione Backend Shopify</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fahkwang:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+:root {
+    --navy: #082742; --navy2: #0B3254; --navy3: #0F3D66;
+    --blue: #197ACF; --blue2: #4C84DD; --bluel: #9BBDE3;
+    --ice: #E1F0FC; --icebg: #F8F9FA; --white: #FFFFFF;
+    --grey: #5C5C5C; --muted: #9E9E9E; --line: #ECEEF0;
+    --linen: #1C476F; --ink: #082742;
+    --gold: #E0A100; --teal: #00A896; --green: #2E7D32; --red: #C62828;
+    --gradient-primary: linear-gradient(135deg, #197ACF 0%, #9BBDE3 100%);
+    --border: rgba(155, 189, 227, 0.25);
+    --glow-blue: rgba(25, 122, 207, 0.4);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Montserrat',sans-serif; background:var(--navy); color:var(--white); overflow:hidden; height:100vh; }
+.slide { display:none; width:100vw; height:100vh; padding:54px 72px; flex-direction:column; justify-content:center; position:relative; overflow-y:auto; }
+.slide.active { display:flex; }
+.slide-num { position:absolute; bottom:24px; right:36px; font-size:11px; color:var(--muted); letter-spacing:0.5px; }
+.sidea-footer { position:absolute; bottom:24px; left:36px; font-size:10px; color:var(--bluel); letter-spacing:0.3px; opacity:0.7; }
+h1 { font-family:'Fahkwang',sans-serif; font-size:3rem; font-weight:700; line-height:1.1; margin-bottom:20px; }
+h2 { font-family:'Fahkwang',sans-serif; font-size:2rem; font-weight:700; line-height:1.15; margin-bottom:16px; }
+h3 { font-family:'Fahkwang',sans-serif; font-size:1.1rem; font-weight:600; color:var(--bluel); margin-bottom:10px; }
+p, li { font-family:'Montserrat',sans-serif; font-size:0.95rem; line-height:1.65; color:var(--ice); }
+.hi { color:var(--bluel); font-weight:700; }
+.hi-gold { color:var(--gold); font-weight:700; }
+.subtitle { font-size:1.05rem; color:var(--ice); margin-bottom:28px; line-height:1.6; font-weight:300; }
+.g2 { display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:start; }
+.g3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:20px; }
+.card { background:linear-gradient(180deg, rgba(15,61,102,0.7) 0%, rgba(8,39,66,0.85) 100%); border:1px solid var(--border); border-radius:12px; padding:22px; backdrop-filter:blur(10px); }
+.card-hi { background:linear-gradient(180deg, rgba(25,122,207,0.15) 0%, rgba(8,39,66,0.9) 100%); border:2px solid var(--blue); border-radius:12px; padding:22px; box-shadow:0 0 20px rgba(25,122,207,0.15); }
+.stat { font-family:'Fahkwang',sans-serif; font-size:2.6rem; font-weight:700; color:var(--bluel); line-height:1; }
+.stat-sm { font-family:'Fahkwang',sans-serif; font-size:2rem; font-weight:700; color:var(--bluel); line-height:1; }
+.label { font-size:0.75rem; color:var(--muted); margin-top:6px; text-transform:uppercase; letter-spacing:0.5px; font-weight:500; }
+table { width:100%; border-collapse:collapse; margin-top:12px; }
+th, td { padding:10px 14px; text-align:left; border-bottom:1px solid var(--linen); font-size:0.88rem; }
+th { color:var(--bluel); font-weight:600; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.5px; border-bottom:2px solid var(--blue); }
+td { color:var(--ice); }
+tr:nth-child(even) { background:rgba(15,61,102,0.3); }
+.tag { display:inline-block; padding:3px 10px; border-radius:6px; font-size:0.72rem; font-weight:600; }
+.t-green { background:rgba(0,168,150,0.15); color:var(--teal); border:1px solid rgba(0,168,150,0.3); }
+.t-blue { background:rgba(25,122,207,0.15); color:var(--bluel); border:1px solid rgba(25,122,207,0.3); }
+.t-gold { background:rgba(224,161,0,0.15); color:var(--gold); border:1px solid rgba(224,161,0,0.3); }
+.progress { position:fixed; top:0; left:0; height:3px; background:var(--gradient-primary); transition:width .3s; z-index:100; }
+.badge { display:inline-block; padding:6px 16px; border:1px solid var(--blue); border-radius:20px; font-size:0.75rem; color:var(--bluel); margin-bottom:16px; font-weight:600; }
+.divider { border-left:3px solid var(--blue); padding-left:16px; margin-bottom:12px; }
+.eyebrow { font-size:0.72rem; color:var(--bluel); text-transform:uppercase; letter-spacing:1.5px; font-weight:600; margin-bottom:8px; }
+.nav-hint { position:fixed; bottom:16px; left:50%; transform:translateX(-50%); font-size:10px; color:var(--muted); opacity:.35; }
+.nav-btns { position:fixed; bottom:14px; right:14px; display:none; gap:10px; z-index:120; }
+.nav-btn { width:48px; height:48px; border-radius:50%; border:1px solid var(--border); background:rgba(11,50,84,0.92); color:var(--bluel); font-size:1.6rem; line-height:1; display:flex; align-items:center; justify-content:center; cursor:pointer; backdrop-filter:blur(8px); box-shadow:0 3px 12px rgba(0,0,0,0.35); }
+.nav-btn:active { background:var(--blue); color:#fff; }
+.nav-btn:disabled { opacity:.3; }
+.flow-step { padding:14px 18px; border-left:3px solid var(--blue); margin-bottom:8px; background:rgba(15,61,102,0.3); border-radius:0 8px 8px 0; }
+.flow-step.highlight { border-left-color:var(--teal); background:rgba(0,168,150,0.08); }
+@media(max-width:768px){
+  .slide { padding:44px 18px 74px; justify-content:flex-start; }
+  h1 { font-size:1.7rem; } h2 { font-size:1.3rem; } h3 { font-size:0.95rem; }
+  p,li { font-size:0.88rem; } .subtitle { font-size:0.9rem; }
+  .g2,.g3 { grid-template-columns:1fr; gap:12px; }
+  .card,.card-hi { padding:16px; }
+  table { display:block; overflow-x:auto; white-space:nowrap; }
+  .nav-btns { display:flex !important; }
+  .nav-hint { display:none; }
+  .slide-num { bottom:26px; left:18px; right:auto; }
+  .sidea-footer { display:none; }
+}
+    </style>
+</head>
+<body>
+<div class="progress" id="prog"></div>
+<!-- SLIDE 1: Cover -->
+<div id="slide-1" class="slide active">
+  <div class="eyebrow">Sessione Formativa &middot; Backend Shopify</div>
+  <h1>Caroli<br><span class="hi">Formazione Backend Shopify</span></h1>
+  <p class="subtitle">Sessione operativa per Marta e Gianvito.<br>Focus: gestione quotidiana del negozio online.</p>
+  <div style="margin-top:32px;display:flex;gap:24px;align-items:center">
+    <div class="card" style="padding:14px 20px;display:inline-block">
+      <span style="font-size:0.8rem;color:var(--bluel);font-weight:600">Agosto 2026</span>
+    </div>
+    <div class="card" style="padding:14px 20px;display:inline-block">
+      <span style="font-size:0.8rem;color:var(--teal);font-weight:600">Marta &amp; Gianvito Caroli</span>
+    </div>
+  </div>
+  <span class="sidea-footer">Sidea Group &times; Caroli &mdash; Formazione operativa</span>
+  <span class="slide-num">1 / 21</span>
+</div>
+<!-- SLIDE 2: Agenda -->
+<div id="slide-2" class="slide">
+  <div class="eyebrow">Agenda</div>
+  <h2>3 blocchi, 1 obiettivo: autonomia operativa</h2>
+  <p class="subtitle">Alla fine di questa sessione saprai gestire prodotti, ordini e comunicazione in modo indipendente.</p>
+  <div class="g3" style="margin-top:20px">
+    <div class="card" style="border-top:3px solid var(--blue)">
+      <h3 style="color:var(--blue)">Blocco 1 &mdash; 15 min</h3>
+      <p style="font-size:1.1rem;color:var(--white);font-weight:600;margin-bottom:8px">Panoramica</p>
+      <ul style="list-style:none;padding:0">
+        <li style="padding:4px 0;font-size:0.85rem">Architettura del sistema</li>
+        <li style="padding:4px 0;font-size:0.85rem">Dashboard Shopify</li>
+        <li style="padding:4px 0;font-size:0.85rem">Chi fa cosa</li>
+        <li style="padding:4px 0;font-size:0.85rem">Flusso dati</li>
+      </ul>
+    </div>
+    <div class="card" style="border-top:3px solid var(--teal)">
+      <h3 style="color:var(--teal)">Blocco 2 &mdash; 30 min</h3>
+      <p style="font-size:1.1rem;color:var(--white);font-weight:600;margin-bottom:8px">Pre-Golive</p>
+      <ul style="list-style:none;padding:0">
+        <li style="padding:4px 0;font-size:0.85rem">Timeline caricamento</li>
+        <li style="padding:4px 0;font-size:0.85rem">Scheda prodotto completa</li>
+        <li style="padding:4px 0;font-size:0.85rem">Varianti e immagini</li>
+        <li style="padding:4px 0;font-size:0.85rem">Checklist pre-pubblicazione</li>
+      </ul>
+    </div>
+    <div class="card" style="border-top:3px solid var(--gold)">
+      <h3 style="color:var(--gold)">Blocco 3 &mdash; 30 min</h3>
+      <p style="font-size:1.1rem;color:var(--white);font-weight:600;margin-bottom:8px">Post-Golive</p>
+      <ul style="list-style:none;padding:0">
+        <li style="padding:4px 0;font-size:0.85rem">Gestione ordini</li>
+        <li style="padding:4px 0;font-size:0.85rem">Draft Order (negozio)</li>
+        <li style="padding:4px 0;font-size:0.85rem">Customer care &amp; social</li>
+        <li style="padding:4px 0;font-size:0.85rem">Report e calendario</li>
+      </ul>
+    </div>
+  </div>
+  <span class="sidea-footer">Sidea Group &times; Caroli &mdash; Formazione operativa</span>
+  <span class="slide-num">2 / 21</span>
+</div>
+<!-- SLIDE 3: Architettura -->
+<div id="slide-3" class="slide">
+  <div class="eyebrow">Panoramica &middot; Architettura</div>
+  <h2>Come funziona il sistema</h2>
+  <p class="subtitle">Tre componenti connessi: il negozio online, l'integrazione e il gestionale.</p>
+  <div class="g3" style="margin-top:20px">
+    <div class="card-hi" style="text-align:center;padding:28px">
+      <div class="stat-sm" style="font-size:1.6rem;margin-bottom:8px">&#x1F6D2;</div>
+      <h3 style="color:var(--white);font-size:1rem">Shopify</h3>
+      <p style="font-size:0.82rem">Frontend (sito visibile ai clienti) + Backend (pannello admin per Marta)</p>
+      <div style="margin-top:12px;padding:8px;background:rgba(25,122,207,0.1);border-radius:6px">
+        <p style="font-size:0.75rem;color:var(--bluel)">Piano: Basic &euro;39/mese</p>
+      </div>
+    </div>
+    <div class="card" style="text-align:center;padding:28px">
+      <div class="stat-sm" style="font-size:1.6rem;margin-bottom:8px">&#x1F517;</div>
+      <h3 style="color:var(--white);font-size:1rem">Integrazione API</h3>
+      <p style="font-size:0.82rem">Collega Shopify e Amiko3. Sincronizza prezzi, giacenze e ordini automaticamente.</p>
+      <div style="margin-top:12px;padding:8px;background:rgba(0,168,150,0.1);border-radius:6px">
+        <p style="font-size:0.75rem;color:var(--teal)">Sviluppata da Donato</p>
+      </div>
+    </div>
+    <div class="card" style="text-align:center;padding:28px">
+      <div class="stat-sm" style="font-size:1.6rem;margin-bottom:8px">&#x1F4CA;</div>
+      <h3 style="color:var(--white);font-size:1rem">Amiko3</h3>
+      <p style="font-size:0.82rem">Gestionale esistente. Genera fatture, scontrini e tiene aggiornate giacenze e prezzi.</p>
+      <div style="margin-top:12px;padding:8px;background:rgba(224,161,0,0.1);border-radius:6px">
+        <p style="font-size:0.75rem;color:var(--gold)">Gestito da Donato &amp; Caterina</p>
+      </div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:24px;text-align:center;padding:16px">
+    <p style="font-size:0.9rem;color:var(--white);font-weight:500">Shopify &nbsp;&#x2194;&nbsp; Integrazione API &nbsp;&#x2194;&nbsp; Amiko3</p>
+    <p style="font-size:0.78rem;color:var(--muted);margin-top:6px">La comunicazione tra i sistemi avviene in automatico</p>
+  </div>
+  <span class="sidea-footer">Sidea Group &times; Caroli &mdash; Formazione operativa</span>
+  <span class="slide-num">3 / 21</span>
+</div>
+<!-- SLIDE 4: Dashboard Shopify -->
+<div id="slide-4" class="slide">
+  <div class="eyebrow">Panoramica &middot; Dashboard</div>
+  <h2>Il pannello admin Shopify</h2>
+  <p class="subtitle">Le 5 sezioni principali che userai ogni giorno.</p>
+  <div class="g2" style="margin-top:16px">
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div class="flow-step">
+        <p style="font-size:0.92rem;color:var(--white);font-weight:600">&#x1F4E6; Prodotti</p>
+        <p style="font-size:0.8rem;color:var(--ice)">Catalogo, varianti, collezioni, inventario. Qui carichi e modifichi i prodotti.</p>
+      </div>
+      <div class="flow-step highlight">
+        <p style="font-size:0.92rem;color:var(--white);font-weight:600">&#x1F4CB; Ordini</p>
+        <p style="font-size:0.8rem;color:var(--ice)">Ordini ricevuti, evasione, tracking, bozze (draft order per ordini gestiti dal customer service).</p>
+      </div>
+      <div class="flow-step">
+        <p style="font-size:0.92rem;color:var(--white);font-weight:600">&#x1F465; Clienti</p>
+        <p style="font-size:0.8rem;color:var(--ice)">Anagrafica clienti, storico acquisti, segmentazione.</p>
+      </div>
+      <div class="flow-step">
+        <p style="font-size:0.92rem;color:var(--white);font-weight:600">&#x1F4C8; Analytics</p>
+        <p style="font-size:0.8rem;color:var(--ice)">Vendite, traffico, conversione, prodotti top. Il tuo cruscotto giornaliero.</p>
+      </div>
+      <div class="flow-step">
+        <p style="font-size:0.92rem;color:var(--white);font-weight:600">&#x2699;&#xFE0F; Impostazioni</p>
+        <p style="font-size:0.8rem;color:var(--ice)">Pagamenti, spedizioni, notifiche, tasse. Configurate da Sidea, raramente da toccare.</p>
+      </div>
+    </div>
+    <div>
+      <div class="card-hi">
+        <h3 style="color:var(--teal)">Consiglio pratico</h3>
+        <p style="font-size:0.88rem;color:var(--ice)">La mattina apri sempre <strong style="color:var(--white)">Ordini</strong> per primo. Poi <strong style="color:var(--white)">Analytics</strong> per un colpo d'occhio rapido.</p>
+        <p style="font-size:0.82rem;color:var(--muted);margin-top:10px">L'URL diretto del tuo admin sar&agrave;:<br><code style="color:var(--bluel)">nomestore.myshopify.com/admin</code></p>
+      </div>
+      <!-- Screenshot placeholder -->
+      <div class="card" style="margin-top:14px;text-align:center;padding:28px;border:2px dashed var(--border)">
+        <p style="font-size:0.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Screenshot</p>
+        <p style="font-size:0.88rem;color:var(--bluel);margin-top:6px">Dashboard Shopify Admin</p>
+        <p style="font-size:0.78rem;color:var(--muted);margin-top:4px">Inserire screenshot reale durante la sessione live</p>
+      </div>
+    </div>
+  </div>
+  <span class="sidea-footer">Sidea Group &times; Caroli &mdash; Formazione operativa</span>
+  <span class="slide-num">4 / 21</span>
+</div>
+<!-- SLIDE 5: Chi fa cosa -->
+<div id="slide-5" class="slide">
+  <div class="eyebrow">Panoramica &middot; Ruoli</div>
+  <h2>Matrice &ldquo;Chi fa cosa&rdquo;</h2>
+  <p class="subtitle">Responsabilit&agrave; chiare per evitare sovrapposizioni e dimenticanze.</p>
+  <div class="g3" style="margin-top:16px">
+    <div class="card" style="border-top:3px solid var(--blue)">
+      <h3 style="color:var(--blue)">Sidea Group</h3>
+      <ul style="list-style:none;padding:0">
+        <li style="padding:6px 0;font-size:0.85rem">&#x2713; Caricamento prato sintetico e arelle</li>
+        <li style="padding:6px 0;font-size:0.85rem">&#x2713; SEO e ottimizzazione contenuti</li>
+        <li style="padding:6px 0;font-size:0.85rem">&#x2713; Design e tema Shopify</li>
+        <li style="padding:6px 0;font-size:0.85rem">&#x2713; Google Ads e strategia traffico</li>
+        <li style="padding:6px 0;font-size:0.85rem">&#x2713; Supporto tecnico piattaforma</li>
+      </ul>
+    </div>
+    <div class="card-hi" style="border-top:3px solid var(--teal)">
+      <h3 style="color:var(--teal)">Marta</h3>
+      <ul style="list-style:none;padding:0">
+        <li style="padding:6px 0;font-size:0.85rem">&#x2713; Caricamento: vasi, reti, agricoltura, pannelli</li>
+        <li style="padding:6px 0;font-size:0.85rem">&#x2713; Gestione ordini quotidiana</li>
+        <li style="padding:6px 0;font-size:0.85rem">&#x2713; Customer care (email, WhatsApp, tel)</li>
+        <li style="padding:6px 0;font-size:0.85rem">&#x2713; Social media (foto, post, storie)</li>
+        <li style="padding:6px 0;font-size:0.85rem">&#x2713; Report settimanale</li>
+      </ul>
+    </div>
+    <div class="card" style="border-top:3px solid var(--gold)">
+      <h3 style="color:var(--gold)">Amiko3</h3>
+      <ul style="list-style:none;padding:0">
+        <li style="padding:6px 0;font-size:0.85rem">&#x2713; Prezzi &rarr; sync automatico a Shopify</li>
+        <li style="padding:6px 0;font-size:0.85rem">&#x2713; Giacenze &rarr; sync automatico</li>
+        <li style="padding:6px 0;font-size:0.85rem">&#x2713; Fatturazione/scontrini</li>
+        <li style="padding:6px 0;font-size:0.85rem">&#x2713; Integrazione API</li>
+        <li style="padding:6px 0;font-size:0.85rem">&#x2713; Supporto tecnico gestionale</li>
+      </ul>
+    </div>
+  </div>
+  <div class="card" style="margin-top:20px;padding:14px 20px;text-align:center">
+    <p style="font-size:0.88rem;color:var(--ice)"><strong style="color:var(--gold)">Nota:</strong> Il flusso immagini/contenuti &egrave; ancora in definizione (in attesa di conferma da Donato su import Amiko3). Prezzi e giacenze arrivano <strong style="color:var(--white)">da Amiko3</strong> via integrazione.</p>
+  </div>
+  <span class="sidea-footer">Sidea Group &times; Caroli &mdash; Formazione operativa</span>
+  <span class="slide-num">5 / 21</span>
+</div>
+<!-- SLIDE 6: Schema dati -->
+<div id="slide-6" class="slide">
+  <div class="eyebrow">Panoramica &middot; Flusso Dati</div>
+  <h2>Cosa va dove: schema dei dati</h2>
+  <p class="subtitle">Tre flussi principali &mdash; ognuno ha una direzione precisa.</p>
+  <div class="g3" style="margin-top:20px">
+    <div class="card" style="border-left:3px solid var(--gold)">
+      <h3 style="color:var(--gold)">Prezzi &amp; Giacenze</h3>
+      <p style="font-size:1.1rem;color:var(--white);font-weight:600;margin:8px 0">Amiko3 &rarr; Shopify</p>
+      <p style="font-size:0.82rem">Si aggiornano automaticamente via integrazione. Tu non devi toccare i prezzi su Shopify.</p>
+      <div style="margin-top:12px;padding:8px 12px;background:rgba(224,161,0,0.08);border-radius:6px">
+        <p style="font-size:0.75rem;color:var(--gold)">Frequenza: sync periodica + webhook su modifica</p>
+      </div>
+    </div>
+    <div class="card-hi" style="border-left:3px solid var(--teal)">
+      <h3 style="color:var(--teal)">Immagini &amp; Descrizioni</h3>
+      <p style="font-size:1.1rem;color:var(--white);font-weight:600;margin:8px 0">Su Shopify (modalit&agrave; da confermare)</p>
+      <p style="font-size:0.82rem">Le foto e le descrizioni vengono gestite su Shopify. Il flusso esatto (caricamento diretto vs import da Amiko3) &egrave; in fase di definizione con Donato.</p>
+      <div style="margin-top:12px;padding:8px 12px;background:rgba(0,168,150,0.08);border-radius:6px">
+        <p style="font-size:0.75rem;color:var(--teal)">Responsabile contenuti: Marta (vasi, reti, agri, pannelli)</p>
+      </div>
+    </div>
+    <div class="card" style="border-left:3px solid var(--blue)">
+      <h3 style="color:var(--bluel)">Ordini</h3>
+      <p style="font-size:1.1rem;color:var(--white);font-weight:600;margin:8px 0">Shopify &rarr; Integrazione &rarr; Amiko3</p>
+      <p style="font-size:0.82rem">Quando un cliente ordina, l'integrazione comunica l'ordine ad Amiko3 per fatturazione.</p>
+      <div style="margin-top:12px;padding:8px 12px;background:rgba(25,122,207,0.08);border-radius:6px">
+        <p style="font-size:0.75rem;color:var(--bluel)">Marta evade su Shopify + inserisce tracking</p>
+      </div>
+    </div>
+  </div>
+  <span class="sidea-footer">Sidea Group &times; Caroli &mdash; Formazione operativa</span>
+  <span class="slide-num">6 / 21</span>
+</div>
+<!-- SLIDE 7: Timeline caricamento -->
+<div id="slide-7" class="slide">
+  <div class="eyebrow">Pre-Golive &middot; Timeline</div>
+  <h2>Chi carica cosa &mdash; e quando</h2>
+  <p class="subtitle">Il caricamento prodotti si divide tra Sidea e Marta con tempi diversi.</p>
+  <div class="g2" style="margin-top:20px">
+    <div class="card" style="border-top:3px solid var(--blue)">
+      <h3 style="color:var(--blue)">Sidea &mdash; Set/Ott 2026</h3>
+      <p style="font-size:0.92rem;color:var(--white);font-weight:500;margin-bottom:12px">Prato sintetico + Arelle/Frangivista</p>
+      <ul style="list-style:none;padding:0">
+        <li style="padding:5px 0;font-size:0.85rem">&#x2713; Foto professionali e ottimizzate</li>
+        <li style="padding:5px 0;font-size:0.85rem">&#x2713; Descrizioni SEO-friendly</li>
+        <li style="padding:5px 0;font-size:0.85rem">&#x2713; Varianti per misura (mq, altezza)</li>
+        <li style="padding:5px 0;font-size:0.85rem">&#x2713; Collezioni e tag ottimizzati</li>
+      </ul>
+      <div style="margin-top:12px;padding:8px 12px;background:rgba(25,122,207,0.08);border-radius:6px">
+        <p style="font-size:0.75rem;color:var(--bluel)">~30 SKU &middot; Categorie hero con maggior volume di ricerca</p>
+      </div>
+    </div>
+    <div class="card-hi" style="border-top:3px solid var(--teal)">
+      <h3 style="color:var(--teal)">Marta &mdash; Nov/Dic 2026</h3>
+      <p style="font-size:0.92rem;color:var(--white);font-weight:500;margin-bottom:12px">Vasi, Reti, Agricoltura, Pannelli</p>
+      <ul style="list-style:none;padding:0">
+        <li style="padding:5px 0;font-size:0.85rem">&#x2713; Foto scattate in magazzino</li>
+        <li style="padding:5px 0;font-size:0.85rem">&#x2713; Descrizioni seguendo template SOP</li>
+        <li style="padding:5px 0;font-size:0.85rem">&#x2713; Varianti per taglia/colore</li>
+        <li style="padding:5px 0;font-size:0.85rem">&#x2713; Assegnazione a collezioni esistenti</li>
+      </ul>
+      <div style="margin-top:12px;padding:8px 12px;background:rgba(0,168,150,0.08);border-radius:6px">
+        <p style="font-size:0.75rem;color:var(--teal)">~120 SKU &middot; Supporto Sidea per le prime 10 schede</p>
+      </div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:16px;text-align:center;padding:14px">
+    <p style="font-size:0.85rem;color:var(--ice)"><strong style="color:var(--white)">Go-live target:</strong> Gennaio 2027 con catalogo parziale (~100 SKU attivi)</p>
+  </div>
+  <span class="sidea-footer">Sidea Group &times; Caroli &mdash; Formazione operativa</span>
+  <span class="slide-num">7 / 21</span>
+</div>
+<!-- SLIDE 8: Campi scheda prodotto -->
+<div id="slide-8" class="slide">
+  <div class="eyebrow">Pre-Golive &middot; Scheda Prodotto</div>
+  <h2>I campi della scheda prodotto Shopify</h2>
+  <p class="subtitle">Ogni prodotto ha questi campi da compilare. La SOP allegata li dettaglia tutti.</p>
+  <div class="g2" style="margin-top:12px">
+    <div>
+      <table>
+        <thead><tr><th>Campo</th><th>Descrizione</th><th>Chi lo compila</th></tr></thead>
+        <tbody>
+          <tr><td style="color:var(--white);font-weight:500">Titolo</td><td>Nome prodotto ottimizzato SEO</td><td><span class="tag t-green">Marta</span></td></tr>
+          <tr><td style="color:var(--white);font-weight:500">Descrizione</td><td>Testo HTML con caratteristiche e usi</td><td><span class="tag t-green">Marta</span></td></tr>
+          <tr><td style="color:var(--white);font-weight:500">Media</td><td>Foto/video prodotto (min 3 immagini)</td><td><span class="tag t-green">Marta</span></td></tr>
+          <tr><td style="color:var(--white);font-weight:500">Prezzo</td><td>Sincronizzato da Amiko3</td><td><span class="tag t-gold">Amiko3</span></td></tr>
+          <tr><td style="color:var(--white);font-weight:500">Inventario</td><td>Giacenze sincronizzate</td><td><span class="tag t-gold">Amiko3</span></td></tr>
+          <tr><td style="color:var(--white);font-weight:500">Varianti</td><td>Taglia, colore, misura</td><td><span class="tag t-green">Marta</span></td></tr>
+          <tr><td style="color:var(--white);font-weight:500">SEO</td><td>Meta title e meta description</td><td><span class="tag t-green">Marta</span></td></tr>
+          <tr><td style="color:var(--white);font-weight:500">Collezione</td><td>Categoria di appartenenza</td><td><span class="tag t-green">Marta</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <div class="card-hi">
+        <h3 style="color:var(--teal)">Cosa NON devi fare</h3>
+        <ul style="list-style:none;padding:0">
+          <li style="padding:6px 0;font-size:0.85rem">&#x2717; Non modificare i prezzi su Shopify (arrivano da Amiko3)</li>
+          <li style="padding:6px 0;font-size:0.85rem">&#x2717; Non modificare le giacenze manualmente</li>
+          <li style="padding:6px 0;font-size:0.85rem">&#x2717; Non toccare le impostazioni del tema</li>
+          <li style="padding:6px 0;font-size:0.85rem">&#x2717; Non eliminare collezioni senza avvisare Sidea</li>
+        </ul>
+      </div>
+      <div class="card" style="margin-top:14px">
+        <h3>Tipo &amp; Fornitore</h3>
+        <p style="font-size:0.85rem">Ogni prodotto ha anche <strong style="color:var(--white)">Tipo</strong> (es. "Vaso Resina") e <strong style="color:var(--white)">Fornitore</strong> (es. "Monacys"). Utili per filtrare nel backend.</p>
+      </div>
+    </div>
+  </div>
+  <span class="sidea-footer">Sidea Group &times; Caroli &mdash; Formazione operativa</span>
+  <span class="slide-num">8 / 21</span>
+</div>
+<!-- SLIDE 9: Esempio Vaso Graniglia -->
+<div id="slide-9" class="slide">
+  <div class="eyebrow">Pre-Golive &middot; Esempio Pratico</div>
+  <h2>Esempio: &ldquo;Vaso Graniglia Tondo&rdquo;</h2>
+  <p class="subtitle">Vediamo come compilare una scheda prodotto reale passo per passo.</p>
+  <div class="g2" style="margin-top:16px">
+    <div>
+      <div class="card" style="margin-bottom:14px">
+        <h3>Dati principali</h3>
+        <table style="margin-top:8px;font-size:0.85rem">
+          <tbody>
+            <tr><td style="color:var(--bluel);font-weight:600;width:140px">Titolo</td><td style="color:var(--white)">Vaso Graniglia Tondo Effetto Pietra</td></tr>
+            <tr><td style="color:var(--bluel);font-weight:600">Tipo</td><td style="color:var(--white)">Vaso Resina</td></tr>
+            <tr><td style="color:var(--bluel);font-weight:600">Fornitore</td><td style="color:var(--white)">Monacys</td></tr>
+            <tr><td style="color:var(--bluel);font-weight:600">Tag</td><td style="color:var(--white)">vaso, resina, graniglia, tondo, esterno</td></tr>
+            <tr><td style="color:var(--bluel);font-weight:600">Collezione</td><td style="color:var(--white)">Vasi e Fontane &gt; Vasi Resina</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <h3>Descrizione (esempio)</h3>
+        <p style="font-size:0.82rem;color:var(--ice);line-height:1.7;font-style:italic">&ldquo;Vaso tondo in resina effetto graniglia naturale, resistente a UV e gelo. Ideale per terrazzi, balconi e ingressi. Leggero ma stabile grazie al design con riserva d'acqua. Disponibile in 3 misure.&rdquo;</p>
+      </div>
+    </div>
+    <div>
+      <div class="card-hi">
+        <h3 style="color:var(--teal)">Struttura consigliata della descrizione</h3>
+        <ol style="padding-left:16px">
+          <li style="padding:5px 0;font-size:0.85rem;color:var(--ice)"><strong style="color:var(--white)">Frase d'apertura</strong> &mdash; cosa &egrave; e a chi serve</li>
+          <li style="padding:5px 0;font-size:0.85rem;color:var(--ice)"><strong style="color:var(--white)">Caratteristiche</strong> &mdash; materiale, resistenza, peso</li>
+          <li style="padding:5px 0;font-size:0.85rem;color:var(--ice)"><strong style="color:var(--white)">Usi consigliati</strong> &mdash; dove posizionarlo</li>
+          <li style="padding:5px 0;font-size:0.85rem;color:var(--ice)"><strong style="color:var(--white)">Varianti</strong> &mdash; misure disponibili</li>
+        </ol>
+      </div>
+      <div class="card" style="margin-top:14px">
+        <h3>SEO fields</h3>
+        <table style="font-size:0.82rem">
+          <tbody>
+            <tr><td style="color:var(--bluel);font-weight:600">Meta title</td><td style="color:var(--white)">Vaso Graniglia Tondo Effetto Pietra | Caroli</td></tr>
+            <tr><td style="color:var(--bluel);font-weight:600">Meta description</td><td style="color:var(--white)">Vaso tondo in resina effetto graniglia. Resistente UV/gelo. 3 misure. Spedizione veloce.</td></tr>
+            <tr><td style="color:var(--bluel);font-weight:600">URL handle</td><td style="color:var(--white)">/products/vaso-graniglia-tondo</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <span class="sidea-footer">Sidea Group &times; Caroli &mdash; Formazione operativa</span>
+  <span class="slide-num">9 / 21</span>
+</div>
+<!-- SLIDE 10: Varianti -->
+<div id="slide-10" class="slide">
+  <div class="eyebrow">Pre-Golive &middot; Varianti</div>
+  <h2>Come creare varianti taglia</h2>
+  <p class="subtitle">Un prodotto con pi&ugrave; misure = 1 scheda con varianti (non 3 schede separate).</p>
+  <div class="g2" style="margin-top:16px">
+    <div>
+      <div class="card" style="margin-bottom:14px">
+        <h3>Esempio: Vaso Graniglia Tondo</h3>
+        <table>
+          <thead><tr><th>Variante</th><th>Diametro</th><th>Prezzo*</th><th>SKU</th></tr></thead>
+          <tbody>
+            <tr><td style="color:var(--white)">Piccolo</td><td>30 cm</td><td>&euro;19,90</td><td>VGT-30</td></tr>
+            <tr><td style="color:var(--white)">Medio</td><td>40 cm</td><td>&euro;34,90</td><td>VGT-40</td></tr>
+            <tr><td style="color:var(--white)">Grande</td><td>60 cm</td><td>&euro;59,90</td><td>VGT-60</td></tr>
+          </tbody>
+        </table>
+        <p style="font-size:0.72rem;color:var(--muted);margin-top:8px">*Prezzi sincronizzati da Amiko3 &mdash; non modificare su Shopify</p>
+      </div>
+      <div class="card">
+        <h3>Opzioni variante comuni</h3>
+        <table style="font-size:0.82rem">
+          <tbody>
+            <tr><td style="color:var(--white);font-weight:500">Vasi</td><td>Taglia (diametro cm)</td></tr>
+            <tr><td style="color:var(--white);font-weight:500">Reti</td><td>Misura (altezza x lunghezza)</td></tr>
+            <tr><td style="color:var(--white);font-weight:500">Pannelli</td><td>Spessore + Lunghezza</td></tr>
+            <tr><td style="color:var(--white);font-weight:500">Ombreggianti</td><td>Dimensione + Colore</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div>
+      <div class="card-hi">
+        <h3 style="color:var(--teal)">Procedura su Shopify</h3>
+        <ol style="padding-left:16px">
+          <li style="padding:6px 0;font-size:0.85rem;color:var(--ice)">Nella scheda prodotto, scorri a <strong style="color:var(--white)">"Varianti"</strong></li>
+          <li style="padding:6px 0;font-size:0.85rem;color:var(--ice)">Clicca <strong style="color:var(--white)">"Aggiungi opzione"</strong> (es. "Taglia")</li>
+          <li style="padding:6px 0;font-size:0.85rem;color:var(--ice)">Inserisci i valori: 30cm, 40cm, 60cm</li>
+          <li style="padding:6px 0;font-size:0.85rem;color:var(--ice)">Per ogni variante: verifica SKU sia corretto</li>
+          <li style="padding:6px 0;font-size:0.85rem;color:var(--ice)">Associa un'immagine specifica (opzionale)</li>
+          <li style="padding:6px 0;font-size:0.85rem;color:var(--ice)">Prezzo e giacenze &rarr; arrivano da Amiko3</li>
+        </ol>
+      </div>
+      <div class="card" style="margin-top:14px;border-left:3px solid var(--gold)">
+        <p style="font-size:0.85rem;color:var(--gold);font-weight:600">Limite Shopify: max 3 opzioni per prodotto</p>
+        <p style="font-size:0.82rem;color:var(--ice);margin-top:4px">Es. Taglia + Colore + Materiale. Per la maggior parte dei nostri prodotti ne basta 1-2.</p>
+      </div>
+    </div>
+  </div>
+  <span class="sidea-footer">Sidea Group &times; Caroli &mdash; Formazione operativa</span>
+  <span class="slide-num">10 / 21</span>
+</div>
+<!-- SLIDE 11: Immagini -->
+<div id="slide-11" class="slide">
+  <div class="eyebrow">Pre-Golive &middot; Immagini</div>
+  <h2>Gestione immagini prodotto</h2>
+  <p class="subtitle">Immagini di qualit&agrave; = pi&ugrave; conversioni. Ecco le specifiche da rispettare indipendentemente dal metodo di caricamento.</p>
+  <div class="g2" style="margin-top:16px">
+    <div>
+      <div class="card" style="margin-bottom:14px">
+        <h3>Specifiche tecniche</h3>
+        <table style="font-size:0.85rem">
+          <tbody>
+            <tr><td style="color:var(--bluel);font-weight:600">Formato</td><td style="color:var(--white)">JPG o PNG</td></tr>
+            <tr><td style="color:var(--bluel);font-weight:600">Risoluzione min</td><td style="color:var(--white)">2048 x 2048 px</td></tr>
+            <tr><td style="color:var(--bluel);font-weight:600">Ratio</td><td style="color:var(--white)">1:1 (quadrata) preferibile</td></tr>
+            <tr><td style="color:var(--bluel);font-weight:600">Peso max</td><td style="color:var(--white)">20 MB (Shopify comprime)</td></tr>
+            <tr><td style="color:var(--bluel);font-weight:600">N. minimo</td><td style="color:var(--teal);font-weight:600">3 foto per prodotto</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <h3>Naming file</h3>
+        <p style="font-size:0.85rem;color:var(--ice);margin-bottom:8px">Usa nomi descrittivi, tutto minuscolo, separati da trattini:</p>
+        <div style="padding:10px 14px;background:rgba(25,122,207,0.08);border-radius:6px;margin-bottom:6px">
+          <code style="font-size:0.82rem;color:var(--bluel)">vaso-graniglia-tondo-40cm-01.jpg</code>
+        </div>
+        <div style="padding:10px 14px;background:rgba(25,122,207,0.08);border-radius:6px;margin-bottom:6px">
+          <code style="font-size:0.82rem;color:var(--bluel)">vaso-graniglia-tondo-40cm-dettaglio.jpg</code>
+        </div>
+        <div style="padding:10px 14px;background:rgba(25,122,207,0.08);border-radius:6px">
+          <code style="font-size:0.82rem;color:var(--bluel)">vaso-graniglia-tondo-ambientato.jpg</code>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="card-hi">
+        <h3 style="color:var(--teal)">Alt text (testo alternativo)</h3>
+        <p style="font-size:0.85rem;color:var(--ice);margin-bottom:10px">Descrive l'immagine per Google e per l'accessibilit&agrave;. Compilalo <strong style="color:var(--white)">sempre</strong>.</p>
+        <div style="padding:10px 14px;background:rgba(0,168,150,0.08);border-radius:6px;margin-bottom:8px">
+          <p style="font-size:0.78rem;color:var(--muted)">Esempio:</p>
+          <p style="font-size:0.82rem;color:var(--teal)">"Vaso graniglia tondo 40cm effetto pietra su terrazzo"</p>
+        </div>
+        <p style="font-size:0.78rem;color:var(--muted)">Regola: descrivi cosa si vede + keyword + contesto</p>
+      </div>
+      <div class="card" style="margin-top:14px">
+        <h3>Ordine delle immagini</h3>
+        <ol style="padding-left:16px">
+          <li style="padding:4px 0;font-size:0.85rem;color:var(--ice)">Foto frontale/principale (diventa thumbnail)</li>
+          <li style="padding:4px 0;font-size:0.85rem;color:var(--ice)">Foto angolazione diversa</li>
+          <li style="padding:4px 0;font-size:0.85rem;color:var(--ice)">Dettaglio materiale/texture</li>
+          <li style="padding:4px 0;font-size:0.85rem;color:var(--ice)">Ambientata (in uso reale)</li>
+          <li style="padding:4px 0;font-size:0.85rem;color:var(--ice)">Dimensioni/scala (opzionale)</li>
+        </ol>
+      </div>
+      <div class="card" style="margin-top:14px;border-left:3px solid var(--gold)">
+        <p style="font-size:0.82rem;color:var(--gold);font-weight:500">Per le varianti: associa una foto specifica a ogni taglia cliccando sull'icona immagine nella riga variante.</p>
+      </div>
+    </div>
+  </div>
+  <span class="sidea-footer">Sidea Group &times; Caroli &mdash; Formazione operativa</span>
+  <span class="slide-num">11 / 21</span>
+</div>
+<!-- SLIDE 12: Tag e Collezioni -->
+<div id="slide-12" class="slide">
+  <div class="eyebrow">Pre-Golive &middot; Organizzazione</div>
+  <h2>Tag, Collezioni e SEO</h2>
+  <p class="subtitle">Come organizzare i prodotti perch&eacute; siano trovabili sia dai clienti che da Google.</p>
+  <div class="g2" style="margin-top:16px">
+    <div>
+      <div class="card" style="margin-bottom:14px">
+        <h3>Collezioni (= categorie)</h3>
+        <p style="font-size:0.85rem;color:var(--ice);margin-bottom:10px">Le collezioni sono le categorie del sito. Ogni prodotto va assegnato alla sua collezione.</p>
+        <table style="font-size:0.82rem">
+          <thead><tr><th>Prodotto</th><th>Collezione</th></tr></thead>
+          <tbody>
+            <tr><td style="color:var(--white)">Vaso Graniglia Tondo</td><td>Vasi e Fontane &gt; Vasi Resina</td></tr>
+            <tr><td style="color:var(--white)">Rete Ombreggiante 90%</td><td>Ombreggianti &gt; Reti Ombreggianti</td></tr>
+            <tr><td style="color:var(--white)">Pannello Coibentato 4cm</td><td>Pannelli Coibentati &gt; Copertura</td></tr>
+            <tr><td style="color:var(--white)">Rete Raccolta Olive</td><td>Olivicoltura &gt; Reti Raccolta</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <h3>Tag</h3>
+        <p style="font-size:0.85rem;color:var(--ice);margin-bottom:8px">Parole chiave per filtri e ricerca interna. Usa tag coerenti:</p>
+        <p style="font-size:0.82rem;color:var(--bluel)">materiale (resina, metallo, pvc) + uso (esterno, interno, terrazzo) + stagione (estate, inverno) + brand fornitore</p>
+      </div>
+    </div>
+    <div>
+      <div class="card-hi">
+        <h3 style="color:var(--teal)">Meta title e Meta description</h3>
+        <p style="font-size:0.85rem;color:var(--ice);margin-bottom:10px">Ogni prodotto ha campi SEO in fondo alla scheda. Compilali sempre!</p>
+        <div style="margin-bottom:10px">
+          <p style="font-size:0.75rem;color:var(--muted)">Meta title (max 60 caratteri):</p>
+          <div style="padding:8px 12px;background:rgba(0,168,150,0.08);border-radius:6px">
+            <p style="font-size:0.82rem;color:var(--teal)">Vaso Graniglia Tondo Effetto Pietra | Caroli</p>
+          </div>
+        </div>
+        <div>
+          <p style="font-size:0.75rem;color:var(--muted)">Meta description (max 155 caratteri):</p>
+          <div style="padding:8px 12px;background:rgba(0,168,150,0.08);border-radius:6px">
+            <p style="font-size:0.82rem;color:var(--teal)">Vaso tondo in resina effetto graniglia naturale. Resistente UV e gelo. 3 misure disponibili. Consegna veloce in Puglia.</p>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="margin-top:14px">
+        <h3>Regole rapide</h3>
+        <ul style="list-style:none;padding:0">
+          <li style="padding:5px 0;font-size:0.85rem;color:var(--ice)">&#x2713; 1 prodotto = almeno 1 collezione</li>
+          <li style="padding:5px 0;font-size:0.85rem;color:var(--ice)">&#x2713; 3-8 tag per prodotto</li>
+          <li style="padding:5px 0;font-size:0.85rem;color:var(--ice)">&#x2713; Meta title con keyword principale</li>
+          <li style="padding:5px 0;font-size:0.85rem;color:var(--ice)">&#x2713; URL handle: breve e con keyword</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <span class="sidea-footer">Sidea Group &times; Caroli &mdash; Formazione operativa</span>
+  <span class="slide-num">12 / 21</span>
+</div>
+<!-- SLIDE 13: Checklist pre-pubblicazione -->
+<div id="slide-13" class="slide">
+  <div class="eyebrow">Pre-Golive &middot; Checklist</div>
+  <h2>Checklist pre-pubblicazione</h2>
+  <p class="subtitle">Prima di mettere un prodotto &ldquo;Attivo&rdquo;, verifica tutti questi punti.</p>
+  <div class="g2" style="margin-top:16px">
+    <div class="card-hi" style="padding:28px">
+      <h3 style="color:var(--teal);font-size:1.2rem">&#x2611; Checklist obbligatoria</h3>
+      <ul style="list-style:none;padding:0;margin-top:14px">
+        <li style="padding:8px 0;font-size:0.92rem;color:var(--ice);border-bottom:1px solid rgba(155,189,227,0.15)">&#x2610; Prezzo sincronizzato da Amiko3?</li>
+        <li style="padding:8px 0;font-size:0.92rem;color:var(--ice);border-bottom:1px solid rgba(155,189,227,0.15)">&#x2610; Immagini caricate (&ge;3 foto)?</li>
+        <li style="padding:8px 0;font-size:0.92rem;color:var(--ice);border-bottom:1px solid rgba(155,189,227,0.15)">&#x2610; Alt text compilato su ogni immagine?</li>
+        <li style="padding:8px 0;font-size:0.92rem;color:var(--ice);border-bottom:1px solid rgba(155,189,227,0.15)">&#x2610; Descrizione completa e formattata?</li>
+        <li style="padding:8px 0;font-size:0.92rem;color:var(--ice);border-bottom:1px solid rgba(155,189,227,0.15)">&#x2610; Assegnato a una Collezione?</li>
+        <li style="padding:8px 0;font-size:0.92rem;color:var(--ice);border-bottom:1px solid rgba(155,189,227,0.15)">&#x2610; Tag inseriti (3-8)?</li>
+        <li style="padding:8px 0;font-size:0.92rem;color:var(--ice);border-bottom:1px solid rgba(155,189,227,0.15)">&#x2610; Varianti create (se applicabile)?</li>
+        <li style="padding:8px 0;font-size:0.92rem;color:var(--ice);border-bottom:1px solid rgba(155,189,227,0.15)">&#x2610; Giacenze/stock visibili su ogni variante?</li>
+        <li style="padding:8px 0;font-size:0.92rem;color:var(--ice)">&#x2610; Meta title + meta description compilati?</li>
+      </ul>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:14px">
+        <h3>Stato prodotto</h3>
+        <p style="font-size:0.85rem;color:var(--ice);margin-bottom:10px">Su Shopify un prodotto pu&ograve; essere:</p>
+        <div style="padding:10px 14px;background:rgba(0,168,150,0.08);border-radius:6px;margin-bottom:8px">
+          <p style="font-size:0.85rem;color:var(--teal);font-weight:600">Attivo</p>
+          <p style="font-size:0.78rem;color:var(--ice)">Visibile sul sito. Mettilo attivo solo quando la checklist &egrave; completa.</p>
+        </div>
+        <div style="padding:10px 14px;background:rgba(224,161,0,0.08);border-radius:6px;margin-bottom:8px">
+          <p style="font-size:0.85rem;color:var(--gold);font-weight:600">Bozza</p>
+          <p style="font-size:0.78rem;color:var(--ice)">Non visibile. Usa per prodotti in preparazione.</p>
+        </div>
+        <div style="padding:10px 14px;background:rgba(198,40,40,0.08);border-radius:6px">
+          <p style="font-size:0.85rem;color:#ef5350;font-weight:600">Archiviato</p>
+          <p style="font-size:0.78rem;color:var(--ice)">Nascosto. Per prodotti fuori stagione o esauriti definitivamente.</p>
+        </div>
+      </div>
+      <div class="card" style="border-left:3px solid var(--gold)">
+        <p style="font-size:0.85rem;color:var(--gold);font-weight:500">Se non sei sicura, lascia in Bozza e chiedi a Sidea di verificare prima della pubblicazione.</p>
+      </div>
+    </div>
+  </div>
+  <span class="sidea-footer">Sidea Group &times; Caroli &mdash; Formazione operativa</span>
+  <span class="slide-num">13 / 21</span>
+</div>
+<!-- SLIDE 14: Giornata tipo di Marta -->
+<div id="slide-14" class="slide">
+  <div class="eyebrow">Post-Golive &middot; Routine</div>
+  <h2>La giornata tipo di Marta</h2>
+  <p class="subtitle">Una routine strutturata per gestire tutto senza stress.</p>
+  <div class="g2" style="margin-top:20px">
+    <div class="card" style="border-top:3px solid var(--blue)">
+      <h3 style="color:var(--blue);font-size:1.2rem">&#x2600;&#xFE0F; Mattina (9:00-13:00)</h3>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-top:14px">
+        <div style="padding:10px 14px;background:rgba(25,122,207,0.08);border-radius:6px">
+          <p style="font-size:0.88rem;color:var(--white);font-weight:500">9:00 &mdash; Controllo ordini nuovi</p>
+          <p style="font-size:0.78rem;color:var(--muted)">Verifica pagamenti, prepara evasione</p>
+        </div>
+        <div style="padding:10px 14px;background:rgba(25,122,207,0.08);border-radius:6px">
+          <p style="font-size:0.88rem;color:var(--white);font-weight:500">9:30 &mdash; Customer care</p>
+          <p style="font-size:0.78rem;color:var(--muted)">Rispondi a email, WhatsApp, telefonate</p>
+        </div>
+        <div style="padding:10px 14px;background:rgba(25,122,207,0.08);border-radius:6px">
+          <p style="font-size:0.88rem;color:var(--white);font-weight:500">10:30 &mdash; Evasione ordini</p>
+          <p style="font-size:0.78rem;color:var(--muted)">Inserisci tracking su Shopify, conferma spedizioni</p>
+        </div>
+        <div style="padding:10px 14px;background:rgba(25,122,207,0.08);border-radius:6px">
+          <p style="font-size:0.88rem;color:var(--white);font-weight:500">11:30 &mdash; Analytics rapido</p>
+          <p style="font-size:0.78rem;color:var(--muted)">Colpo d'occhio vendite/traffico del giorno</p>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="border-top:3px solid var(--teal)">
+      <h3 style="color:var(--teal);font-size:1.2rem">&#x1F319; Pomeriggio (14:00-18:00)</h3>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-top:14px">
+        <div style="padding:10px 14px;background:rgba(0,168,150,0.08);border-radius:6px">
+          <p style="font-size:0.88rem;color:var(--white);font-weight:500">14:00 &mdash; Contenuti social</p>
+          <p style="font-size:0.78rem;color:var(--muted)">1 foto/video dal magazzino, post Instagram/Facebook</p>
+        </div>
+        <div style="padding:10px 14px;background:rgba(0,168,150,0.08);border-radius:6px">
+          <p style="font-size:0.88rem;color:var(--white);font-weight:500">15:00 &mdash; Nuovi prodotti</p>
+          <p style="font-size:0.78rem;color:var(--muted)">Carica/aggiorna schede prodotto (2-3 al giorno)</p>
+        </div>
+        <div style="padding:10px 14px;background:rgba(0,168,150,0.08);border-radius:6px">
+          <p style="font-size:0.88rem;color:var(--white);font-weight:500">16:30 &mdash; Follow-up ordini</p>
+          <p style="font-size:0.78rem;color:var(--muted)">Verifica consegne, gestisci eventuali problemi</p>
+        </div>
+        <div style="padding:10px 14px;background:rgba(0,168,150,0.08);border-radius:6px">
+          <p style="font-size:0.88rem;color:var(--white);font-weight:500">17:30 &mdash; Preparazione domani</p>
+          <p style="font-size:0.78rem;color:var(--muted)">Draft order negozio, note per il giorno dopo</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <span class="sidea-footer">Sidea Group &times; Caroli &mdash; Formazione operativa</span>
+  <span class="slide-num">14 / 21</span>
+</div>
+<!-- SLIDE 15: Flusso ordini -->
+<div id="slide-15" class="slide">
+  <div class="eyebrow">Post-Golive &middot; Ordini</div>
+  <h2>Flusso ordini completo</h2>
+  <p class="subtitle">Dal momento in cui il cliente paga fino all'evasione &mdash; 5 step.</p>
+  <div style="display:flex;flex-direction:column;gap:10px;margin-top:20px;max-width:800px">
+    <div class="flow-step">
+      <p style="font-size:0.95rem;color:var(--white);font-weight:600">1. Notifica nuovo ordine</p>
+      <p style="font-size:0.82rem;color:var(--ice)">Shopify invia email + notifica app mobile. Marta vede l'ordine nel pannello Ordini.</p>
+    </div>
+    <div class="flow-step">
+      <p style="font-size:0.95rem;color:var(--white);font-weight:600">2. Verifica pagamento</p>
+      <p style="font-size:0.82rem;color:var(--ice)">Controlla che il pagamento sia confermato (badge verde "Pagato"). Se contrassegno: verifica indirizzo e telefonata preventiva al cliente.</p>
+    </div>
+    <div class="flow-step highlight">
+      <p style="font-size:0.95rem;color:var(--white);font-weight:600">3. Integrazione comunica ad Amiko3</p>
+      <p style="font-size:0.82rem;color:var(--ice)">Automatico: l'integrazione API invia i dati ordine ad Amiko3 per la fatturazione.</p>
+    </div>
+    <div class="flow-step highlight">
+      <p style="font-size:0.95rem;color:var(--white);font-weight:600">4. Amiko3 genera fattura/scontrino</p>
+      <p style="font-size:0.82rem;color:var(--ice)">Donato/Caterina gestiscono. Il documento fiscale viene emesso dal gestionale.</p>
+    </div>
+    <div class="flow-step" style="border-left-color:var(--teal)">
+      <p style="font-size:0.95rem;color:var(--white);font-weight:600">5. Marta evade su Shopify + tracking</p>
+      <p style="font-size:0.82rem;color:var(--ice)">Clicca "Evadi", inserisci numero tracking del corriere. Il cliente riceve email automatica con link tracciamento.</p>
+    </div>
+  </div>
+  <div class="card" style="margin-top:16px;padding:14px 20px;max-width:800px">
+    <p style="font-size:0.85rem;color:var(--ice)"><strong style="color:var(--gold)">Nota:</strong> I passaggi 3 e 4 sono <strong style="color:var(--white)">automatici</strong>. Tu intervieni solo su 1-2 (verifica) e 5 (evasione + tracking).</p>
+  </div>
+  <span class="sidea-footer">Sidea Group &times; Caroli &mdash; Formazione operativa</span>
+  <span class="slide-num">15 / 21</span>
+</div>
+<!-- SLIDE 16: Draft Order -->
+<div id="slide-16" class="slide">
+  <div class="eyebrow">Post-Golive &middot; Draft Order</div>
+  <h2>Draft Order: vendite in negozio</h2>
+  <p class="subtitle">Per tracciare anche le vendite fisiche nell'e-commerce e avere un unico cruscotto.</p>
+  <div class="g2" style="margin-top:16px">
+    <div>
+      <div class="card-hi">
+        <h3 style="color:var(--teal)">Quando usare il Draft Order</h3>
+        <ul style="list-style:none;padding:0">
+          <li style="padding:8px 0;font-size:0.88rem;color:var(--ice)">&#x2713; Ordine telefonico gestito dal customer service</li>
+          <li style="padding:8px 0;font-size:0.88rem;color:var(--ice)">&#x2713; Ordine via WhatsApp da cliente abituale</li>
+          <li style="padding:8px 0;font-size:0.88rem;color:var(--ice)">&#x2713; Preventivo da inviare al cliente</li>
+          <li style="padding:8px 0;font-size:0.88rem;color:var(--ice)">&#x2713; Ordine B2B con condizioni speciali</li>
+        </ul>
+      </div>
+      <div class="card" style="margin-top:14px;border-left:3px solid var(--gold)">
+        <h3 style="color:var(--gold)">Perch&eacute; &egrave; importante</h3>
+        <p style="font-size:0.85rem;color:var(--ice)">Le vendite del negozio fisico arriveranno da Amiko3. Il draft order serve per gli ordini che Marta gestisce direttamente come customer service (telefono, WhatsApp).</p>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <h3>Procedura step-by-step</h3>
+        <ol style="padding-left:16px">
+          <li style="padding:7px 0;font-size:0.88rem;color:var(--ice)">Vai su <strong style="color:var(--white)">Ordini &rarr; Bozze &rarr; Crea bozza ordine</strong></li>
+          <li style="padding:7px 0;font-size:0.88rem;color:var(--ice)">Aggiungi i prodotti acquistati</li>
+          <li style="padding:7px 0;font-size:0.88rem;color:var(--ice)">Cerca o crea il <strong style="color:var(--white)">cliente</strong> (anagrafica)</li>
+          <li style="padding:7px 0;font-size:0.88rem;color:var(--ice)">Applica sconti se necessario</li>
+          <li style="padding:7px 0;font-size:0.88rem;color:var(--ice)">Clicca <strong style="color:var(--white)">"Segna come pagato"</strong></li>
+          <li style="padding:7px 0;font-size:0.88rem;color:var(--ice)">Seleziona metodo: Contanti / POS / Bonifico</li>
+        </ol>
+        <div style="margin-top:12px;padding:10px 14px;background:rgba(0,168,150,0.08);border-radius:6px">
+          <p style="font-size:0.82rem;color:var(--teal);font-weight:500">La sorgente sar&agrave; tracciata come "Draft order" &rarr; puoi filtrare online vs negozio nei report.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <span class="sidea-footer">Sidea Group &times; Caroli &mdash; Formazione operativa</span>
+  <span class="slide-num">16 / 21</span>
+</div>
+<!-- SLIDE 17: Customer Care -->
+<div id="slide-17" class="slide">
+  <div class="eyebrow">Post-Golive &middot; Customer Care</div>
+  <h2>Customer Care: canali e tempi</h2>
+  <p class="subtitle">Rispondere velocemente = pi&ugrave; conversioni e recensioni positive.</p>
+  <div class="g2" style="margin-top:16px">
+    <div>
+      <div class="card" style="margin-bottom:14px">
+        <h3>Canali attivi</h3>
+        <table>
+          <thead><tr><th>Canale</th><th>Tempo risposta</th><th>Priorit&agrave;</th></tr></thead>
+          <tbody>
+            <tr><td style="color:var(--white);font-weight:500">Email (notifiche Shopify)</td><td>Entro 4h lavorative</td><td><span class="tag t-blue">Alta</span></td></tr>
+            <tr><td style="color:var(--white);font-weight:500">WhatsApp Business</td><td>Entro 2h lavorative</td><td><span class="tag t-green">Altissima</span></td></tr>
+            <tr><td style="color:var(--white);font-weight:500">Telefono</td><td>Risposta diretta</td><td><span class="tag t-green">Altissima</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <h3>Template risposte (esempi)</h3>
+        <div style="padding:10px 14px;background:rgba(25,122,207,0.08);border-radius:6px;margin-bottom:8px">
+          <p style="font-size:0.75rem;color:var(--muted)">Conferma spedizione:</p>
+          <p style="font-size:0.82rem;color:var(--ice);font-style:italic">"Ciao [Nome], il tuo ordine &egrave; stato spedito! Tracking: [link]. Consegna prevista in 24-48h."</p>
+        </div>
+        <div style="padding:10px 14px;background:rgba(25,122,207,0.08);border-radius:6px">
+          <p style="font-size:0.75rem;color:var(--muted)">Richiesta info prodotto:</p>
+          <p style="font-size:0.82rem;color:var(--ice);font-style:italic">"Ciao [Nome], grazie per l'interesse! Il [prodotto] &egrave; disponibile in [varianti]. Posso aiutarti nella scelta?"</p>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="card-hi">
+        <h3 style="color:var(--teal)">Gestione resi</h3>
+        <ol style="padding-left:16px">
+          <li style="padding:6px 0;font-size:0.85rem;color:var(--ice)">Cliente comunica problema (email/WhatsApp)</li>
+          <li style="padding:6px 0;font-size:0.85rem;color:var(--ice)">Verifica ordine su Shopify (foto se danno)</li>
+          <li style="padding:6px 0;font-size:0.85rem;color:var(--ice)">Proponi soluzione: sostituzione o rimborso</li>
+          <li style="padding:6px 0;font-size:0.85rem;color:var(--ice)">Su Shopify: Ordini &rarr; Rimborsi &rarr; Conferma</li>
+          <li style="padding:6px 0;font-size:0.85rem;color:var(--ice)">Comunica ad Amiko3 per nota credito</li>
+        </ol>
+        <div style="margin-top:10px;padding:8px 12px;background:rgba(224,161,0,0.08);border-radius:6px">
+          <p style="font-size:0.78rem;color:var(--gold)">Policy: reso entro 14gg, prodotto integro, spese reso a carico cliente (salvo difetti)</p>
+        </div>
+      </div>
+      <div class="card" style="margin-top:14px">
+        <h3>Regola d'oro</h3>
+        <p style="font-size:0.88rem;color:var(--ice)">Un cliente soddisfatto dal customer care spende <strong style="color:var(--teal)">2-3x</strong> in pi&ugrave; nel tempo. La velocit&agrave; di risposta &egrave; il differenziante.</p>
+      </div>
+    </div>
+  </div>
+  <span class="sidea-footer">Sidea Group &times; Caroli &mdash; Formazione operativa</span>
+  <span class="slide-num">17 / 21</span>
+</div>
+<!-- SLIDE 18: Social e Blog -->
+<div id="slide-18" class="slide">
+  <div class="eyebrow">Post-Golive &middot; Social Media</div>
+  <h2>Social e Blog: cosa pubblicare</h2>
+  <p class="subtitle">Contenuti semplici che costruiscono fiducia e portano traffico al sito.</p>
+  <div class="g2" style="margin-top:16px">
+    <div>
+      <div class="card" style="margin-bottom:14px">
+        <h3>Cosa pubblicare</h3>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:10px">
+          <div style="padding:10px 14px;background:rgba(0,168,150,0.08);border-radius:6px">
+            <p style="font-size:0.88rem;color:var(--white);font-weight:500">&#x1F4E6; Arrivi container</p>
+            <p style="font-size:0.78rem;color:var(--muted)">"Oggi &egrave; arrivato il container! Nuova merce disponibile..."</p>
+          </div>
+          <div style="padding:10px 14px;background:rgba(0,168,150,0.08);border-radius:6px">
+            <p style="font-size:0.88rem;color:var(--white);font-weight:500">&#x1F3D7;&#xFE0F; Installazioni / prima-dopo</p>
+            <p style="font-size:0.78rem;color:var(--muted)">Foto clienti soddisfatti (con permesso), risultati finali</p>
+          </div>
+          <div style="padding:10px 14px;background:rgba(0,168,150,0.08);border-radius:6px">
+            <p style="font-size:0.88rem;color:var(--white);font-weight:500">&#x1F3F7;&#xFE0F; Offerte e promozioni</p>
+            <p style="font-size:0.78rem;color:var(--muted)">Saldi stagionali, bundle, offerte limitate</p>
+          </div>
+          <div style="padding:10px 14px;background:rgba(0,168,150,0.08);border-radius:6px">
+            <p style="font-size:0.88rem;color:var(--white);font-weight:500">&#x1F4A1; Consigli e guide</p>
+            <p style="font-size:0.78rem;color:var(--muted)">"Come scegliere l'arella giusta per il tuo balcone"</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="card-hi" style="margin-bottom:14px">
+        <h3 style="color:var(--teal)">Frequenza e piattaforme</h3>
+        <table style="margin-top:8px">
+          <tbody>
+            <tr><td style="color:var(--white);font-weight:500">Instagram</td><td>3-5 post/settimana + stories quotidiane</td></tr>
+            <tr><td style="color:var(--white);font-weight:500">Facebook</td><td>3-5 post/settimana (cross-post da IG)</td></tr>
+            <tr><td style="color:var(--white);font-weight:500">WhatsApp Status</td><td>1-2 aggiornamenti/giorno</td></tr>
+          </tbody>
+        </table>
+        <div style="margin-top:12px;padding:10px 14px;background:rgba(0,168,150,0.08);border-radius:6px">
+          <p style="font-size:0.82rem;color:var(--teal);font-weight:500">Tempo stimato: 30-45 min/giorno</p>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Consigli pratici</h3>
+        <ul style="list-style:none;padding:0">
+          <li style="padding:5px 0;font-size:0.85rem;color:var(--ice)">&#x2713; Usa il magazzino come set fotografico</li>
+          <li style="padding:5px 0;font-size:0.85rem;color:var(--ice)">&#x2713; Video brevi (&lt;30s) funzionano meglio</li>
+          <li style="padding:5px 0;font-size:0.85rem;color:var(--ice)">&#x2713; Sempre link al sito in bio/post</li>
+          <li style="padding:5px 0;font-size:0.85rem;color:var(--ice)">&#x2713; Rispondi ai commenti entro 1h</li>
+          <li style="padding:5px 0;font-size:0.85rem;color:var(--ice)">&#x2713; Hashtag locali: #giardinaggioPuglia</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <span class="sidea-footer">Sidea Group &times; Caroli &mdash; Formazione operativa</span>
+  <span class="slide-num">18 / 21</span>
+</div>
+<!-- SLIDE 20 removed (Report) -->
+<!-- SLIDE 20: Calendario settimanale -->
+<div id="slide-20" class="slide">
+  <div class="eyebrow">Post-Golive &middot; Calendario</div>
+  <h2>Calendario settimanale tipo</h2>
+  <p class="subtitle">Una struttura flessibile per organizzare la settimana.</p>
+  <div style="margin-top:16px">
+    <table>
+      <thead><tr><th>Giorno</th><th>Mattina</th><th>Pomeriggio</th><th>Focus</th></tr></thead>
+      <tbody>
+        <tr><td style="color:var(--white);font-weight:600">Luned&igrave;</td><td>Customer care richieste weekend + organizzazione spedizioni</td><td>Evasione ordini + pianificazione</td><td><span class="tag t-blue">Ordini</span></td></tr>
+        <tr><td style="color:var(--white);font-weight:600">Marted&igrave;</td><td>Ordini + evasioni</td><td>Social media + contenuti</td><td><span class="tag t-green">Social</span></td></tr>
+        <tr><td style="color:var(--white);font-weight:600">Mercoled&igrave;</td><td>Ordini + customer care</td><td>Nuovi prodotti (caricamento)</td><td><span class="tag t-gold">Prodotti</span></td></tr>
+        <tr><td style="color:var(--white);font-weight:600">Gioved&igrave;</td><td>Ordini + evasioni</td><td>Social media + customer care</td><td><span class="tag t-green">Social</span></td></tr>
+        <tr><td style="color:var(--white);font-weight:600">Venerd&igrave;</td><td>Ordini + follow-up consegne</td><td>Nuovi prodotti + preparazione settimana</td><td><span class="tag t-gold">Prodotti</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="g3" style="margin-top:24px">
+    <div class="card" style="text-align:center">
+      <div class="stat-sm" style="font-size:1.5rem;color:var(--teal)">~2h</div>
+      <div class="label">Ordini &amp; care / giorno</div>
+    </div>
+    <div class="card" style="text-align:center">
+      <div class="stat-sm" style="font-size:1.5rem;color:var(--blue)">~1h</div>
+      <div class="label">Social &amp; contenuti / giorno</div>
+    </div>
+    <div class="card" style="text-align:center">
+      <div class="stat-sm" style="font-size:1.5rem;color:var(--gold)">2-3</div>
+      <div class="label">Nuovi prodotti / giorno</div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:16px;padding:14px 20px;text-align:center">
+    <p style="font-size:0.85rem;color:var(--ice)"><strong style="color:var(--white)">Sabato e Domenica:</strong> solo controllo ordini urgenti (10 min da app mobile). Il resto aspetta luned&igrave;.</p>
+  </div>
+  <span class="sidea-footer">Sidea Group &times; Caroli &mdash; Formazione operativa</span>
+  <span class="slide-num">19 / 21</span>
+</div>
+<!-- SLIDE 21: Le 5 cose da ricordare -->
+<div id="slide-21" class="slide">
+  <div class="eyebrow">Recap</div>
+  <h2>Le 5 cose da ricordare</h2>
+  <p class="subtitle">Se domani dimentichi tutto il resto, ricorda queste.</p>
+  <div style="display:flex;flex-direction:column;gap:14px;margin-top:24px;max-width:800px">
+    <div class="card" style="border-left:4px solid var(--teal);padding:18px 24px">
+      <p style="font-size:1.05rem;color:var(--white);font-weight:600"><span style="color:var(--teal)">1.</span> I prezzi arrivano da Amiko3 &mdash; non toccarli su Shopify</p>
+    </div>
+    <div class="card" style="border-left:4px solid var(--blue);padding:18px 24px">
+      <p style="font-size:1.05rem;color:var(--white);font-weight:600"><span style="color:var(--bluel)">2.</span> Le immagini vanno su Shopify &mdash; prepara foto di qualit&agrave; (min 3 per prodotto, con alt text)</p>
+    </div>
+    <div class="card" style="border-left:4px solid var(--gold);padding:18px 24px">
+      <p style="font-size:1.05rem;color:var(--white);font-weight:600"><span style="color:var(--gold)">3.</span> Dopo un ordine: verifica &rarr; attendi fattura Amiko3 &rarr; evadi con tracking</p>
+    </div>
+    <div class="card" style="border-left:4px solid var(--teal);padding:18px 24px">
+      <p style="font-size:1.05rem;color:var(--white);font-weight:600"><span style="color:var(--teal)">4.</span> Un prodotto non &egrave; pronto finch&eacute; la checklist non &egrave; completa &mdash; lascialo in Bozza</p>
+    </div>
+    <div class="card" style="border-left:4px solid var(--blue);padding:18px 24px">
+      <p style="font-size:1.05rem;color:var(--white);font-weight:600"><span style="color:var(--bluel)">5.</span> Se hai dubbi, chiedi &mdash; meglio una domanda in pi&ugrave; che un errore pubblicato</p>
+    </div>
+  </div>
+  <span class="sidea-footer">Sidea Group &times; Caroli &mdash; Formazione operativa</span>
+  <span class="slide-num">20 / 21</span>
+</div>
+<!-- SLIDE 22: Supporto e Riferimenti -->
+<div id="slide-22" class="slide">
+  <div class="eyebrow">Riferimenti</div>
+  <h2>Supporto e Riferimenti</h2>
+  <p class="subtitle">Chi contattare per cosa &mdash; e dove trovare le guide.</p>
+  <div class="g2" style="margin-top:20px">
+    <div>
+      <div class="card" style="margin-bottom:14px">
+        <h3>Chi contattare</h3>
+        <table>
+          <thead><tr><th>Problema</th><th>Contatto</th></tr></thead>
+          <tbody>
+            <tr><td style="color:var(--white)">Problemi tecnici Shopify / tema / SEO</td><td style="color:var(--teal);font-weight:500">Sidea Group</td></tr>
+            <tr><td style="color:var(--white)">Strategia, ads, performance</td><td style="color:var(--teal);font-weight:500">Sidea Group</td></tr>
+            <tr><td style="color:var(--white)">Integrazione, prezzi, giacenze, fatture</td><td style="color:var(--gold);font-weight:500">Donato (Amiko3)</td></tr>
+            <tr><td style="color:var(--white)">Decisioni business, fornitori, acquisti</td><td style="color:var(--bluel);font-weight:500">Gianvito</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <h3>Documenti di riferimento</h3>
+        <ul style="list-style:none;padding:0">
+          <li style="padding:6px 0;font-size:0.88rem;color:var(--ice)">&#x1F4D6; <strong style="color:var(--white)">SOP Marta</strong> &mdash; procedura operativa allegata</li>
+          <li style="padding:6px 0;font-size:0.88rem;color:var(--ice)">&#x1F4D6; Business Plan v3 (numeri di riferimento)</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="card-hi">
+        <h3 style="color:var(--teal)">Guide Shopify ufficiali</h3>
+        <ul style="list-style:none;padding:0">
+          <li style="padding:8px 0;font-size:0.85rem;color:var(--ice)">&#x1F517; <a href="https://help.shopify.com/it/manual" style="color:var(--bluel);text-decoration:underline">help.shopify.com</a> &mdash; Centro assistenza</li>
+          <li style="padding:8px 0;font-size:0.85rem;color:var(--ice)">&#x1F517; <a href="https://help.shopify.com/it/manual/products" style="color:var(--bluel);text-decoration:underline">Gestione prodotti e varianti</a></li>
+          <li style="padding:8px 0;font-size:0.85rem;color:var(--ice)">&#x1F517; <a href="https://help.shopify.com/it/manual/orders" style="color:var(--bluel);text-decoration:underline">Gestione ordini e evasione</a></li>
+          <li style="padding:8px 0;font-size:0.85rem;color:var(--ice)">&#x1F517; <a href="https://help.shopify.com/it/manual/products/product-media" style="color:var(--bluel);text-decoration:underline">Immagini prodotto best practice</a></li>
+          <li style="padding:8px 0;font-size:0.85rem;color:var(--ice)">&#x1F517; <a href="https://help.shopify.com/it/manual/promoting-marketing/seo" style="color:var(--bluel);text-decoration:underline">SEO su Shopify</a></li>
+          <li style="padding:8px 0;font-size:0.85rem;color:var(--ice)">&#x1F517; <a href="https://help.shopify.com/it/manual/orders/create-orders" style="color:var(--bluel);text-decoration:underline">Creare draft order</a></li>
+        </ul>
+      </div>
+      <div class="card" style="margin-top:14px;text-align:center;padding:20px">
+        <p style="font-size:1rem;color:var(--white);font-weight:600">Grazie Marta e Gianvito! &#x1F44B;</p>
+        <p style="font-size:0.85rem;color:var(--ice);margin-top:8px">Siamo qui per supportarvi in ogni fase.</p>
+      </div>
+    </div>
+  </div>
+  <span class="sidea-footer">Sidea Group &times; Caroli &mdash; Formazione operativa</span>
+  <span class="slide-num">21 / 21</span>
+</div>
+<!-- Navigation -->
+<div class="nav-hint">&#8592; &#8594; Frecce / Click / Swipe per navigare</div>
+<div class="nav-btns" id="navBtns">
+  <button class="nav-btn" id="btnPrev" type="button" aria-label="Slide precedente">&#8249;</button>
+  <button class="nav-btn" id="btnNext" type="button" aria-label="Slide successiva">&#8250;</button>
+</div>
+
+<script>
+var slides=document.querySelectorAll('.slide');
+var cur=0,tot=slides.length;
+function updateNav(){
+  var bp=document.getElementById('btnPrev'),bn=document.getElementById('btnNext');
+  if(bp)bp.disabled=(cur<=0);
+  if(bn)bn.disabled=(cur>=tot-1);
+}
+function go(n){
+  if(n<0||n>=tot)return;
+  slides[cur].classList.remove('active');
+  cur=n;
+  slides[cur].classList.add('active');
+  slides[cur].scrollTop=0;
+  document.getElementById('prog').style.width=((cur+1)/tot*100)+'%';
+  updateNav();
+}
+document.addEventListener('keydown',function(e){
+  if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();go(cur+1);}
+  if(e.key==='ArrowLeft'){e.preventDefault();go(cur-1);}
+});
+document.addEventListener('click',function(e){
+  if(e.target.closest('a'))return;
+  if(e.target.closest('.nav-btn'))return;
+  if(e.clientX>window.innerWidth/2)go(cur+1);else go(cur-1);
+});
+var _bp=document.getElementById('btnPrev'),_bn=document.getElementById('btnNext');
+if(_bp)_bp.addEventListener('click',function(e){e.stopPropagation();go(cur-1);});
+if(_bn)_bn.addEventListener('click',function(e){e.stopPropagation();go(cur+1);});
+var tx=0,ty=0;
+document.addEventListener('touchstart',function(e){tx=e.changedTouches[0].screenX;ty=e.changedTouches[0].screenY;},{passive:true});
+document.addEventListener('touchend',function(e){
+  var dx=tx-e.changedTouches[0].screenX,dy=Math.abs(ty-e.changedTouches[0].screenY);
+  if(Math.abs(dx)>60&&Math.abs(dx)>dy){if(dx>0)go(cur+1);else go(cur-1);}
+},{passive:true});
+document.getElementById('prog').style.width=(1/tot*100)+'%';
+updateNav();
+</script>
+</body>
+</html>
